@@ -1,0 +1,226 @@
+/* App.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.app {
+  background-color: #000;
+  color: #fff;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.page-title {
+  color: #FFF;
+/* font-family: Inter; */
+font-size: 32px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+letter-spacing: -0.408px;
+}
+
+.date {
+  color: #FFF;
+/* font-family: Inter; */
+font-size: 32px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+letter-spacing: -0.408px;
+opacity: 0.5;
+}
+
+.notification {
+  background-color: #1e90ff;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.notification-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.notification-subtitle {
+  font-size: 14px;
+  margin: 5px 0 10px;
+}
+
+.connect-button {
+  background-color: #fff;
+  color: #1e90ff;
+  padding: 8px 15px;
+  border-radius: 5px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Horizontal Scrollable Cards */
+.cards-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  /* Enables horizontal scrolling */
+  padding: 10px 0;
+  scroll-snap-type: x mandatory;
+  /* Optional: Snap to cards */
+  -webkit-overflow-scrolling: touch;
+  /* Smooth scrolling on iOS */
+}
+
+/* Hide scrollbar */
+.cards-container::-webkit-scrollbar {
+  display: none;
+}
+
+.cards-container {
+  -ms-overflow-style: none;
+  /* IE 10+ */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.card {
+  border-radius: 24px;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.02), 0px 32px 64px 0px rgba(0, 0, 0, 0.04);
+  background-color: #191919;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  min-width: 262px;
+  /* Set min-width instead of fixed width */
+  height: 262px;
+  /* Fixed height */
+  cursor: pointer;
+  scroll-snap-align: start;
+  /* Snap alignment for smooth scrolling */
+
+
+}
+
+.card-image-run {
+  height: 262px;
+  width: 262px;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-image: url("./assets/run.png");
+  background-color: #000;
+
+}
+.card-image-yoga {
+  height: 262px;
+  width: 262px;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-image: url("./assets/yoga.png");
+  background-color: #000;
+
+}.card-image-bike {
+  height: 262px;
+  width: 262px;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-image: url("./assets/bike.png");
+  background-color: #000;
+
+}
+
+.card:hover {
+  background-color: #333;
+}
+
+.card-tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #ffffff;
+  color: #000000CC;
+  padding: 10px 8px 10px 8px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #FFFFFF;
+  font-family: "Inter-Regular", Helvetica;
+  text-align: left;
+
+}
+
+.card-description {
+  color: #707579;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.15px;
+  line-height: 16px;
+  text-align: left;
+}
+
+
+
+.card-text {
+  padding: 10px 20px;
+  text-align: left;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #1E1E1E;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-item {
+  color: #666;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.footer-item:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.footer-item.active {
+  color: #fff;
+}
+
+/* Adjust main content to account for footer */
+.app {
+  padding-bottom: 70px;
+  min-height: 100vh;
+  background-color: #000;
+  color: #fff;
+}
+
+/* Optional: Add some spacing before the footer */
+.cards-container {
+  margin-bottom: 20px;
+}
