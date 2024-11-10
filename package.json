@@ -11,6 +11,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@tonconnect/ui-react": "^2.0.9",
+    "@twa-dev/sdk": "^7.10.1",
     "lucide-react": "^0.456.0",
     "react": "^18.3.1",
     "react-card-slider-component": "^1.0.9",

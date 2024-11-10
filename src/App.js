@@ -4,41 +4,102 @@ import { TonConnectButton, useTonWallet } from '@tonconnect/ui-react';
 import yogaImage from './assets/yoga.png';
 import bikeImage from './assets/bike.png';
 import runImage from './assets/run.png';
-
 import { Home, Grid, Calendar, User } from 'lucide-react';
 import ChallengeDetail from './ChallengeDetail';
 
 function App() {
   const [currentDate, setCurrentDate] = useState("");
   const [activeTab, setActiveTab] = useState('home');
-  const [selectedChallenge, setSelectedChallenge] = useState(null); // New state for selected challenge
+  const [selectedChallenge, setSelectedChallenge] = useState(null);
+  const [telegramUser, setTelegramUser] = useState(null);
   const wallet = useTonWallet();
   const isConnected = !!wallet;
 
   useEffect(() => {
+    // Initialize date
     const today = new Date();
     const options = { day: '2-digit', month: 'long' };
     const formattedDate = today.toLocaleDateString("en-GB", options);
     setCurrentDate(formattedDate);
+
+    // Initialize Telegram WebApp
+    if (window.Telegram?.WebApp) {
+      const tg = window.Telegram.WebApp;
+      
+      // Get user data
+      if (tg.initDataUnsafe?.user) {
+        console.log('Telegram user data:', tg.initDataUnsafe.user);
+        setTelegramUser(tg.initDataUnsafe.user);
+      }
+
+      // Initialize WebApp
+      tg.ready();
+
+      // Set theme variables
+      document.documentElement.style.setProperty('--tg-theme-bg-color', tg.backgroundColor);
+      document.documentElement.style.setProperty('--tg-theme-text-color', tg.textColor);
+      document.documentElement.style.setProperty('--tg-theme-button-color', tg.buttonColor);
+      document.documentElement.style.setProperty('--tg-theme-button-text-color', tg.buttonTextColor);
+    } else {
+      console.log('Telegram WebApp not available');
+    }
   }, []);
 
   const handleCardClick = (challenge) => {
     setSelectedChallenge(challenge);
-    setActiveTab('grid'); // Set to 'grid' to match the condition
+    setActiveTab('grid');
   };
 
   const handleBack = () => {
     setSelectedChallenge(null);
-    setActiveTab('home'); // Go back to main screen
+    setActiveTab('home');
   };
+
+  const UserProfile = () => (
+    <div className="profile-container">
+      {telegramUser ? (
+        <>
+          <div className="profile-header">
+            {telegramUser.photo_url && (
+              <img 
+                src={telegramUser.photo_url} 
+                alt="Profile" 
+                className="profile-photo" 
+              />
+            )}
+            <h2>{telegramUser.first_name} {telegramUser.last_name || ''}</h2>
+            {telegramUser.username && <p>@{telegramUser.username}</p>}
+          </div>
+          <div className="profile-details">
+            <p>ID: {telegramUser.id}</p>
+            {telegramUser.language_code && (
+              <p>Language: {telegramUser.language_code}</p>
+            )}
+          </div>
+        </>
+      ) : (
+        <div className="profile-placeholder">
+          <p>No user data available</p>
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <div className="app">
-      {/* Conditionally render the header or the ChallengeDetail title */}
+      {/* Debug Information */}
+      
+
       {activeTab === 'home' ? (
         <header className="header">
           <h1>Challenge</h1>
           <p className="date">{currentDate}</p>
+          {telegramUser && (
+            <div className="user-info">
+              <p>Welcome, {telegramUser.first_name}</p>
+              {telegramUser.username && <p>@{telegramUser.username}</p>}
+            </div>
+          )}
         </header>
       ) : activeTab === 'grid' && selectedChallenge ? (
         <header className="header-grid">
@@ -59,7 +120,17 @@ function App() {
         </div>
       )}
 
-      {activeTab === 'grid' && selectedChallenge ? (
+      {activeTab === 'profile' ? (
+        <div><UserProfile />
+        <div className="debug-info" style={{ padding: '10px', fontSize: '12px', background: '#f5f5f5' }}>
+        <p>Telegram Available: {window.Telegram ? 'Yes' : 'No'}</p>
+        <p>User Data: {telegramUser ? 'Available' : 'Not Available'}</p>
+        {telegramUser && (
+          <pre>{JSON.stringify(telegramUser, null, 2)}</pre>
+        )}
+      </div></div>
+        
+      ) : activeTab === 'grid' && selectedChallenge ? (
         <ChallengeDetail
           img={selectedChallenge.img}
           type={selectedChallenge.type}
@@ -75,7 +146,7 @@ function App() {
               img: yogaImage,
               title: "7 Days to Harmony",
               description: "Improve your well-being in just one week",
-              type:"Yoga"
+              type: "Yoga"
             })}
           >
             <div className="card-image-yoga"></div>
@@ -94,7 +165,7 @@ function App() {
               img: bikeImage,
               title: "Cycling Adventure",
               description: "Discover new horizons on two wheels",
-              type:"Bike"
+              type: "Bike"
             })}
           >
             <div className="card-image-bike"></div>
@@ -113,7 +184,7 @@ function App() {
               img: runImage,
               title: "Run to your goal",
               description: "Start your day actively",
-              type:"Run"
+              type: "Run"
             })}
           >
             <div className="card-image-run"></div>
