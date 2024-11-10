@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { TonConnectButton, useTonWallet } from '@tonconnect/ui-react';
+import { TonConnectButton, useTonWallet, useTonAddress } from '@tonconnect/ui-react';
 import yogaImage from './assets/yoga.png';
 import bikeImage from './assets/bike.png';
 import runImage from './assets/run.png';
@@ -13,6 +13,8 @@ function App() {
   const [selectedChallenge, setSelectedChallenge] = useState(null);
   const wallet = useTonWallet();
   const isConnected = !!wallet;
+
+  let rawAddress = useTonAddress();
 
   useEffect(() => {
     const today = new Date();
@@ -45,8 +47,8 @@ function App() {
             <div className="wallet-icon">
               <User size={48} />
             </div>
-            <h2>Connected Wallet</h2>
-            <p className="wallet-address">{wallet.address}</p>
+            <p className="profile-wallet">Connected Wallet</p>
+            <p className="wallet-address">{rawAddress}</p>
           </div>
           <div className="profile-details">
             <div className="detail-item">
@@ -84,11 +86,7 @@ function App() {
         <header className="header">
           <h1>Challenge</h1>
           <p className="date">{currentDate}</p>
-          {isConnected && (
-            <div className="user-info">
-              <p>Wallet: {formatAddress(wallet.address)}</p>
-            </div>
-          )}
+          
         </header>
       ) : activeTab === 'grid' && selectedChallenge ? (
         <header className="header-grid">
@@ -118,6 +116,7 @@ function App() {
           title={selectedChallenge.title}
           description={selectedChallenge.description}
           onBack={handleBack}
+          wallet_address={selectedChallenge.wallet_address}
         />
       ) : (
         <div className="cards-container">
@@ -128,7 +127,8 @@ function App() {
               img: yogaImage,
               title: "7 Days to Harmony",
               description: "Improve your well-being in just one week",
-              type: "Yoga"
+              type: "Yoga",
+              wallet_address:rawAddress
             })}
           >
             <div className="card-image-yoga"></div>
@@ -147,7 +147,9 @@ function App() {
               img: bikeImage,
               title: "Cycling Adventure",
               description: "Discover new horizons on two wheels",
-              type: "Bike"
+              type: "Bike",
+              wallet_address:rawAddress
+
             })}
           >
             <div className="card-image-bike"></div>
@@ -166,7 +168,9 @@ function App() {
               img: runImage,
               title: "Run to your goal",
               description: "Start your day actively",
-              type: "Run"
+              type: "Run",
+              wallet_address:rawAddress
+
             })}
           >
             <div className="card-image-run"></div>
