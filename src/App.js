@@ -4,8 +4,28 @@ import { TonConnectButton, useTonWallet, useTonAddress } from '@tonconnect/ui-re
 import yogaImage from './assets/yoga.png';
 import bikeImage from './assets/bike.png';
 import runImage from './assets/run.png';
+import volodya from './assets/volodya.jpg';
+import karina from './assets/karina.jpg';
+import Kirill from './assets/Kirill.jpg';
+import Irina from './assets/Irina.png';
+import Nastya from './assets/Nastya.jpg';
+import Sasha from './assets/Саша.jpg';
+import Classes_hard from './assets/classes.png';
+
 import { Home, Grid, Calendar, User } from 'lucide-react';
 import ChallengeDetail from './ChallengeDetail';
+import VerticalCardList from './VerticalCardList';
+
+const cardDataArray = [
+  { title: "Vladimir Mityukov",link:"https://t.me/yogalizaciya", description: "Yoga teacher of the Iyengar Yoga tradition", imageUrl: volodya },
+  { title: "Karina Kodak",link:"https://t.me/yogalizaciya", description: "I teach Vajra Yoga. I guide students in working with the body using the Correct Approach to the Spine method .", imageUrl: karina },
+  { title: "Kirill Ponomarev", link:"https://t.me/yogalizaciya",description: "Vajra Yoga teacher", imageUrl: Kirill },
+  { title: "Irina Bogdanova",link:"https://t.me/yogalizaciya", description: "Yoga teacher Hyal. With abstract thinking, which is used by a practicing adept of yoga Hyal, the ability to go beyond the usual coordinate system develops.", imageUrl: Irina },
+  { title: "Anastasya Ryabova  ", link:"https://t.me/yogalizaciya", description: "I teach yoga in the Iyengar tradition. I help learn how to combine yoga and sports. Yoga for sports is the perfect combo.", imageUrl: Nastya },
+  { title: "Alexandr Gordeeva",link:"https://t.me/yogalizaciya", description: "I teach Vajra Yoga. Yoga is what takes away your haste and bustle and gives you peace", imageUrl: Sasha },
+
+  // Add more cards as needed
+];
 
 function App() {
   const [currentDate, setCurrentDate] = useState("");
@@ -33,7 +53,6 @@ function App() {
     setActiveTab('home');
   };
 
-  // Format wallet address for display
   const formatAddress = (address) => {
     if (!address) return '';
     return `${address.slice(0, 6)}...${address.slice(-4)}`;
@@ -48,7 +67,6 @@ function App() {
               <User size={48} />
             </div>
             <p className="profile-wallet">Connected Wallet</p>
-            <p className="wallet-address">{rawAddress}</p>
           </div>
           <div className="profile-details">
             <div className="detail-item">
@@ -80,13 +98,22 @@ function App() {
     </div>
   );
 
+  const CalendarView = () => (
+    <div >
+      <h2 className="header-title">Teachers</h2>
+
+      <VerticalCardList cardsData={cardDataArray} />
+
+    </div>
+  );
+
   return (
     <div className="app">
       {activeTab === 'home' ? (
         <header className="header">
           <h1>Challenge</h1>
           <p className="date">{currentDate}</p>
-          
+
         </header>
       ) : activeTab === 'grid' && selectedChallenge ? (
         <header className="header-grid">
@@ -109,6 +136,8 @@ function App() {
 
       {activeTab === 'profile' ? (
         <UserProfile />
+      ) : activeTab === 'calendar' ? (
+        <CalendarView />
       ) : activeTab === 'grid' && selectedChallenge ? (
         <ChallengeDetail
           img={selectedChallenge.img}
@@ -126,9 +155,9 @@ function App() {
             onClick={() => handleCardClick({
               img: yogaImage,
               title: "7 Days to Harmony",
-              description: "Improve your well-being in just one week",
+              description: "Improve your well-being in one week",
               type: "Yoga",
-              wallet_address:rawAddress
+              wallet_address: rawAddress
             })}
           >
             <div className="card-image-yoga"></div>
@@ -136,7 +165,7 @@ function App() {
             <div className="card-text">
               <h2 className="card-title">7 Days to Harmony</h2>
               <p className="card-description">
-                Improve your well-being in just one week
+                Improve your well-being in one week
               </p>
             </div>
           </div>
@@ -148,8 +177,7 @@ function App() {
               title: "Cycling Adventure",
               description: "Discover new horizons on two wheels",
               type: "Bike",
-              wallet_address:rawAddress
-
+              wallet_address: rawAddress
             })}
           >
             <div className="card-image-bike"></div>
@@ -169,8 +197,7 @@ function App() {
               title: "Run to your goal",
               description: "Start your day actively",
               type: "Run",
-              wallet_address:rawAddress
-
+              wallet_address: rawAddress
             })}
           >
             <div className="card-image-run"></div>
@@ -184,6 +211,7 @@ function App() {
           </div>
         </div>
       )}
+              <img src={Classes_hard} className="card-hardcoded" />
 
       <footer className="footer">
         <div

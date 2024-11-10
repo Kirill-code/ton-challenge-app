@@ -8,7 +8,7 @@
 }
 
 .app {
-  background-color: #000;
+  background-color: #111111;
   color: #fff;
   min-height: 100vh;
   padding: 20px;
@@ -26,7 +26,9 @@
   color: white;
 }
 
-
+.header-title{
+  align-items: center;
+}
 
 .date {
   font-size: 16px;
@@ -169,6 +171,14 @@ opacity: 0.5;
   background-color: #000;
 
 }
+.card-image{
+  height: 180px;
+  width: 180px;
+}
+.card-hardcoded{
+  height: 320px;
+  width: 320px;
+}
 
 .card:hover {
   background-color: #333;
@@ -204,7 +214,24 @@ opacity: 0.5;
   line-height: 16px;
   text-align: left;
 }
-
+.card-teachers{
+  margin-bottom: 5px;
+  border-radius: 24px;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.02), 0px 32px 64px 0px rgba(0, 0, 0, 0.04);
+  background-color: #191919;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  width: 250px;
+  /* Set min-width instead of fixed width */
+  height: 250px;
+  /* Fixed height */
+  cursor: pointer;
+  scroll-snap-align: start;
+  /* Snap alignment for smooth scrolling */
+}
 
 
 .card-text {

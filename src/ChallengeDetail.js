@@ -43,7 +43,7 @@ const ChallengeDetail = ({ img, title, description, type, onBack, wallet_address
           <div className="card-tag">{type}</div>
         </div>
       </div>
-
+    
       <p className="challenge-description">{description}</p>
 
       <div className="tasks">
