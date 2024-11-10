@@ -11,38 +11,14 @@ function App() {
   const [currentDate, setCurrentDate] = useState("");
   const [activeTab, setActiveTab] = useState('home');
   const [selectedChallenge, setSelectedChallenge] = useState(null);
-  const [telegramUser, setTelegramUser] = useState(null);
   const wallet = useTonWallet();
   const isConnected = !!wallet;
 
   useEffect(() => {
-    // Initialize date
     const today = new Date();
     const options = { day: '2-digit', month: 'long' };
     const formattedDate = today.toLocaleDateString("en-GB", options);
     setCurrentDate(formattedDate);
-
-    // Initialize Telegram WebApp
-    if (window.Telegram?.WebApp) {
-      const tg = window.Telegram.WebApp;
-      
-      // Get user data
-      if (tg.initDataUnsafe?.user) {
-        console.log('Telegram user data:', tg.initDataUnsafe.user);
-        setTelegramUser(tg.initDataUnsafe.user);
-      }
-
-      // Initialize WebApp
-      tg.ready();
-
-      // Set theme variables
-      document.documentElement.style.setProperty('--tg-theme-bg-color', tg.backgroundColor);
-      document.documentElement.style.setProperty('--tg-theme-text-color', tg.textColor);
-      document.documentElement.style.setProperty('--tg-theme-button-color', tg.buttonColor);
-      document.documentElement.style.setProperty('--tg-theme-button-text-color', tg.buttonTextColor);
-    } else {
-      console.log('Telegram WebApp not available');
-    }
   }, []);
 
   const handleCardClick = (challenge) => {
@@ -55,31 +31,48 @@ function App() {
     setActiveTab('home');
   };
 
+  // Format wallet address for display
+  const formatAddress = (address) => {
+    if (!address) return '';
+    return `${address.slice(0, 6)}...${address.slice(-4)}`;
+  };
+
   const UserProfile = () => (
     <div className="profile-container">
-      {telegramUser ? (
+      {isConnected ? (
         <>
           <div className="profile-header">
-            {telegramUser.photo_url && (
-              <img 
-                src={telegramUser.photo_url} 
-                alt="Profile" 
-                className="profile-photo" 
-              />
-            )}
-            <h2>{telegramUser.first_name} {telegramUser.last_name || ''}</h2>
-            {telegramUser.username && <p>@{telegramUser.username}</p>}
+            <div className="wallet-icon">
+              <User size={48} />
+            </div>
+            <h2>Connected Wallet</h2>
+            <p className="wallet-address">{wallet.address}</p>
           </div>
           <div className="profile-details">
-            <p>ID: {telegramUser.id}</p>
-            {telegramUser.language_code && (
-              <p>Language: {telegramUser.language_code}</p>
-            )}
+            <div className="detail-item">
+              <p className="detail-label">Network</p>
+              <p className="detail-value">{wallet.chain}</p>
+            </div>
+            <div className="detail-item">
+              <p className="detail-label">Wallet Name</p>
+              <p className="detail-value">{wallet.device.appName}</p>
+            </div>
+            <div className="detail-item">
+              <p className="detail-label">Platform</p>
+              <p className="detail-value">{wallet.device.platform}</p>
+            </div>
+            <div className="wallet-connect-profile">
+              <TonConnectButton />
+            </div>
           </div>
         </>
       ) : (
-        <div className="profile-placeholder">
-          <p>No user data available</p>
+        <div className="profile-not-connected">
+          <h2>Connect Wallet</h2>
+          <p>Please connect your wallet to view profile</p>
+          <div className="wallet-connect-profile">
+            <TonConnectButton />
+          </div>
         </div>
       )}
     </div>
@@ -87,17 +80,13 @@ function App() {
 
   return (
     <div className="app">
-      {/* Debug Information */}
-      
-
       {activeTab === 'home' ? (
         <header className="header">
           <h1>Challenge</h1>
           <p className="date">{currentDate}</p>
-          {telegramUser && (
+          {isConnected && (
             <div className="user-info">
-              <p>Welcome, {telegramUser.first_name}</p>
-              {telegramUser.username && <p>@{telegramUser.username}</p>}
+              <p>Wallet: {formatAddress(wallet.address)}</p>
             </div>
           )}
         </header>
@@ -108,7 +97,7 @@ function App() {
         </header>
       ) : null}
 
-      {!isConnected && (
+      {!isConnected && activeTab === 'home' && (
         <div className="notification">
           <p className="notification-title">Introducing TON Space</p>
           <p className="notification-subtitle">
@@ -121,15 +110,7 @@ function App() {
       )}
 
       {activeTab === 'profile' ? (
-        <div><UserProfile />
-        <div className="debug-info" style={{ padding: '10px', fontSize: '12px', background: '#f5f5f5' }}>
-        <p>Telegram Available: {window.Telegram ? 'Yes' : 'No'}</p>
-        <p>User Data: {telegramUser ? 'Available' : 'Not Available'}</p>
-        {telegramUser && (
-          <pre>{JSON.stringify(telegramUser, null, 2)}</pre>
-        )}
-      </div></div>
-        
+        <UserProfile />
       ) : activeTab === 'grid' && selectedChallenge ? (
         <ChallengeDetail
           img={selectedChallenge.img}
@@ -140,6 +121,7 @@ function App() {
         />
       ) : (
         <div className="cards-container">
+          {/* Your existing cards code */}
           <div
             className="card"
             onClick={() => handleCardClick({
