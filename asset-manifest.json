@@ -1,25 +1,19 @@
 {
   "files": {
-    "main.css": "/ton-challenge-app/static/css/main.faec24e7.css",
-    "main.js": "/ton-challenge-app/static/js/main.7804112f.js",
+    "main.css": "/ton-challenge-app/static/css/main.7345bd06.css",
+    "main.js": "/ton-challenge-app/static/js/main.f41ac2a7.js",
     "static/js/453.714a8f69.chunk.js": "/ton-challenge-app/static/js/453.714a8f69.chunk.js",
-    "static/media/volodya.jpg": "/ton-challenge-app/static/media/volodya.0e08ae1795f213bc8797.jpg",
-    "static/media/Kirill.jpg": "/ton-challenge-app/static/media/Kirill.513a2085b546ea615d71.jpg",
-    "static/media/Nastya.jpg": "/ton-challenge-app/static/media/Nastya.8b1ff6c82a8624a74a9c.jpg",
-    "static/media/karina.jpg": "/ton-challenge-app/static/media/karina.9c47bf30afff8f03baf9.jpg",
     "static/media/yoga.png": "/ton-challenge-app/static/media/yoga.314e799ffb161291545d.png",
-    "static/media/Irina.png": "/ton-challenge-app/static/media/Irina.3b3b45d83df295f846ff.png",
     "static/media/classes.png": "/ton-challenge-app/static/media/classes.1c89abfa95232d201d20.png",
     "static/media/bike.png": "/ton-challenge-app/static/media/bike.0117c4955ea63c4cc70a.png",
     "static/media/run.png": "/ton-challenge-app/static/media/run.cf62a108e121cf71c5a9.png",
-    "static/media/Саша.jpg": "/ton-challenge-app/static/media/Саша.395592eba25fbbcd2035.jpg",
     "index.html": "/ton-challenge-app/index.html",
-    "main.faec24e7.css.map": "/ton-challenge-app/static/css/main.faec24e7.css.map",
-    "main.7804112f.js.map": "/ton-challenge-app/static/js/main.7804112f.js.map",
+    "main.7345bd06.css.map": "/ton-challenge-app/static/css/main.7345bd06.css.map",
+    "main.f41ac2a7.js.map": "/ton-challenge-app/static/js/main.f41ac2a7.js.map",
     "453.714a8f69.chunk.js.map": "/ton-challenge-app/static/js/453.714a8f69.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.faec24e7.css",
-    "static/js/main.7804112f.js"
+    "static/css/main.7345bd06.css",
+    "static/js/main.f41ac2a7.js"
   ]
 }
