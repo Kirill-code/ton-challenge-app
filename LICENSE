@@ -1,21 +1,37 @@
-MIT License
+Business Source License 1.1
+Copyright © 2024, Aranĝo Team. All rights reserved.
 
-Copyright (c) 2024 Kirill Code
+Terms
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+The use of this software is governed by the Business Source License included below.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Change Date
+The Change Date specified in Section 4 is October 1, 2026.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Change License
+On the Change Date, the Licensed Work will be made available under the terms of the GNU General Public License version 2.0.
+
+1. Definitions
+Licensed Work: The Aranĝo Web 3 application software made available under this License.
+Licensor: The Aranĝo Team.
+Change Date: The date specified above.
+Change License: The open-source license specified above.
+2. Grant of Rights
+Until the Change Date, under this License, Licensor grants you a limited, non-exclusive, worldwide, royalty-free, non-sublicensable, non-transferable license to use, reproduce, create derivative works of, and redistribute the Licensed Work, subject to the following conditions:
+
+Non-Production Use: You may use the Licensed Work for non-production purposes only, such as testing, development, or educational purposes.
+No Commercial Use: You may not use the Licensed Work for commercial purposes without obtaining a separate commercial license from the Licensor.
+3. Redistribution
+You may redistribute the Licensed Work under this License, provided that you include a complete copy of this License with your distribution and retain all copyright and license notices.
+
+4. Change Date and Change License
+On the Change Date, the terms of this License are superseded by the Change License, and the Licensed Work becomes available under the terms of the Change License.
+
+5. Disclaimer of Warranty
+THE LICENSED WORK IS PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND. THE LICENSOR DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+
+6. Limitation of Liability
+IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM THE USE OF THE LICENSED WORK.
+
+7. Termination
+If you violate the terms of this License, your rights under this License will terminate immediately and automatically.

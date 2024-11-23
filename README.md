@@ -5,3 +5,7 @@ Help yoga practitioners and masters to find each other and practice worldwide us
 The platform: aggregates information about yoga teachers and studios, facilitates online/offline �classes and events, organizes safe payments in cryptocurrency, Provides a concierge service and CRM system.
 
 Based on default REACT app
+
+## License
+
+This project is licensed under the Business Source License 1.1. See the [LICENSE](LICENSE) file for details.

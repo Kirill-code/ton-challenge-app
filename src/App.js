@@ -1,3 +1,8 @@
+/*
+ * Copyright © 2024, Kirill Code.
+ * Business Source License 1.1
+ * Change Date: November 23, 2024
+ */
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { TonConnectButton, useTonWallet, useTonAddress } from '@tonconnect/ui-react';

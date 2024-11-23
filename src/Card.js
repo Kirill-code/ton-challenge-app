@@ -1,3 +1,8 @@
+/*
+ * Copyright © 2024, Kirill Code.
+ * Business Source License 1.1
+ * Change Date: November 23, 2024
+ */
 import React, { useState } from 'react';
 
 const handleTaskClick = async (setMessage) => {

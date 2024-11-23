@@ -1,4 +1,8 @@
-// UserProfile.js
+/*
+ * Copyright © 2024, Kirill Code.
+ * Business Source License 1.1
+ * Change Date: November 23, 2024
+ */
 import React from 'react';
 import { TonConnectButton, useTonWallet } from '@tonconnect/ui-react';
 import { User } from 'lucide-react';
