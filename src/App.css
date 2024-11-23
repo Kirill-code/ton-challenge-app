@@ -11,7 +11,7 @@
 }
 
 .app {
-  background-color: #1a1a1a;
+  background-color: #111111;
   color: #fff;
   min-height: 100vh;
   padding: 20px;
@@ -20,16 +20,17 @@
 .header {
   margin-bottom: 20px;
 }
+
 .header-grid {
   display: flex;
-  align-items: center; 
+  align-items: center;
   /* justify-content: space-between; */
   padding: 20px;
   /* background-color: #191919; */
   color: white;
 }
 
-.header-title{
+.header-title {
   align-items: center;
 }
 
@@ -56,29 +57,29 @@
 
 .page-title {
   color: #FFF;
-/* font-family: Inter; */
-font-size: 32px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-letter-spacing: -0.408px;
+  /* font-family: Inter; */
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.408px;
 }
 
 .date {
   color: #FFF;
-/* font-family: Inter; */
-font-size: 32px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-letter-spacing: -0.408px;
-opacity: 0.5;
+  /* font-family: Inter; */
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.408px;
+  opacity: 0.5;
 }
 
 .notification {
   background-color: #1e90ff;
   padding: 15px;
-  border-radius: 8px;
+  border-radius: 24px;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -102,6 +103,9 @@ opacity: 0.5;
   font-weight: bold;
   cursor: pointer;
 }
+
+
+/******************CARDS***************/
 
 /* Horizontal Scrollable Cards */
 .cards-container {
@@ -148,39 +152,11 @@ opacity: 0.5;
 
 }
 
-.card-image-run {
-  height: 262px;
-  width: 262px;
-  background-repeat: no-repeat;
-  background-position-x: center;
-  background-image: url("./assets/run.png");
-  background-color: #000;
-
-}
-.card-image-yoga {
-  height: 262px;
-  width: 262px;
-  background-repeat: no-repeat;
-  background-position-x: center;
-  background-image: url("./assets/yoga.png");
-  background-color: #000;
-
-}.card-image-bike {
-  height: 262px;
-  width: 262px;
-  background-repeat: no-repeat;
-  background-position-x: center;
-  background-image: url("./assets/bike.png");
-  background-color: #000;
-
-}
-.card-image{
-  height: 180px;
-  width: 180px;
-}
-.card-hardcoded{
-  height: 320px;
-  width: 320px;
+.card-image {
+  background-position: center;
+  background-repeat: repeat-x;
+  height: 100%;
+  width: 100%;
 }
 
 .card:hover {
@@ -217,7 +193,8 @@ opacity: 0.5;
   line-height: 16px;
   text-align: left;
 }
-.card-teachers{
+
+.card-teachers {
   margin-bottom: 5px;
   border-radius: 24px;
   box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.02), 0px 32px 64px 0px rgba(0, 0, 0, 0.04);
@@ -242,49 +219,7 @@ opacity: 0.5;
   text-align: left;
 }
 
-.footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background-color: #1E1E1E;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
 
-.footer-item {
-  color: #666;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.footer-item:hover {
-  color: #fff;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.footer-item.active {
-  color: #fff;
-}
-
-/* Adjust main content to account for footer */
-.app {
-  padding-bottom: 70px;
-  min-height: 100vh;
-  background-color: #000;
-  color: #fff;
-}
-
-/* Optional: Add some spacing before the footer */
-.cards-container {
-  margin-bottom: 20px;
-}
 /* Add to your App.css */
 .profile-container {
   padding: 20px;
@@ -385,6 +320,41 @@ opacity: 0.5;
   font-size: 14px;
 }
 
-.profile-wallet{
+.profile-wallet {
   color: #000;
+}
+
+
+/*****************FOOTER***************/
+
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #1E1E1E;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-item {
+  color: #666;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.footer-item:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.footer-item.active {
+  color: #fff;
 }

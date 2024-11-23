@@ -11,6 +11,8 @@ import ChallengeDetail from './ChallengeDetail';
 import VerticalCardList from './VerticalCardList';
 import UserProfile from './UserProfile'; // Import UserProfile component
 import CalendarView from './CalendarView'; // Import the CalendarView component
+import CardsContainer from './CardsContainer';
+
 
 // Import images and assets
 import yogaImage from './assets/yoga.png';
@@ -26,6 +28,8 @@ const cardDataArray = [
   // ... add more card data as needed
 ];
 
+
+
 function App() {
   const [currentDate, setCurrentDate] = useState("");
   const [activeTab, setActiveTab] = useState('home');
@@ -33,14 +37,38 @@ function App() {
   const wallet = useTonWallet();
   const rawAddress = useTonAddress();
 
+  const mainCardsArray = [
+    {
+      title: "7 Days to Harmony",
+      description: "Improve your well-being in one week",
+      type: "Yoga",
+      imageUrl: yogaImage,
+      wallet_address: rawAddress,
+    },
+    {
+      title: "Cycling Adventure",
+      description: "Discover new horizons on two wheels",
+      type: "Bike",
+      imageUrl: bikeImage,
+      wallet_address: rawAddress,
+    },
+    {
+      title: "Run to your goal",
+      description: "Start your day actively",
+      type: "Run",
+      imageUrl: runImage,
+      wallet_address: rawAddress,
+    },
+  ];
+
   useEffect(() => {
     const today = new Date();
     const options = { day: '2-digit', month: 'long' };
     setCurrentDate(today.toLocaleDateString("en-GB", options));
   }, []);
 
-  const handleCardClick = (challenge) => {
-    setSelectedChallenge(challenge);
+  const handleCardClick = (card) => {
+    setSelectedChallenge(card);
     setActiveTab('grid');
   };
 
@@ -49,12 +77,12 @@ function App() {
     setActiveTab('home');
   };
 
-  // const CalendarView = () => (
-  //   <div>
-  //     <h2 className="header-title">Teachers</h2>
-  //     <VerticalCardList cardsData={cardDataArray} />
-  //   </div>
-  // );
+  const CalendarView = () => (
+    <div>
+      <h2 className="header-title">Teachers</h2>
+      <VerticalCardList cardsData={cardDataArray} />
+    </div>
+  );
 
   return (
     <div className="app">
@@ -87,7 +115,7 @@ function App() {
       ) : activeTab === 'calendar' ? (
         <CalendarView />
       ) : activeTab === 'grid' && selectedChallenge ? (
-        <ChallengeDetail
+        <div><ChallengeDetail
           img={selectedChallenge.img}
           type={selectedChallenge.type}
           title={selectedChallenge.title}
@@ -95,71 +123,15 @@ function App() {
           onBack={handleBack}
           wallet_address={selectedChallenge.wallet_address}
         />
-      ) : (
-        <div className="cards-container">
-          {/* Card Components */}
-          <div
-            className="card"
-            onClick={() => handleCardClick({
-              img: yogaImage,
-              title: "7 Days to Harmony",
-              description: "Improve your well-being in one week",
-              type: "Yoga",
-              wallet_address: rawAddress
-            })}
-          >
-            <div className="card-image-yoga"></div>
-            <div className="card-tag">Yoga</div>
-            <div className="card-text">
-              <h2 className="card-title">7 Days to Harmony</h2>
-              <p className="card-description">
-                Improve your well-being in one week
-              </p>
-            </div>
-          </div>
-
-          <div
-            className="card"
-            onClick={() => handleCardClick({
-              img: bikeImage,
-              title: "Cycling Adventure",
-              description: "Discover new horizons on two wheels",
-              type: "Bike",
-              wallet_address: rawAddress
-            })}
-          >
-            <div className="card-image-bike"></div>
-            <div className="card-tag">Bike</div>
-            <div className="card-text">
-              <h2 className="card-title">Cycling Adventure</h2>
-              <p className="card-description">
-                Discover new horizons on two wheels
-              </p>
-            </div>
-          </div>
-
-          <div
-            className="card"
-            onClick={() => handleCardClick({
-              img: runImage,
-              title: "Run to your goal",
-              description: "Start your day actively",
-              type: "Run",
-              wallet_address: rawAddress
-            })}
-          >
-            <div className="card-image-run"></div>
-            <div className="card-tag">Run</div>
-            <div className="card-text">
-              <h2 className="card-title">Run to your goal</h2>
-              <p className="card-description">
-                Start your day actively
-              </p>
-            </div>
-          </div>
+          <CalendarView />
         </div>
+
+      ) : (
+        <CardsContainer
+          cardsData={mainCardsArray}
+          handleCardClick={handleCardClick}
+        />
       )}
-        <CalendarView />
 
       <footer className="footer">
         <div

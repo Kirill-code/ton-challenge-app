@@ -4,7 +4,7 @@
  * Change Date: November 23, 2026
  */
 import React from 'react';
-import Card from './card';
+import Card from './Card';
 
 const VerticalCardList = ({ cardsData }) => {
   return (
