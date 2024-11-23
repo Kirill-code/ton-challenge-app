@@ -1,7 +1,7 @@
 /*
  * Copyright © 2024, Kirill Code.
  * Business Source License 1.1
- * Change Date: November 23, 2024
+ * Change Date: November 23, 2026
  */
 const reportWebVitals = onPerfEntry => {
   if (onPerfEntry && onPerfEntry instanceof Function) {
