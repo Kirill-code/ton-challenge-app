@@ -1,19 +1,33 @@
 {
   "files": {
-    "main.css": "/ton-challenge-app/static/css/main.7345bd06.css",
-    "main.js": "/ton-challenge-app/static/js/main.f41ac2a7.js",
+    "main.css": "/ton-challenge-app/static/css/main.ace4b770.css",
+    "main.js": "/ton-challenge-app/static/js/main.a8dd147c.js",
     "static/js/453.714a8f69.chunk.js": "/ton-challenge-app/static/js/453.714a8f69.chunk.js",
     "static/media/yoga.png": "/ton-challenge-app/static/media/yoga.314e799ffb161291545d.png",
     "static/media/classes.png": "/ton-challenge-app/static/media/classes.1c89abfa95232d201d20.png",
     "static/media/bike.png": "/ton-challenge-app/static/media/bike.0117c4955ea63c4cc70a.png",
+    "static/media/inter-latin-ext-400-normal.woff": "/ton-challenge-app/static/media/inter-latin-ext-400-normal.1c20f7dc20d731a18fcd.woff",
     "static/media/run.png": "/ton-challenge-app/static/media/run.cf62a108e121cf71c5a9.png",
+    "static/media/inter-latin-400-normal.woff": "/ton-challenge-app/static/media/inter-latin-400-normal.b0c8fe9db56dd415a25a.woff",
+    "static/media/inter-latin-ext-400-normal.woff2": "/ton-challenge-app/static/media/inter-latin-ext-400-normal.3d10c85fbd16969509a2.woff2",
+    "static/media/inter-latin-400-normal.woff2": "/ton-challenge-app/static/media/inter-latin-400-normal.9698cc7dbf147ed363b6.woff2",
+    "static/media/inter-cyrillic-ext-400-normal.woff": "/ton-challenge-app/static/media/inter-cyrillic-ext-400-normal.e89451624c6caf35687f.woff",
+    "static/media/inter-cyrillic-ext-400-normal.woff2": "/ton-challenge-app/static/media/inter-cyrillic-ext-400-normal.fd1478dcc74de00ee4c0.woff2",
+    "static/media/inter-cyrillic-400-normal.woff": "/ton-challenge-app/static/media/inter-cyrillic-400-normal.e2841352dd9512ff455b.woff",
+    "static/media/inter-greek-400-normal.woff": "/ton-challenge-app/static/media/inter-greek-400-normal.a42da273bb968bf2058d.woff",
+    "static/media/inter-greek-400-normal.woff2": "/ton-challenge-app/static/media/inter-greek-400-normal.a8de720a6f13c66c8a4e.woff2",
+    "static/media/inter-cyrillic-400-normal.woff2": "/ton-challenge-app/static/media/inter-cyrillic-400-normal.cb04b2ee2f7d192478b8.woff2",
+    "static/media/inter-greek-ext-400-normal.woff": "/ton-challenge-app/static/media/inter-greek-ext-400-normal.b9e1e89444a313a63b91.woff",
+    "static/media/inter-vietnamese-400-normal.woff": "/ton-challenge-app/static/media/inter-vietnamese-400-normal.96f8adc74b63e1a3655f.woff",
+    "static/media/inter-greek-ext-400-normal.woff2": "/ton-challenge-app/static/media/inter-greek-ext-400-normal.f2fa0d9ef98f59d4a75b.woff2",
+    "static/media/inter-vietnamese-400-normal.woff2": "/ton-challenge-app/static/media/inter-vietnamese-400-normal.44c9df135eec470b0ab6.woff2",
     "index.html": "/ton-challenge-app/index.html",
-    "main.7345bd06.css.map": "/ton-challenge-app/static/css/main.7345bd06.css.map",
-    "main.f41ac2a7.js.map": "/ton-challenge-app/static/js/main.f41ac2a7.js.map",
+    "main.ace4b770.css.map": "/ton-challenge-app/static/css/main.ace4b770.css.map",
+    "main.a8dd147c.js.map": "/ton-challenge-app/static/js/main.a8dd147c.js.map",
     "453.714a8f69.chunk.js.map": "/ton-challenge-app/static/js/453.714a8f69.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7345bd06.css",
-    "static/js/main.f41ac2a7.js"
+    "static/css/main.ace4b770.css",
+    "static/js/main.a8dd147c.js"
   ]
 }
