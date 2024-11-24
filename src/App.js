@@ -27,12 +27,29 @@ const cardDataArray = [
   // ... add more card data as needed
 ];
 
+const shortClasses = [
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/holder.png" },
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" }
+];
 
+const longClasses = [
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/holder.png" },
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/holder.png" },
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/holder.png" },
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" }
+];
 
 function App() {
   const [currentDate, setCurrentDate] = useState("");
   const [activeTab, setActiveTab] = useState('home');
   const [selectedChallenge, setSelectedChallenge] = useState(null);
+
   const wallet = useTonWallet();
   const rawAddress = useTonAddress();
 
@@ -64,6 +81,7 @@ function App() {
     const today = new Date();
     const options = { day: '2-digit', month: 'long' };
     setCurrentDate(today.toLocaleDateString("en-GB", options));
+   
   }, []);
 
   const handleCardClick = (card) => {
@@ -71,6 +89,7 @@ function App() {
     setActiveTab('grid');
   };
 
+ 
   let isComeFromHome = true;
   const handleBack = () => {
     setSelectedChallenge(null);
@@ -82,14 +101,7 @@ function App() {
 
   };
 
-  const teachers = [
-    { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-    { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-    { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-    { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-    { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-    { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" }
-  ];
+  
   const CalendarViewTeachers = () => (
     <div>
       <h2 className="header-title">Teachers</h2>
@@ -190,7 +202,8 @@ function App() {
             mainContent = <UserProfile />;
             break;
           case 'calendar':
-            mainContent = <CalendarView />;
+            mainContent = <CalendarView
+              classesData={longClasses} />;
             break;
           case 'grid':
             if (selectedChallenge) {
@@ -204,7 +217,7 @@ function App() {
                     onBack={handleBack}
                     wallet_address={selectedChallenge.wallet_address}
                   />
-                  <CalendarView />
+                  <CalendarView classesData={shortClasses} />
                 </div>
               );
             } else {
@@ -236,9 +249,9 @@ function App() {
                 />
                 <div className="classes-section">
                   <h3 className="section-title">CLASSES</h3>
-                  <a className="see-all">See all</a>
+                  <a className="see-all" onClick={() => setActiveTab('calendar')}>See all</a>
                 </div>
-                <CalendarView />
+                <CalendarView classesData={shortClasses}  />
               </div>
             );
 
@@ -250,19 +263,19 @@ function App() {
       <footer className="footer">
         <div
           className={`footer-item ${activeTab === 'home' ? 'active' : ''}`}
-          onClick={() => {setActiveTab('home');isComeFromHome=true;}}
+          onClick={() => { setActiveTab('home'); isComeFromHome = true; }}
         >
           <Home size={24} />
         </div>
         <div
           className={`footer-item ${activeTab === 'grid' ? 'active' : ''}`}
-          onClick={() => {setActiveTab('grid');isComeFromHome=false;}}
+          onClick={() => { setActiveTab('grid'); isComeFromHome = false; }}
         >
           <Grid size={24} />
         </div>
         <div
           className={`footer-item ${activeTab === 'calendar' ? 'active' : ''}`}
-          onClick={() =>{ setActiveTab('calendar');isComeFromHome=false;}}
+          onClick={() => { setActiveTab('calendar'); isComeFromHome = false; }}
         >
           <Calendar size={24} />
         </div>

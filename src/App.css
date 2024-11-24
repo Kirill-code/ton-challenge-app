@@ -3,6 +3,11 @@
  * Business Source License 1.1
  * Change Date: November 23, 2026
  */
+ html, body {
+  height: 100%;
+}
+
+/* Existing global styles */
 * {
   margin: 0;
   padding: 0;
@@ -10,13 +15,16 @@
   font-family: Arial, sans-serif;
 }
 
+/* Make the app component full height of the viewport */
 .app {
   background-color: #111111;
   color: #fff;
-  min-height: 100vh;
+  min-height: 100vh; /* full viewport height */
+  height: 100%; /* Ensure the app takes the full height available */
+  display: flex;
+  flex-direction: column; /* Allow content to stack vertically */
   padding: 20px;
 }
-
 .header {
   margin-bottom: 20px;
 }
@@ -80,18 +88,31 @@
   background-color: #1e90ff;
   padding: 15px;
   border-radius: 24px;
-  text-align: center;
+  text-align: left;
   margin-bottom: 20px;
+  padding: 20px 16px 16px 20px;
 }
 
 .notification-title {
+  font-family: Inter;
   font-size: 18px;
-  font-weight: bold;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 22px; /* 122.222% */
+  letter-spacing: -0.4px;
+  
 }
 
 .notification-subtitle {
-  font-size: 14px;
-  margin: 5px 0 10px;
+  color: #FFF;
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px; /* 125% */
+letter-spacing: -0.23px;
+opacity: 0.8;
+margin-bottom: 12px;
 }
 
 .connect-button {
@@ -213,7 +234,7 @@
 
 .classes-section {
   display: flex;
-  padding: 10px 16px;
+  /* padding: 10px 16px; */
   gap: 4px;
   align-self: stretch;
 }
@@ -244,6 +265,8 @@
   line-height: 16px;
   /* 114.286% */
   letter-spacing: -0.23px;
+  padding-top: 16px;
+  padding-right: 16px;
 }
 
 /*****************Slider***************/
@@ -282,6 +305,8 @@
 
 .footer {
   position: fixed;
+  margin-top: 10px; 
+
   bottom: 0;
   left: 0;
   right: 0;
@@ -292,6 +317,8 @@
   align-items: center;
   padding: 0 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top-left-radius: 32px;
+  border-top-right-radius: 32px;
 }
 
 .footer-item {
