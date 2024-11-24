@@ -9,6 +9,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { TonConnectUIProvider } from '@tonconnect/ui-react';
+import '@fontsource/inter'; // Defaults to weight 400
+
 const manifestUrl = 'https://storage.yandexcloud.net/start-image/manifest.json';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

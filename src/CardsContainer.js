@@ -1,5 +1,6 @@
 // CardsContainer.js
 import React from 'react';
+import "./Card.css"
 
 function CardsContainer({ cardsData, handleCardClick }) {
   return (

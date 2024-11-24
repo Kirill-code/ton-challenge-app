@@ -6,9 +6,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { TonConnectButton, useTonWallet, useTonAddress } from '@tonconnect/ui-react';
-import { Home, Grid, Calendar, User } from 'lucide-react';
+import { Home, Grid, Calendar, User, ArrowLeft } from 'lucide-react';
 import ChallengeDetail from './ChallengeDetail';
-import VerticalCardList from './VerticalCardList';
 import UserProfile from './UserProfile'; // Import UserProfile component
 import CalendarView from './CalendarView'; // Import the CalendarView component
 import CardsContainer from './CardsContainer';
@@ -72,83 +71,198 @@ function App() {
     setActiveTab('grid');
   };
 
+  let isComeFromHome = true;
   const handleBack = () => {
     setSelectedChallenge(null);
-    setActiveTab('home');
+    if (isComeFromHome) {
+      setActiveTab('home');
+    } else {
+      setActiveTab('grid');
+    }
+
   };
 
-  const CalendarView = () => (
+  const teachers = [
+    { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
+    { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/holder.png" },
+    { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
+    { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
+    { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/holder.png" },
+    { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" }
+  ];
+  const CalendarViewTeachers = () => (
     <div>
       <h2 className="header-title">Teachers</h2>
-      <VerticalCardList cardsData={cardDataArray} />
+      {/* <VerticalCardList cardsData={teachers} /> */}
     </div>
   );
 
+  const SliderToggle = () => {
+    const [activeTab, setActiveTab] = useState('All');
+
+    const handleToggle = (tab) => {
+      setActiveTab(tab);
+    };
+
+    return (
+      <div className="slider-container">
+        <div className="slider-toggle">
+          <button
+            className={`toggle-button ${activeTab === 'All' ? 'active' : ''}`}
+            onClick={() => handleToggle('All')}
+          >
+            All
+          </button>
+          <button
+            className={`toggle-button ${activeTab === 'Quest Log' ? 'active' : ''}`}
+            onClick={() => handleToggle('Quest Log')}
+          >
+            Quest Log
+          </button>
+        </div>
+        <div className="content">
+          {activeTab === 'All' && <div>
+            <h3 className="section-title">YOGA</h3>
+
+            <CardsContainer
+              cardsData={mainCardsArray}
+              handleCardClick={handleCardClick}
+            />
+            <h3 className="section-title">BICYCLE</h3>
+
+            <CardsContainer
+              cardsData={mainCardsArray}
+              handleCardClick={handleCardClick}
+            />
+            <h3 className="section-title">BICYCLE</h3>
+
+            <CardsContainer
+              cardsData={mainCardsArray}
+              handleCardClick={handleCardClick}
+            />
+            <h3 className="section-title">BICYCLE</h3>
+
+            <CardsContainer
+              cardsData={mainCardsArray}
+              handleCardClick={handleCardClick}
+            /></div>}
+          {activeTab === 'Quest Log' && <div>Showing quest log content...</div>}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="app">
-      {activeTab === 'home' ? (
-        <header className="header">
-          <h1>Challenge</h1>
-          <p className="date">{currentDate}</p>
-        </header>
-      ) : activeTab === 'grid' && selectedChallenge ? (
-        <header className="header-grid">
-          <button className="back-button" onClick={handleBack}>←</button>
-          <h2 className="header-title">Challenge</h2>
-        </header>
-      ) : null}
+      {/* Header Content */}
+      {(() => {
+        let headerContent;
+        switch (activeTab) {
+          case 'home':
+            headerContent = (
+              <header className="header">
+                <h1>Challenge</h1>
+                <p className="date">{currentDate}</p>
+              </header>
+            );
+            break;
+          case 'grid':
+            if (selectedChallenge) {
+              headerContent = (
+                <header className="header-grid">
+                  <div className="back-button" onClick={handleBack}><ArrowLeft /></div>
+                  <h2 className="header-title">Challenge</h2>
+                </header>
+              );
+            }
+            break;
+          default:
+            headerContent = null;
+        }
+        return headerContent;
+      })()}
 
-      {!wallet && activeTab === 'home' && (
-        <div className="notification">
-          <p className="notification-title">Introducing TON Space</p>
-          <p className="notification-subtitle">
-            To use the app, connect your wallet
-          </p>
-          <div className="wallet-connect">
-            <TonConnectButton />
-          </div>
-        </div>
-      )}
+      {/* Main Content */}
+      {(() => {
+        let mainContent;
+        switch (activeTab) {
+          case 'profile':
+            mainContent = <UserProfile />;
+            break;
+          case 'calendar':
+            mainContent = <CalendarView />;
+            break;
+          case 'grid':
+            if (selectedChallenge) {
+              mainContent = (
+                <div>
+                  <ChallengeDetail
+                    img={selectedChallenge.img}
+                    type={selectedChallenge.type}
+                    title={selectedChallenge.title}
+                    description={selectedChallenge.description}
+                    onBack={handleBack}
+                    wallet_address={selectedChallenge.wallet_address}
+                  />
+                  <CalendarView />
+                </div>
+              );
+            } else {
+              mainContent = (
+                <div>
+                  <SliderToggle />
 
-      {activeTab === 'profile' ? (
-        <UserProfile /> // Render UserProfile component on the 'profile' tab
-      ) : activeTab === 'calendar' ? (
-        <CalendarView />
-      ) : activeTab === 'grid' && selectedChallenge ? (
-        <div><ChallengeDetail
-          img={selectedChallenge.img}
-          type={selectedChallenge.type}
-          title={selectedChallenge.title}
-          description={selectedChallenge.description}
-          onBack={handleBack}
-          wallet_address={selectedChallenge.wallet_address}
-        />
-          <CalendarView />
-        </div>
+                </div>
+              );
+            }
+            break;
+          case 'home':
+            mainContent = (
+              <div>
+                {!wallet && (
+                  <div className="notification">
+                    <p className="notification-title">Introducing TON Space</p>
+                    <p className="notification-subtitle">
+                      To use the app, connect your wallet
+                    </p>
+                    <div className="wallet-connect">
+                      <TonConnectButton />
+                    </div>
+                  </div>
+                )}
+                <CardsContainer
+                  cardsData={mainCardsArray}
+                  handleCardClick={handleCardClick}
+                />
+                <div className="classes-section">
+                  <h3 className="section-title">CLASSES</h3>
+                  <a className="see-all">See all</a>
+                </div>
+                <CalendarView />
+              </div>
+            );
 
-      ) : (
-        <CardsContainer
-          cardsData={mainCardsArray}
-          handleCardClick={handleCardClick}
-        />
-      )}
+        }
+        return mainContent;
+      })()}
 
+      {/* Footer */}
       <footer className="footer">
         <div
           className={`footer-item ${activeTab === 'home' ? 'active' : ''}`}
-          onClick={() => setActiveTab('home')}
+          onClick={() => {setActiveTab('home');isComeFromHome=true;}}
         >
           <Home size={24} />
         </div>
         <div
           className={`footer-item ${activeTab === 'grid' ? 'active' : ''}`}
-          onClick={() => setActiveTab('grid')}
+          onClick={() => {setActiveTab('grid');isComeFromHome=false;}}
         >
           <Grid size={24} />
         </div>
         <div
           className={`footer-item ${activeTab === 'calendar' ? 'active' : ''}`}
-          onClick={() => setActiveTab('calendar')}
+          onClick={() =>{ setActiveTab('calendar');isComeFromHome=false;}}
         >
           <Calendar size={24} />
         </div>
@@ -161,6 +275,7 @@ function App() {
       </footer>
     </div>
   );
+
 }
 
 export default App;
