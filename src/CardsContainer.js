@@ -12,9 +12,15 @@ function CardsContainer({ cardsData, handleCardClick }) {
           onClick={() => handleCardClick(card)}
         >
           <div
-            className={`card-image`}
-            style={{ backgroundImage: `url(${card.imageUrl})` }}
+            className="card-image"
+            style={{
+              backgroundImage: `url(${card.imageUrl})`,
+              backgroundSize: '100%', // or 'auto' if you want the original size
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+            }}
           ></div>
+          {/* <img  className="card-image" src={card.imageUrl} alt={card.type}></img > */}
           <div className="card-tag">{card.type}</div>
           <div className="card-text">
             <h2 className="card-title">{card.title}</h2>

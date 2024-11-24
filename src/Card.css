@@ -11,21 +11,21 @@
     /* Optional: Snap to cards */
     -webkit-overflow-scrolling: touch;
     /* Smooth scrolling on iOS */
-  }
-  
-  /* Hide scrollbar */
-  .cards-container::-webkit-scrollbar {
+}
+
+/* Hide scrollbar */
+.cards-container::-webkit-scrollbar {
     display: none;
-  }
-  
-  .cards-container {
+}
+
+.cards-container {
     -ms-overflow-style: none;
     /* IE 10+ */
     scrollbar-width: none;
     /* Firefox */
-  }
-  
-  .card {
+}
+
+.card {
     border-radius: 24px;
     box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.02), 0px 32px 64px 0px rgba(0, 0, 0, 0.04);
     background-color: #191919;
@@ -41,22 +41,29 @@
     cursor: pointer;
     scroll-snap-align: start;
     /* Snap alignment for smooth scrolling */
-  
-  
-  }
-  
-  .card-image {
-    background-position: center;
-    background-repeat: repeat-x;
-    height: 100%;
-    width: 100%;
-  }
-  
-  .card:hover {
-    background-color: #333;
-  }
-  
-  .card-tag {
+
+
+}
+
+.card-image {
+    /* background-position: center;
+    background-repeat: repeat-x; */
+    width: 262px;
+    height: 262px;
+}
+
+.card-text {
+    display: flex;
+    width: 253px;
+    height: 110px;
+    padding: 16px 20px 20px 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.card-tag {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -65,29 +72,36 @@
     padding: 10px 8px 10px 8px;
     border-radius: 5px;
     font-size: 14px;
-  }
-  
-  .card-title {
+}
+
+.card-title {
+    overflow: hidden;
+    color: #FFF;
+    text-overflow: ellipsis;
+    font-family: Inter;
     font-size: 16px;
-    font-weight: bold;
-    margin-top: 10px;
-    color: #FFFFFF;
-    font-family: "Inter-Regular", Helvetica;
-    text-align: left;
-  
-  }
-  
-  .card-description {
+    font-style: normal;
+    font-weight: 600;
+    line-height: 22px;
+    /* 137.5% */
+    letter-spacing: -0.4px;
+
+}
+
+.card-description {
+    overflow: hidden;
     color: #707579;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 12px;
+    text-overflow: ellipsis;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
     font-weight: 400;
-    letter-spacing: 0.15px;
-    line-height: 16px;
-    text-align: left;
-  }
-  
-  .card-teachers {
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.23px;
+}
+
+.card-teachers {
     margin-bottom: 5px;
     border-radius: 24px;
     box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.02), 0px 32px 64px 0px rgba(0, 0, 0, 0.04);
@@ -104,11 +118,4 @@
     cursor: pointer;
     scroll-snap-align: start;
     /* Snap alignment for smooth scrolling */
-  }
-  
-  
-  .card-text {
-    padding: 10px 20px;
-    text-align: left;
-  }
-  
+}
