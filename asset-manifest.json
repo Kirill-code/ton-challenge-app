@@ -1,13 +1,9 @@
 {
   "files": {
-    "main.css": "/ton-challenge-app/static/css/main.85448a3d.css",
-    "main.js": "/ton-challenge-app/static/js/main.e095d891.js",
+    "main.css": "/ton-challenge-app/static/css/main.3a48e241.css",
+    "main.js": "/ton-challenge-app/static/js/main.5f13b9bd.js",
     "static/js/453.714a8f69.chunk.js": "/ton-challenge-app/static/js/453.714a8f69.chunk.js",
-    "static/media/yoga.png": "/ton-challenge-app/static/media/yoga.314e799ffb161291545d.png",
-    "static/media/classes.png": "/ton-challenge-app/static/media/classes.1c89abfa95232d201d20.png",
-    "static/media/bike.png": "/ton-challenge-app/static/media/bike.0117c4955ea63c4cc70a.png",
     "static/media/inter-latin-ext-400-normal.woff": "/ton-challenge-app/static/media/inter-latin-ext-400-normal.1c20f7dc20d731a18fcd.woff",
-    "static/media/run.png": "/ton-challenge-app/static/media/run.cf62a108e121cf71c5a9.png",
     "static/media/inter-latin-400-normal.woff": "/ton-challenge-app/static/media/inter-latin-400-normal.b0c8fe9db56dd415a25a.woff",
     "static/media/inter-latin-ext-400-normal.woff2": "/ton-challenge-app/static/media/inter-latin-ext-400-normal.3d10c85fbd16969509a2.woff2",
     "static/media/inter-latin-400-normal.woff2": "/ton-challenge-app/static/media/inter-latin-400-normal.9698cc7dbf147ed363b6.woff2",
@@ -21,13 +17,15 @@
     "static/media/inter-vietnamese-400-normal.woff": "/ton-challenge-app/static/media/inter-vietnamese-400-normal.96f8adc74b63e1a3655f.woff",
     "static/media/inter-greek-ext-400-normal.woff2": "/ton-challenge-app/static/media/inter-greek-ext-400-normal.f2fa0d9ef98f59d4a75b.woff2",
     "static/media/inter-vietnamese-400-normal.woff2": "/ton-challenge-app/static/media/inter-vietnamese-400-normal.44c9df135eec470b0ab6.woff2",
+    "static/media/video.svg": "/ton-challenge-app/static/media/video.70b1921e4e6197e063506f26b72634fc.svg",
+    "static/media/heart.svg": "/ton-challenge-app/static/media/heart.8d2b42ad1694a744bdd1770195b723a7.svg",
     "index.html": "/ton-challenge-app/index.html",
-    "main.85448a3d.css.map": "/ton-challenge-app/static/css/main.85448a3d.css.map",
-    "main.e095d891.js.map": "/ton-challenge-app/static/js/main.e095d891.js.map",
+    "main.3a48e241.css.map": "/ton-challenge-app/static/css/main.3a48e241.css.map",
+    "main.5f13b9bd.js.map": "/ton-challenge-app/static/js/main.5f13b9bd.js.map",
     "453.714a8f69.chunk.js.map": "/ton-challenge-app/static/js/453.714a8f69.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.85448a3d.css",
-    "static/js/main.e095d891.js"
+    "static/css/main.3a48e241.css",
+    "static/js/main.5f13b9bd.js"
   ]
 }
