@@ -13,11 +13,6 @@ import CalendarView from './CalendarView'; // Import the CalendarView component
 import CardsContainer from './CardsContainer';
 
 
-// Import images and assets
-import yogaImage from './assets/yoga.png';
-import bikeImage from './assets/bike.png';
-import runImage from './assets/run.png';
-import Classes_hard from './assets/classes.png';
 
 // Import data array for cards (if card data is large, you can move it to a separate file)
 const cardDataArray = [
@@ -27,42 +22,42 @@ const cardDataArray = [
   // ... add more card data as needed
 ];
 const teachersList = [
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
+  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
   { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
+  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
+  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
   { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
+  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
+  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
   { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
+  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
+  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
   { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
+  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
+  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
   { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
+  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
+  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
   { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
+  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
+  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
   { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
+  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
+  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
   { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
+  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
+  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
   { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
+  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
+  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
   { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
+  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
+  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
   { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
+  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
+  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
   { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga",  url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" }
+  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" }
 ];
 
 const shortClasses = [
@@ -115,11 +110,69 @@ function App() {
     },
   ];
 
+  const bikeCardsArray = [
+    {
+      title: "Cycling Adventure",
+      description: "Discover new horizons on two wheels",
+      type: "Bike",
+      imageUrl: "https://storage.yandexcloud.net/start-image/sbts/bike.png",
+      wallet_address: rawAddress,
+    },
+    {
+      title: "Cycling Adventure",
+      description: "Discover new horizons on two wheels",
+      type: "Bike",
+      imageUrl: "https://storage.yandexcloud.net/start-image/sbts/bike.png",
+      wallet_address: rawAddress,
+    },
+    {
+      title: "Cycling Adventure",
+      description: "Discover new horizons on two wheels",
+      type: "Bike",
+      imageUrl: "https://storage.yandexcloud.net/start-image/sbts/bike.png",
+      wallet_address: rawAddress,
+    },
+  ];
+
+  const runCardsArray = [
+    {
+      title: "Run to your goal",
+      description: "Discover new horizons on two legs",
+      type: "Run",
+      imageUrl: "https://storage.yandexcloud.net/start-image/sbts/run.png",
+      wallet_address: rawAddress,
+    },
+    {
+      title: "Run to your goal",
+      description: "Discover new horizons on two legs",
+      type: "Run",
+      imageUrl: "https://storage.yandexcloud.net/start-image/sbts/run.png",
+      wallet_address: rawAddress,
+    },
+    {
+      title: "Run to your goal",
+      description: "Discover new horizons on two legs",
+      type: "Run",
+      imageUrl: "https://storage.yandexcloud.net/start-image/sbts/run.png",
+      wallet_address: rawAddress,
+    },
+  ];
+
   useEffect(() => {
     const today = new Date();
     const options = { day: '2-digit', month: 'long' };
     setCurrentDate(today.toLocaleDateString("en-GB", options));
 
+    if (window.Telegram && window.Telegram.WebApp) {
+      // Ensure the WebApp is ready before calling disableVerticalSwipes
+      window.Telegram.WebApp.ready(() => {
+        console.log('Telegram WebApp is ready');
+        window.Telegram.WebApp.disableVerticalSwipes();
+        console.log('Vertical swipes disabled');
+      });
+    } else {
+      console.warn('Telegram WebApp is not available');
+    }
   }, []);
 
   const handleCardClick = (card) => {
@@ -181,13 +234,13 @@ function App() {
             <h3 className="section-title">BICYCLE</h3>
 
             <CardsContainer
-              cardsData={mainCardsArray}
+              cardsData={bikeCardsArray}
               handleCardClick={handleCardClick}
             />
             <h3 className="section-title">BICYCLE</h3>
 
             <CardsContainer
-              cardsData={mainCardsArray}
+              cardsData={runCardsArray}
               handleCardClick={handleCardClick}
             />
             <h3 className="section-title">BICYCLE</h3>
@@ -231,11 +284,11 @@ function App() {
           {activeTab === 'Classes' &&
             <div>
               <CalendarView
-              classesData={longClasses} />
+                classesData={longClasses} />
             </div>}
-          {activeTab === 'Teachers' && 
-          <div><CalendarView
-          classesData={teachersList} />
+          {activeTab === 'Teachers' &&
+            <div><CalendarView
+              classesData={teachersList} />
             </div>}
         </div>
       </div>
@@ -280,14 +333,14 @@ function App() {
             mainContent = <UserProfile />;
             break;
           case 'calendar':
-            mainContent = <SliderToggleGrid/>;
+            mainContent = <SliderToggleGrid />;
             break;
           case 'grid':
             if (selectedChallenge) {
               mainContent = (
                 <div>
                   <ChallengeDetail
-                    img={selectedChallenge.img}
+                    imageUrl={selectedChallenge.imageUrl}
                     type={selectedChallenge.type}
                     title={selectedChallenge.title}
                     description={selectedChallenge.description}

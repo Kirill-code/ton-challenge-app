@@ -3,61 +3,180 @@
  * Business Source License 1.1
  * Change Date: November 23, 2026
  */
+.back-button {
+  background-color: #191919;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 12px;
+
+}
+
+
 .image-container {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Adjusted .card-tag to position within the image container */
+.card-tag-details {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  color: #000000CC;
+  display: inline-flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0px 12px 24px 0px rgba(0, 0, 0, 0.05);
+}
+
+/* Style for the challenge image */
+.challenge-image {
+  width: 361px;
+  height: 361px;
+  flex-shrink: 0;
+  border-radius: 24px;
+}
+
+.header-with-back {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+
+
+.challenge-title-details {
+  overflow: hidden;
+  color: #FFF;
+  text-overflow: ellipsis;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px;
+  /* 125% */
+  letter-spacing: -0.4px;
+  padding-left: 16px;
+  padding-top: 16px;
+}
+
+.challenge-description {
+  padding-left: 16px;
+  overflow: hidden;
+  color: var(--Native-subtitle_text_color, #707579);
+  text-overflow: ellipsis;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  /* 125% */
+  letter-spacing: -0.23px;
+}
+
+.challenge-progress {
+  width: 358px;
+  height: 16px;
+  flex-shrink: 0;
+  border-radius: 100px;
+  background: #191919;
+  margin-top: 16px;
+}
+.challenge-progress-filled {
+  width: 358px;
+  height: 16px;
+  flex-shrink: 0;
+  border-radius: 100px;
+}
   
-  /* Adjusted .card-tag to position within the image container */
-  .card-tag {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #ffffff;
-    color: #000000CC;
-    padding: 10px 8px;
-    border-radius: 5px;
-    font-size: 14px;
-  }
-  
-  /* Style for the challenge image */
-  .challenge-image {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-  }
-  .header-with-back {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  
-  .back-button {
-    background-color: #191919;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-  
-  .challenge-title {
-    font-size: 20px;
-    color: #fff;
-  }
-  .task{
-    border: 2px solid #191919;
-    border-radius: 5px;
-    background: #191919;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-  
+
+.task {
+  border: 2px solid #191919;
+  border-radius: 5px;
+  background: #191919;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+
+.card-task {
+  border-radius: 24px;
+  background: #191919;
+
+  /* Card Shadow */
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.02), 0px 32px 64px 0px rgba(0, 0, 0, 0.04);
+  margin-bottom: 12px;
+}
+
+.card-task-inner {
+  display: flex;
+  padding: 20px;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+}
+
+.card-icon-task {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.card-title-task {
+  overflow: hidden;
+  color: #FFF;
+  text-overflow: ellipsis;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 22px; /* 137.5% */
+  letter-spacing: -0.4px;
+}
+
+.card-subtitle-task {
+  overflow: hidden;
+  color:  #707579;
+  text-overflow: ellipsis;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  /* 142.857% */
+  letter-spacing: -0.23px;
+}
+
+.card-content-task {
+  display: flex;
+  /* width: 213px; */
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.video-container{
+
+  margin-bottom: 60px;
+}

@@ -3,7 +3,8 @@
  * Business Source License 1.1
  * Change Date: November 23, 2026
  */
- html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -19,23 +20,27 @@
 .app {
   background-color: #111111;
   color: #fff;
-  min-height: 100vh; /* full viewport height */
-  height: 100%; /* Ensure the app takes the full height available */
+  min-height: 100vh;
+  /* full viewport height */
+  height: 100%;
+  /* Ensure the app takes the full height available */
   display: flex;
-  flex-direction: column; /* Allow content to stack vertically */
+  flex-direction: column;
+  /* Allow content to stack vertically */
   padding: 20px;
 }
+
 .header {
   margin-bottom: 20px;
 }
 
 .header-grid {
-  display: flex;
+  display: inline-flex;
+  /* padding-right: 142px; */
   align-items: center;
-  /* justify-content: space-between; */
-  padding: 20px;
-  /* background-color: #191919; */
-  color: white;
+  gap: 65px;
+  margin-left: 16px;
+  margin-bottom: 16px;
 }
 
 .header-title {
@@ -73,21 +78,23 @@
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
-  line-height: 22px; /* 122.222% */
+  line-height: 22px;
+  /* 122.222% */
   letter-spacing: -0.4px;
-  
+
 }
 
 .notification-subtitle {
   color: #FFF;
-font-family: Inter;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: 20px; /* 125% */
-letter-spacing: -0.23px;
-opacity: 0.8;
-margin-bottom: 12px;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  /* 125% */
+  letter-spacing: -0.23px;
+  opacity: 0.8;
+  margin-bottom: 12px;
 }
 
 .connect-button {
@@ -263,8 +270,10 @@ margin-bottom: 12px;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: 16px; /* 114.286% */
-  letter-spacing: -0.08px;  padding: 10px 20px;
+  line-height: 16px;
+  /* 114.286% */
+  letter-spacing: -0.08px;
+  padding: 10px 20px;
   cursor: pointer;
   border-radius: 20px;
   transition: background-color 0.3s;
@@ -273,7 +282,8 @@ margin-bottom: 12px;
 .toggle-button.active {
   background: rgba(255, 255, 255, 0.05);
 }
-.slider-content{
+
+.slider-content {
   margin-bottom: 50px;
 }
 
@@ -282,7 +292,7 @@ margin-bottom: 12px;
 
 .footer {
   position: fixed;
-  margin-top: 10px; 
+  margin-top: 10px;
 
   bottom: 0;
   left: 0;

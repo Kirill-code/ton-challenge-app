@@ -13,6 +13,8 @@ import '@fontsource/inter'; // Defaults to weight 400
 
 const manifestUrl = 'https://storage.yandexcloud.net/start-image/manifest.json';
 
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

@@ -6,15 +6,21 @@
 import React, { useState } from 'react';
 import YouTube from 'react-youtube';
 import './ChallengeDetail.css';
+import { ReactComponent as HeartIcon } from '../src/assets/heart.svg';
+import { ReactComponent as VideoIcon } from '../src/assets/video.svg';
 
-const ChallengeDetail = ({ img, title, description, type, onBack, wallet_address }) => {
+
+const ChallengeDetail = ({ imageUrl, title, description, type, onBack, wallet_address }) => {
   const [showVideo, setShowVideo] = useState(false);
+  const [progressFilled, setProgressFilled] = useState(false); // State to track progress fill
+
 
   // Function to handle task click and make API call
   const handleTaskClick = async () => {
     try {
       // Trigger the video display
       setShowVideo(true);
+      setProgressFilled(true);
 
       // API call to log the event
       const response = await fetch('https://d5daginsfb4svds4mjjs.apigw.yandexcloud.net/event', {
@@ -42,26 +48,55 @@ const ChallengeDetail = ({ img, title, description, type, onBack, wallet_address
       console.error('API call error:', error);
     }
   };
+  console.log(imageUrl);
 
   return (
     <div className="challenge-detail">
-      <div className="challenge-header">
-        <div className="image-container">
-          <img src={img} alt="Challenge" className="challenge-image" />
-          <div className="card-tag">{type}</div>
-        </div>
+      <div className="image-container">
+
+        <img src={imageUrl} alt="Challenge!" className="challenge-image" />
+        <div className="card-tag-details">{type}</div>
       </div>
+      <p className="challenge-title-details">{title}</p>
 
       <p className="challenge-description">{description}</p>
 
+      <div className='challenge-progress'>
+        <div className='challenge-progress-filled'style={{
+          backgroundColor: progressFilled ? '#007AFF' : '191919',
+          height: '16px',  // Example height for visualization
+          width: progressFilled ? '50%' : '100%', // Fill half width on click
+
+          transition: 'background-color 0.5s ease', // Add a smooth transition effect
+        }}></div>
+      </div>
+      <h3 className="section-title">TASKS</h3>
+
       <div className="tasks">
-        {/* Attach the onClick handler to the task div */}
-        <div className="task" onClick={handleTaskClick}>
-          <span>🧘</span> <span>Дыхательная практика</span> <span>5 минут медитации</span>
+
+        <div className="card-task" onClick={handleTaskClick}>
+          <div className='card-task-inner'>
+            <div className="card-icon-task">
+              <HeartIcon />
+            </div>
+            <div className="card-content-task">
+              <p className="card-title-task">Дыхательная практика</p>
+              <p className="card-subtitle-task">5 минут медитации</p>
+            </div>
+          </div>
         </div>
 
-        <div className="task" onClick={handleTaskClick}>
-          <span>📅</span> <span>Онлайн-занятие</span> <span>Обучение базовой асаны</span>
+
+        <div className="card-task" onClick={handleTaskClick}>
+          <div className='card-task-inner'>
+            <div className="card-icon-task">
+              <VideoIcon />
+            </div>
+            <div className="card-content-task">
+              <p className="card-title-task">Онлайн-занятие</p>
+              <p className="card-subtitle-task">Обучение базовой асаны</p>
+            </div>
+          </div>
         </div>
       </div>
 

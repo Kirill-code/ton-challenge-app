@@ -50,6 +50,8 @@
     background-repeat: repeat-x; */
     width: 262px;
     height: 262px;
+    background-color: #000000;
+    
 }
 
 .card-text {
