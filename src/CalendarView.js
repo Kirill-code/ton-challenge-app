@@ -6,27 +6,12 @@
 import React from 'react';
 import './CalendarView.css'; // Add a CSS file to style the component
 
-const CalendarView = ({ classesData }) => {
-  // Mock data for classes
-  // const classesData = [
-  //   { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-  //   { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-  //   { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-  //   { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-  //   { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-  //   { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-  //   { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-  //   { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-  //   { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-  //   { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" }
-  // ];
-
+const CalendarView = ({ classesData, onClassClick }) => {
   return (
     <div className="calendar-view">
       {classesData.map((classItem, index) => (
-        <div key={index} className="class-card">
+        <div key={index} className="class-card" onClick={() => onClassClick(classItem)}>
           <img src={classItem.url} alt="Class" className="class-image" />
-
           <div className="class-details">
             <div className='class-date-price-container'>
               <p className="class-date">{classItem.date} · Online</p>
@@ -41,7 +26,6 @@ const CalendarView = ({ classesData }) => {
             <h3 className="class-title">{classItem.title}</h3>
             <p className="class-description">{classItem.description}</p>
           </div>
-
         </div>
       ))}
     </div>

@@ -48,7 +48,6 @@ const ChallengeDetail = ({ imageUrl, title, description, type, onBack, wallet_ad
       console.error('API call error:', error);
     }
   };
-  console.log(imageUrl);
 
   return (
     <div className="challenge-detail">
@@ -98,14 +97,16 @@ const ChallengeDetail = ({ imageUrl, title, description, type, onBack, wallet_ad
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Conditionally render the YouTube video */}
+        {/* Conditionally render the YouTube video */}
       {showVideo && (
         <div className="video-container">
           <YouTube videoId="5HlDIxNy5gs" opts={{ width: '100%', height: '390' }} />
         </div>
       )}
+      </div>
+
+      
     </div>
   );
 };

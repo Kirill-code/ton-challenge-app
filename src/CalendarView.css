@@ -26,6 +26,11 @@
     height: 90px;
     margin-right: 1rem;
     border-radius: 5%;
+    /* Makes it a square */
+    object-fit: cover;
+    object-position: center;
+    /* Centers the rectangle image */
+    display: block;
 }
 
 .class-details {

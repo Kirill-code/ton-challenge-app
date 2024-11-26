@@ -11,6 +11,8 @@ import ChallengeDetail from './ChallengeDetail';
 import UserProfile from './UserProfile'; // Import UserProfile component
 import CalendarView from './CalendarView'; // Import the CalendarView component
 import CardsContainer from './CardsContainer';
+import ClassDetail from './ClassDetail';
+
 
 
 
@@ -61,27 +63,29 @@ const teachersList = [
 ];
 
 const shortClasses = [
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" }
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/sbts/stab.png", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' 
+   },
+  { date: "Nov 16", title: "Здоровая спина", description: "Improve your well-being in just one week", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/spine.jpg", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' },
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/sbts/stab.png",  teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' }
 ];
 
 const longClasses = [
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/holder.png" },
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/holder.png" }
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/sbts/stab.png", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg'},
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/spine.jpg", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' },
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/sbts/stab.png", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' },
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/sbts/stab.png", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' },
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/spine.jpg", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' },
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/sbts/stab.png", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' },
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/sbts/stab.png" , teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg'},
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/sbts/stab.png", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' },
+  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/sbts/stab.png", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' }
 ];
 
 function App() {
   const [currentDate, setCurrentDate] = useState("");
   const [activeTab, setActiveTab] = useState('home');
   const [selectedChallenge, setSelectedChallenge] = useState(null);
+  const [selectedClass, setSelectedClass] = useState(null); // New state for selected class
 
   const wallet = useTonWallet();
   const rawAddress = useTonAddress();
@@ -178,6 +182,11 @@ function App() {
   const handleCardClick = (card) => {
     setSelectedChallenge(card);
     setActiveTab('grid');
+  };
+
+  const handleClassClick = (classItem) => {
+    setSelectedClass(classItem);
+    setActiveTab('classDetail');
   };
 
 
@@ -284,11 +293,11 @@ function App() {
           {activeTab === 'Classes' &&
             <div>
               <CalendarView
-                classesData={longClasses} />
+                classesData={longClasses} onClassClick={handleClassClick} />
             </div>}
           {activeTab === 'Teachers' &&
             <div><CalendarView
-              classesData={teachersList} />
+              classesData={teachersList} onClassClick={handleClassClick} />
             </div>}
         </div>
       </div>
@@ -319,6 +328,14 @@ function App() {
               );
             }
             break;
+          case 'classDetail':
+            headerContent = (
+              <header className="header-grid">
+                <div className="back-button" onClick={handleBack}><ArrowLeft /></div>
+                <h2 className="header-title">{activeTab === 'classDetail' ? 'Class Details' : 'Challenge'}</h2>
+              </header>
+            );
+            break;
           default:
             headerContent = null;
         }
@@ -335,6 +352,22 @@ function App() {
           case 'calendar':
             mainContent = <SliderToggleGrid />;
             break;
+          case 'classDetail':
+            if (selectedClass) {
+              mainContent = (
+            
+                <ClassDetail
+                  imageUrl={selectedClass.url}
+                  title={selectedClass.title}
+                  description={selectedClass.description}
+                  date={selectedClass.date}
+                  price={selectedClass.price} 
+                    teacherName={selectedClass.teacherName} 
+                    teacherDescription={selectedClass.teacherDescription} 
+                    teacherImageUrl={selectedClass.teacherImageUrl} />
+              );
+            }
+            break;
           case 'grid':
             if (selectedChallenge) {
               mainContent = (
@@ -345,7 +378,7 @@ function App() {
                     title={selectedChallenge.title}
                     description={selectedChallenge.description}
                     onBack={handleBack}
-                    wallet_address={selectedChallenge.wallet_address}
+                    
                   />
                   {/* <CalendarView classesData={shortClasses} /> */}
                 </div>
@@ -381,7 +414,7 @@ function App() {
                   <h3 className="section-title">CLASSES</h3>
                   <a className="see-all" onClick={() => setActiveTab('calendar')}>See all</a>
                 </div>
-                <CalendarView classesData={shortClasses} />
+                <CalendarView classesData={shortClasses} onClassClick={handleClassClick} />
               </div>
             );
 

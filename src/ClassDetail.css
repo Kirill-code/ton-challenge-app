@@ -1,0 +1,255 @@
+/*
+ * Copyright © 2024, Kirill Code.
+ * Business Source License 1.1
+ * Change Date: November 23, 2026
+ */
+.back-button {
+  background-color: #191919;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 12px;
+
+}
+
+
+.image-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Adjusted .card-tag to position within the image container */
+.card-tag-details {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  color: #000000CC;
+  display: inline-flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0px 12px 24px 0px rgba(0, 0, 0, 0.05);
+}
+
+/* Style for the class image */
+.class-image-details {
+  width: 340px;
+  height: 330px;
+  flex-shrink: 0;
+  border-radius: 24px;
+  object-fit: cover;
+  object-position: center;
+}
+
+
+
+
+.class-title-details {
+  overflow: hidden;
+  color: #FFF;
+  text-overflow: ellipsis;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px;
+  /* 125% */
+  letter-spacing: -0.4px;
+  padding-left: 16px;
+  padding-top: 16px;
+}
+
+.class-description-details {
+  padding-left: 16px;
+  overflow: hidden;
+  color: var(--Native-subtitle_text_color, #707579);
+  text-overflow: ellipsis;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  /* 125% */
+  letter-spacing: -0.23px;
+}
+
+
+.class-detail {
+
+  margin-bottom: 60px;
+}
+
+.class-information {
+  display: flex;
+  width: 278px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.class-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  color: var(--Native-subtitle_text_color, #707579);
+  text-overflow: ellipsis;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  /* 125% */
+  letter-spacing: -0.23px;
+}
+
+.class-details-btn {
+  display: flex;
+  height: 44px;
+  min-width: 42px;
+  padding: 12px 14px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex: 1 0 0;
+  border-radius: 12px;
+  opacity: 0.85;
+  background: #191919;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.02), 0px 32px 64px 0px rgba(0, 0, 0, 0.04);
+}
+
+.class-information-btn {
+  display: flex;
+  gap: 10px;
+  /* Optional: Add spacing between the elements */
+  align-items: center;
+  /* Optional: Aligns items vertically */
+  margin-top: 16px;
+}
+
+.class-btn-txt {
+  color: #FFF;
+  text-align: center;
+  font-family: Inter;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  /* 133.333% */
+  letter-spacing: -0.23px;
+}
+
+.participate-btn {
+  display: flex;
+  width: 340px;
+  height: 58px;
+  min-width: 50px;
+  padding: 15px 12px;
+  margin-top: 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  background: #007AFF;
+}
+
+.participate-btn-txt {
+  color: #FFF;
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 22px;
+  /* 137.5% */
+  letter-spacing: -0.4px;
+}
+
+/* Added  from CalendarView*/
+
+.class-card-teacher-details {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background-color: #191919;
+  border-radius: 24px;
+  position: relative;
+  margin-top: 16px;
+}
+
+
+.class-image-teacher-details {
+  width: 90px;
+  height: 90px;
+  margin-right: 1rem;
+  border-radius: 5%;
+  /* Makes it a square */
+  object-fit: cover;
+  object-position: center;
+  /* Centers the rectangle image */
+  display: block;
+}
+
+.class-details-teacher-details {
+  flex-grow: 1;
+}
+
+.class-date-teacher-details {
+  overflow: hidden;
+  color: #A2ACB0;
+  text-overflow: ellipsis;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  /* 157.143% */
+  letter-spacing: 0.15px;
+}
+
+.class-date-price-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+}
+
+.class-title-teacher-details {
+  overflow: hidden;
+  color: #FFF;
+  text-overflow: ellipsis;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 22px;
+  /* 137.5% */
+  letter-spacing: -0.4px;
+}
+
+.class-description-teacher-details {
+  overflow: hidden;
+  color: #707579;
+  text-overflow: ellipsis;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  /* 142.857% */
+  letter-spacing: -0.23px;
+}
