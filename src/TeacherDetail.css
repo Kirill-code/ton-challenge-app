@@ -71,7 +71,6 @@
   padding: 8px 10px 8px 10px;
   gap: 10px;
   border-radius: 100px;
-  opacity: 0px;
   background-color: #191919;
 
 }
@@ -109,4 +108,8 @@
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
   color: #707579;
+}
+.comming-soon{
+  color: #707579;
+  margin-left: 90px;
 }

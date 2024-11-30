@@ -313,8 +313,6 @@ function App({ telegramData }) {
             );
             break;
           case 'teacherDetail':
-            console.log('activeTab:', activeTab);
-            console.log('selectedTeacher:', selectedTeacher);
             headerContent = (
               <header className="header-grid">
                 <div className="back-button" onClick={handleBack}><ArrowLeft /></div>
@@ -341,7 +339,6 @@ function App({ telegramData }) {
           case 'classDetail':
             if (selectedClass) {
               mainContent = (
-
                 <ClassDetail
                   classDetailsItem={selectedClass}
                   onTeacherClick={handleTeacherClick} // Pass the handleTeacherClick function
@@ -363,8 +360,8 @@ function App({ telegramData }) {
             if (selectedChallenge) {
               mainContent = (
                 <div>
-                  <ChallengeDetail challengeDetailsItem={selectedChallenge}/>
-                  
+                  <ChallengeDetail challengeDetailsItem={selectedChallenge} />
+
                 </div>
               );
             } else {

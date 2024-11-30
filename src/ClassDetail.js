@@ -39,9 +39,13 @@ const ClassDetail = ({ classDetailsItem, onTeacherClick  }) => {
 
   const handleTeacherDetailsClick = () => {
     onTeacherClick({
-      title: classDetailsItem.teacherName,
-      description: classDetailsItem.teacherDescription,
-      url: classDetailsItem.teacherImageUrl,
+      sportType:classDetailsItem.sportType,
+      teacherName: classDetailsItem.teacherName,
+      type: classDetailsItem.type, 
+      teacherImageUrl: classDetailsItem.teacherImageUrl,
+      teacherTgUrl: classDetailsItem.teacherTgUrl, 
+      tag: classDetailsItem.tag, 
+      description: classDetailsItem.description
     });
   };
 
@@ -91,11 +95,11 @@ END:VCALENDAR
 
         <div className="class-details-teacher-details" >
           <div className='class-date-price-container'>
-            <p className="class-date-teacher-details">{classDetailsItem.teacherDescription}</p>
+            <p className="class-date-teacher-details">{classDetailsItem.sportType}</p>
 
           </div>
           <h3 className="class-title-teacher-details">{classDetailsItem.teacherName}</h3>
-          <p className="class-description-teacher-details">{classDetailsItem.teacherDescription}</p>
+          <p className="class-description-teacher-details">{classDetailsItem.type}</p>
         </div>
       </div>
       <div className='class-information'>

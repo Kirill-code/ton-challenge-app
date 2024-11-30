@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './TeacherDetail.css';
 
 
-const TeacherDetail = ({ teacherDetail}) => {
+const TeacherDetail = ({ teacherDetail }) => {
 
 
   return (
@@ -28,12 +28,18 @@ const TeacherDetail = ({ teacherDetail}) => {
         <h3 className="section-title">Достижения</h3>
         <a className="see-all" >ВСЕ</a>
       </div>
+      <p className='comming-soon'>Скоро в приложении</p>
+
       <div className="classes-section">
         <h3 className="section-title">КЛАССЫ</h3>
         <a className="see-all" >ВСЕ</a>
+
       </div>
+      <p className='comming-soon'>Скоро в приложении</p>
+
       
-      
+
+
 
     </div>
   );
