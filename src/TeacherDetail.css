@@ -1,0 +1,114 @@
+/*
+ * Copyright © 2024, Kirill Code.
+ * Business Source License 1.1
+ * Change Date: November 23, 2026
+ */
+.class-detail-teacher {
+  width: Fixed (213px)px;
+  height: Hug (226px)px;
+  top: 84px;
+  left: 89px;
+  gap: 16px;
+  opacity: 0px;
+  margin-bottom: 60px;
+}
+
+.class-image-details-teacher {
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+  border-radius: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.class-image-container-teacher {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.teacher-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.class-description-details-teacher {
+  overflow: hidden;
+  color: var(--Native-subtitle_text_color, #707579);
+  text-overflow: ellipsis;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  /* 125% */
+  letter-spacing: -0.23px;
+}
+
+.class-title-details-teacher {
+  overflow: hidden;
+  color: #FFF;
+  text-overflow: ellipsis;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px;
+  /* 125% */
+  letter-spacing: -0.4px;
+  align-items: center !important;
+}
+
+.teacher-tg-container {
+  width: Hug (80px)px;
+  height: Hug (38px)px;
+  padding: 8px 10px 8px 10px;
+  gap: 10px;
+  border-radius: 100px;
+  opacity: 0px;
+  background-color: #191919;
+
+}
+
+.teacher-tg-txt {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0.15000000596046448px;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  text-decoration: none;
+  color: #A2ACB0;
+
+}
+
+.teacher-description-full-container {
+ 
+  padding: 20px;
+  gap: 10px;
+  border-radius: 24px ;
+  opacity: 0px;
+  background-color: #191919;
+
+}
+
+.teacher-description-full {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.23000000417232513px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #707579;
+}

@@ -8,106 +8,100 @@ import "./App.css";
 import { TonConnectButton, useTonWallet, useTonAddress } from '@tonconnect/ui-react';
 import { Home, Grid, Calendar, User, ArrowLeft } from 'lucide-react';
 import ChallengeDetail from './ChallengeDetail';
-import UserProfile from './UserProfile'; // Import UserProfile component
-import CalendarView from './CalendarView'; // Import the CalendarView component
+import UserProfile from './UserProfile';
+import CalendarView from './CalendarView';
 import CardsContainer from './CardsContainer';
 import ClassDetail from './ClassDetail';
+import TeacherView from './TeacherView';
+import TeacherDetail from './TeacherDetail';
 
 
 
-
-// Import data array for cards (if card data is large, you can move it to a separate file)
-const cardDataArray = [
-  { title: "Vladimir Mityukov", link: "https://t.me/yogalizaciya", description: "Yoga teacher of the Iyengar Yoga tradition", imageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' },
-  { title: "Karina Kodak", link: "https://t.me/yogalizaciya", description: "I teach Vajra Yoga...", imageUrl: 'https://storage.yandexcloud.net/start-image/masters/karina.jpg' },
-  { title: "Kirill Ponomarev", link: "https://t.me/yogalizaciya", description: "Vajra Yoga teacher", imageUrl: 'https://storage.yandexcloud.net/start-image/masters/Kirill.jpg' },
-  // ... add more card data as needed
-];
 const teachersList = [
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
-  { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
-  { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
-  { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
-  { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
-  { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
-  { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
-  { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
-  { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
-  { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
-  { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
-  { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" },
-  { date: "Yoga Teacher", title: "Vladimir Mityukov", description: "Iyengar Yoga", url: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg" },
-  { date: "Yoga Teacher", title: "Karina Kodak", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/karina.jpg" },
-  { date: "Yoga Teacher", title: "Kirill Korrektnyi", description: "Vajra Yoga", url: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg" }
+  { sportType: 'Йога мастер', teacherName: "Владимир Митюков", type: "Айенгара йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg", teacherTgUrl: 'https://www.instagram.com/dipika.yoga/', tag: "@dipika.yoga", description:'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)' },
+  { sportType: 'Йога мастер', teacherName: "Ирина Богданова", type: "Ваджра йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/Irina.png", teacherTgUrl: 'https://t.me/healyoga', tag: "@healyoga" , description:'Преподаватель йоги Хиал. При абстрактном мышлении, которое использует практикующий адепт йоги ХиАл, развивается способность выхода за рамки привычной системы координат.  Регулярная практика приводит к способности различать и самому выбирать информацию к применению как на уровне ума, так и применяя к физической своей составляющей.'},
+  { sportType: 'Йога мастер', teacherName: "Кирилл Корректный", type: "Ваджра йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg", teacherTgUrl: 'https://www.instagram.com/kirill_yoga/', tag: "@kirill_yoga", description:'Ищете эффективный и безопасный способ избавиться от болей в спине? Тогда наши совместные занятия — то, что вам нужно! Присоединяйтесь к нам, и всего за 30 минут в день вы забудете о болях в спине и получите удовольствие от занятий!' },
+  { sportType: 'Йога мастер', teacherName: "Карина Кодак", type: "Ваджра йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/karina.jpg", teacherTgUrl: 'https://www.instagram.com/n.o.karma/', tag: "@n.o.karma" , description:'Преподаю Ваджра йогу. Учу работать с телом по методике корректного подхода к позвоночнику и работать с умом через медитацию и пранаяму (технику дыхания).В практике отсутствуют скрутки, повороты, боковые наклоны и глубокие прогибы.'},
+
+
 ];
 
 const shortClasses = [
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/sbts/stab.png", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' 
-   },
-  { date: "Nov 16", title: "Здоровая спина", description: "Improve your well-being in just one week", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/spine.jpg", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' },
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/sbts/stab.png",  teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' }
+  { date: "Nov 16", title: "Групповое занятие", classDescription: "Онлайн-группы соматической терапии", price: "free", imageUrl: "https://storage.yandexcloud.net/start-image/sbts/stab.png", sportType: 'Йога мастер', teacherName: "Владимир Митюков", type: "Айенгара йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg", teacherTgUrl: 'https://www.instagram.com/dipika.yoga/', tag: "@dipika.yoga", description:'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)' },
+  { date: "Nov 16", title: "Здоровая спина", classDescription: "Улучшите свое самочувствие всего за одну неделю", price: "10 USDT", imageUrl: "https://storage.yandexcloud.net/start-image/spine.jpg",sportType: 'Йога мастер', teacherName: "Владимир Митюков", type: "Айенгара йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg", teacherTgUrl: 'https://www.instagram.com/dipika.yoga/', tag: "@dipika.yoga", description:'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)' },
+  { date: "Nov 16", title: "Групповое занятие", classDescription: "Онлайн-группы соматической терапии", price: "free", imageUrl: "https://storage.yandexcloud.net/start-image/sbts/stab.png", sportType: 'Йога мастер', teacherName: "Владимир Митюков", type: "Айенгара йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg", teacherTgUrl: 'https://www.instagram.com/dipika.yoga/', tag: "@dipika.yoga", description:'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)' }
 ];
 
 const longClasses = [
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/sbts/stab.png", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg'},
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/spine.jpg", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' },
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/sbts/stab.png", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' },
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/sbts/stab.png", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' },
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/spine.jpg", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' },
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/sbts/stab.png", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' },
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/sbts/stab.png" , teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg'},
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "10 USDT", url: "https://storage.yandexcloud.net/start-image/sbts/stab.png", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' },
-  { date: "Nov 16", title: "Ktutoe nazvanie", description: "Online somatic therapy groups", price: "free", url: "https://storage.yandexcloud.net/start-image/sbts/stab.png", teacherName: "Vladimir Mityukov", teacherDescription: "Yoga teacher of the Iyengar Yoga tradition", teacherImageUrl: 'https://storage.yandexcloud.net/start-image/masters/volodya.jpg' }
+  { date: "Nov 16", title: "Групповое занятие", classDescription: "Онлайн-группы соматической терапии", price: "free", imageUrl: "https://storage.yandexcloud.net/start-image/sbts/stab.png", sportType: 'Йога мастер', teacherName: "Владимир Митюков", type: "Айенгара йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg", teacherTgUrl: 'https://www.instagram.com/dipika.yoga/', tag: "@dipika.yoga", description:'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)' },
+  { date: "Nov 16", title: "Здоровая спина", classDescription: "Улучшите свое самочувствие всего за одну неделю", price: "10 USDT", imageUrl: "https://storage.yandexcloud.net/start-image/spine.jpg",sportType: 'Йога мастер', teacherName: "Владимир Митюков", type: "Айенгара йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg", teacherTgUrl: 'https://www.instagram.com/dipika.yoga/', tag: "@dipika.yoga", description:'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)' },
+  { date: "Nov 16", title: "Групповое занятие", classDescription: "Онлайн-группы соматической терапии", price: "free", imageUrl: "https://storage.yandexcloud.net/start-image/sbts/stab.png", sportType: 'Йога мастер', teacherName: "Владимир Митюков", type: "Айенгара йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg", teacherTgUrl: 'https://www.instagram.com/dipika.yoga/', tag: "@dipika.yoga", description:'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)' },
+  { date: "Nov 16", title: "Групповое занятие", classDescription: "Онлайн-группы соматической терапии", price: "free", imageUrl: "https://storage.yandexcloud.net/start-image/sbts/stab.png", sportType: 'Йога мастер', teacherName: "Владимир Митюков", type: "Айенгара йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg", teacherTgUrl: 'https://www.instagram.com/dipika.yoga/', tag: "@dipika.yoga", description:'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)' },
+  { date: "Nov 16", title: "Здоровая спина", classDescription: "Улучшите свое самочувствие всего за одну неделю", price: "10 USDT", imageUrl: "https://storage.yandexcloud.net/start-image/spine.jpg",sportType: 'Йога мастер', teacherName: "Владимир Митюков", type: "Айенгара йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg", teacherTgUrl: 'https://www.instagram.com/dipika.yoga/', tag: "@dipika.yoga", description:'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)' },
+  { date: "Nov 16", title: "Групповое занятие", classDescription: "Онлайн-группы соматической терапии", price: "free", imageUrl: "https://storage.yandexcloud.net/start-image/sbts/stab.png", sportType: 'Йога мастер', teacherName: "Владимир Митюков", type: "Айенгара йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg", teacherTgUrl: 'https://www.instagram.com/dipika.yoga/', tag: "@dipika.yoga", description:'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)' },
+  { date: "Nov 16", title: "Групповое занятие", classDescription: "Онлайн-группы соматической терапии", price: "free", imageUrl: "https://storage.yandexcloud.net/start-image/sbts/stab.png", sportType: 'Йога мастер', teacherName: "Владимир Митюков", type: "Айенгара йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg", teacherTgUrl: 'https://www.instagram.com/dipika.yoga/', tag: "@dipika.yoga", description:'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)' },
+  { date: "Nov 16", title: "Здоровая спина", classDescription: "Улучшите свое самочувствие всего за одну неделю", price: "10 USDT", imageUrl: "https://storage.yandexcloud.net/start-image/spine.jpg",sportType: 'Йога мастер', teacherName: "Владимир Митюков", type: "Айенгара йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg", teacherTgUrl: 'https://www.instagram.com/dipika.yoga/', tag: "@dipika.yoga", description:'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)' },
+  { date: "Nov 16", title: "Групповое занятие", classDescription: "Онлайн-группы соматической терапии", price: "free", imageUrl: "https://storage.yandexcloud.net/start-image/sbts/stab.png", sportType: 'Йога мастер', teacherName: "Владимир Митюков", type: "Айенгара йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg", teacherTgUrl: 'https://www.instagram.com/dipika.yoga/', tag: "@dipika.yoga", description:'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)' }
 ];
 
-function App() {
+function App({ telegramData }) {
+  const mockTelegramData = {
+    user: {
+      id: "123456",
+      first_name: "Mock",
+      last_name: "User",
+      username: "mockuser"
+    }
+  };
+
+  // Assign telegramData to mock data if not provided
+  telegramData = telegramData && telegramData.user ? telegramData : mockTelegramData;
+
+
+  // Move all hooks to the top level of the component
   const [currentDate, setCurrentDate] = useState("");
   const [activeTab, setActiveTab] = useState('home');
   const [selectedChallenge, setSelectedChallenge] = useState(null);
-  const [selectedClass, setSelectedClass] = useState(null); // New state for selected class
+  const [selectedClass, setSelectedClass] = useState(null);
+  const [selectedTeacher, setSelectedTeacher] = useState(null);
 
   const wallet = useTonWallet();
   const rawAddress = useTonAddress();
 
+  useEffect(() => {
+    const today = new Date();
+    const options = { day: '2-digit', month: 'long' };
+    setCurrentDate(today.toLocaleDateString("en-GB", options));
+    // Notify Telegram that the web app is ready
+
+    window.scrollTo(0, 0);
+
+  }, [activeTab]);
+  // Early return if telegramData is not available
+  if (!telegramData || !telegramData.user) {
+    return <div>Failed to load Telegram data. Please reload the app.</div>;
+  }
+
+  const { id, first_name, last_name, username } = telegramData.user;
+
   const mainCardsArray = [
     {
-      title: "7 Days to Harmony",
-      description: "Improve your well-being in one week",
+      title: "7 дней гармонии",
+      description: "Улучшите свое самочувствие всего за одну неделю",
       type: "Yoga",
       imageUrl: "https://storage.yandexcloud.net/start-image/sbts/yoga.png",
       wallet_address: rawAddress,
     },
     {
-      title: "Cycling Adventure",
-      description: "Discover new horizons on two wheels",
+      title: "Вело приключение",
+      description: "Откройте для себя новые горизонты на двух колесах",
       type: "Bike",
       imageUrl: "https://storage.yandexcloud.net/start-image/sbts/bike.png",
       wallet_address: rawAddress,
     },
     {
-      title: "Run to your goal",
-      description: "Discover new horizons on two wheels",
+      title: "Беги к своей цели",
+      description: "Покажи всем на сколько ты хорош в беге",
       type: "Run",
       imageUrl: "https://storage.yandexcloud.net/start-image/sbts/run.png",
       wallet_address: rawAddress,
@@ -162,22 +156,7 @@ function App() {
     },
   ];
 
-  useEffect(() => {
-    const today = new Date();
-    const options = { day: '2-digit', month: 'long' };
-    setCurrentDate(today.toLocaleDateString("en-GB", options));
 
-    if (window.Telegram && window.Telegram.WebApp) {
-      // Ensure the WebApp is ready before calling disableVerticalSwipes
-      window.Telegram.WebApp.ready(() => {
-        console.log('Telegram WebApp is ready');
-        window.Telegram.WebApp.disableVerticalSwipes();
-        console.log('Vertical swipes disabled');
-      });
-    } else {
-      console.warn('Telegram WebApp is not available');
-    }
-  }, []);
 
   const handleCardClick = (card) => {
     setSelectedChallenge(card);
@@ -188,7 +167,10 @@ function App() {
     setSelectedClass(classItem);
     setActiveTab('classDetail');
   };
-
+  const handleTeacherClick = (classItem) => {
+    setSelectedTeacher(classItem);
+    setActiveTab('teacherDetail');
+  };
 
   let isComeFromHome = true;
   const handleBack = () => {
@@ -202,12 +184,6 @@ function App() {
   };
 
 
-  const CalendarViewTeachers = () => (
-    <div>
-      <h2 className="header-title">Teachers</h2>
-      {/* <VerticalCardList cardsData={teachers} /> */}
-    </div>
-  );
 
   const SliderToggle = () => {
     const [activeTab, setActiveTab] = useState('All');
@@ -223,42 +199,42 @@ function App() {
             className={`toggle-button ${activeTab === 'All' ? 'active' : ''}`}
             onClick={() => handleToggle('All')}
           >
-            All
+            Все
           </button>
           <button
             className={`toggle-button ${activeTab === 'Quest Log' ? 'active' : ''}`}
             onClick={() => handleToggle('Quest Log')}
           >
-            Quest Log
+            Участвую
           </button>
         </div>
         <div className="slider-content">
           {activeTab === 'All' && <div>
-            <h3 className="section-title">YOGA</h3>
+            <h3 className="section-title">ЙОГА</h3>
 
             <CardsContainer
               cardsData={mainCardsArray}
               handleCardClick={handleCardClick}
             />
-            <h3 className="section-title">BICYCLE</h3>
+            <h3 className="section-title">ВЕЛО</h3>
 
             <CardsContainer
               cardsData={bikeCardsArray}
               handleCardClick={handleCardClick}
             />
-            <h3 className="section-title">BICYCLE</h3>
+            <h3 className="section-title">ВЕЛО</h3>
 
             <CardsContainer
               cardsData={runCardsArray}
               handleCardClick={handleCardClick}
             />
-            <h3 className="section-title">BICYCLE</h3>
+            <h3 className="section-title">ВЕЛО</h3>
 
             <CardsContainer
               cardsData={mainCardsArray}
               handleCardClick={handleCardClick}
             /></div>}
-          {activeTab === 'Quest Log' && <div>Showing quest log content...</div>}
+          {activeTab === 'Quest Log' && <div>Тут будут ваши челенджи...</div>}
         </div>
       </div>
     );
@@ -280,13 +256,13 @@ function App() {
             className={`toggle-button ${activeTab === 'Classes' ? 'active' : ''}`}
             onClick={() => handleToggle('Classes')}
           >
-            Classes
+            Мероприятия
           </button>
           <button
             className={`toggle-button ${activeTab === 'Teachers' ? 'active' : ''}`}
             onClick={() => handleToggle('Teachers')}
           >
-            Teachers
+            Преподаватели
           </button>
         </div>
         <div className="content">
@@ -296,8 +272,8 @@ function App() {
                 classesData={longClasses} onClassClick={handleClassClick} />
             </div>}
           {activeTab === 'Teachers' &&
-            <div><CalendarView
-              classesData={teachersList} onClassClick={handleClassClick} />
+            <div><TeacherView
+              classesData={teachersList} onClassClick={handleTeacherClick} />
             </div>}
         </div>
       </div>
@@ -313,7 +289,7 @@ function App() {
           case 'home':
             headerContent = (
               <header className="header">
-                <h1>Challenge</h1>
+                <h1>Челленджи</h1>
                 <p className="date">{currentDate}</p>
               </header>
             );
@@ -323,7 +299,7 @@ function App() {
               headerContent = (
                 <header className="header-grid">
                   <div className="back-button" onClick={handleBack}><ArrowLeft /></div>
-                  <h2 className="header-title">Challenge</h2>
+                  <h2 className="header-title-challenge">Челлендж</h2>
                 </header>
               );
             }
@@ -332,7 +308,15 @@ function App() {
             headerContent = (
               <header className="header-grid">
                 <div className="back-button" onClick={handleBack}><ArrowLeft /></div>
-                <h2 className="header-title">{activeTab === 'classDetail' ? 'Class Details' : 'Challenge'}</h2>
+                <h2 className="header-title">{activeTab === 'classDetail' ? 'Детали класса' : 'Челленджи'}</h2>
+              </header>
+            );
+            break;
+          case 'teacherDetail':
+            headerContent = (
+              <header className="header-grid">
+                <div className="back-button" onClick={handleBack}><ArrowLeft /></div>
+                <h2 className="header-title">{activeTab === 'teacherDetail' ? '' : 'Челленджи'}</h2>
               </header>
             );
             break;
@@ -355,16 +339,32 @@ function App() {
           case 'classDetail':
             if (selectedClass) {
               mainContent = (
-            
+
                 <ClassDetail
-                  imageUrl={selectedClass.url}
-                  title={selectedClass.title}
-                  description={selectedClass.description}
-                  date={selectedClass.date}
-                  price={selectedClass.price} 
-                    teacherName={selectedClass.teacherName} 
-                    teacherDescription={selectedClass.teacherDescription} 
-                    teacherImageUrl={selectedClass.teacherImageUrl} />
+                  classDetailsItem={selectedClass}                
+                  onTeacherClick={handleTeacherClick} // Pass the handleTeacherClick function
+                />
+              );
+            }
+            break;
+          case 'teacherDetail':
+            if (selectedTeacher) {
+              mainContent = (
+
+                <TeacherDetail
+                teacherDetail={selectedTeacher}
+                  // imageUrl={selectedTeacher.url}
+                  // title={selectedTeacher.title}
+                  // description={selectedTeacher.description}
+                  // date={selectedTeacher.date}
+                  // price={selectedTeacher.price}
+                  // type={selectedTeacher.type}
+                  // teacherName={selectedTeacher.teacherName}
+                  // teacherDescription={selectedTeacher.teacherDescription}
+                  // teacherImageUrl={selectedTeacher.teacherImageUrl}
+                  // teacherTgUrl={selectedTeacher.teacherTgUrl}
+                  // tag={selectedTeacher.tag}
+                />
               );
             }
             break;
@@ -373,12 +373,13 @@ function App() {
               mainContent = (
                 <div>
                   <ChallengeDetail
-                    imageUrl={selectedChallenge.imageUrl}
-                    type={selectedChallenge.type}
-                    title={selectedChallenge.title}
-                    description={selectedChallenge.description}
-                    onBack={handleBack}
-                    
+                  challengeDetailsItem={selectedChallenge}
+                    // imageUrl={selectedChallenge.imageUrl}
+                    // type={selectedChallenge.type}
+                    // title={selectedChallenge.title}
+                    // description={selectedChallenge.description}
+                    // onBack={handleBack}
+
                   />
                   {/* <CalendarView classesData={shortClasses} /> */}
                 </div>
@@ -397,10 +398,8 @@ function App() {
               <div>
                 {!wallet && (
                   <div className="notification">
-                    <p className="notification-title">Introducing TON Space</p>
-                    <p className="notification-subtitle">
-                      To use the app, connect your wallet
-                    </p>
+                    <p className="notification-title">Подключите TON кошелек</p>
+                    <p className="notification-subtitle">Приложение будет работать лучше</p>
                     <div className="wallet-connect">
                       <TonConnectButton />
                     </div>
@@ -411,8 +410,8 @@ function App() {
                   handleCardClick={handleCardClick}
                 />
                 <div className="classes-section">
-                  <h3 className="section-title">CLASSES</h3>
-                  <a className="see-all" onClick={() => setActiveTab('calendar')}>See all</a>
+                  <h3 className="section-title">КЛАССЫ</h3>
+                  <a className="see-all" onClick={() => setActiveTab('calendar')}>ВСЕ</a>
                 </div>
                 <CalendarView classesData={shortClasses} onClassClick={handleClassClick} />
               </div>

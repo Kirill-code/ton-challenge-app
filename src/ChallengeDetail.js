@@ -10,7 +10,7 @@ import { ReactComponent as HeartIcon } from '../src/assets/heart.svg';
 import { ReactComponent as VideoIcon } from '../src/assets/video.svg';
 
 
-const ChallengeDetail = ({ imageUrl, title, description, type, onBack, wallet_address }) => {
+const ChallengeDetail = ({ challengeDetailsItem }) => {
   const [showVideo, setShowVideo] = useState(false);
   const [progressFilled, setProgressFilled] = useState(false); // State to track progress fill
 
@@ -29,7 +29,7 @@ const ChallengeDetail = ({ imageUrl, title, description, type, onBack, wallet_ad
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          user_id: wallet_address,
+          user_id: challengeDetailsItem.wallet_address,
           event_name: 'Breathing Practice',
           event_id: 'task_1',
           status: 'run',
@@ -53,12 +53,12 @@ const ChallengeDetail = ({ imageUrl, title, description, type, onBack, wallet_ad
     <div className="challenge-detail">
       <div className="image-container">
 
-        <img src={imageUrl} alt="Challenge!" className="challenge-image" />
-        <div className="card-tag-details">{type}</div>
+        <img src={challengeDetailsItem.imageUrl} alt="Challenge!" className="challenge-image" />
+        <div className="card-tag-details">{challengeDetailsItem.type}</div>
       </div>
-      <p className="challenge-title-details">{title}</p>
+      <p className="challenge-title-details">{challengeDetailsItem.title}</p>
 
-      <p className="challenge-description">{description}</p>
+      <p className="challenge-description">{challengeDetailsItem.description}</p>
 
       <div className='challenge-progress'>
         <div className='challenge-progress-filled'style={{

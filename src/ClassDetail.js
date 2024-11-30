@@ -7,7 +7,7 @@ import { ReactComponent as Money } from '../src/assets/money.svg';
 import { ReactComponent as Share } from '../src/assets/share.svg';
 import { ReactComponent as Calendar } from '../src/assets/calendar.svg';
 
-const ClassDetail = ({ imageUrl, title, description, type, date, wallet_address, price, teacherName, teacherDescription, teacherImageUrl }) => {
+const ClassDetail = ({ classDetailsItem, onTeacherClick  }) => {
   const [showVideo, setShowVideo] = useState(false);
   const [progressFilled, setProgressFilled] = useState(false); // State to track progress fill
 
@@ -19,8 +19,8 @@ const ClassDetail = ({ imageUrl, title, description, type, date, wallet_address,
   // Function to handle Share button click
   const handleShareClick = async () => {
     const shareData = {
-      title: `Join ${title}`,
-      text: `Check out this class: ${title} by ${teacherName}. ${description}`,
+      title: `Join ${classDetailsItem.title}`,
+      text: `Check out this class: ${classDetailsItem.title} by ${classDetailsItem.teacherName}. ${classDetailsItem.description}`,
       url: window.location.href,
     };
 
@@ -32,28 +32,36 @@ const ClassDetail = ({ imageUrl, title, description, type, date, wallet_address,
         console.error('Error sharing:', error);
       }
     } else {
-      navigator.clipboard.writeText(`${title} - ${description} \n${window.location.href}`);
+      navigator.clipboard.writeText(`${classDetailsItem.title} - ${classDetailsItem.description} \n${window.location.href}`);
       alert('Link copied to clipboard');
     }
+  };
+
+  const handleTeacherDetailsClick = () => {
+    onTeacherClick({
+      title: classDetailsItem.teacherName,
+      description: classDetailsItem.teacherDescription,
+      url: classDetailsItem.teacherImageUrl,
+    });
   };
 
   // Function to handle Add to Calendar button click
   const handleAddToCalendarClick = () => {
     // Define the event details for the .ics file
-    const eventStartDate = new Date(date).toISOString().replace(/-|:|\.\d+/g, ""); // Convert the date to UTC format (YYYYMMDDTHHMMSSZ)
-    const eventEndDate = new Date(new Date(date).getTime() + 60 * 60 * 1000).toISOString().replace(/-|:|\.\d+/g, ""); // 1 hour after start date
+    const eventStartDate = new Date(classDetailsItem.date).toISOString().replace(/-|:|\.\d+/g, ""); // Convert the date to UTC format (YYYYMMDDTHHMMSSZ)
+    const eventEndDate = new Date(new Date(classDetailsItem.date).getTime() + 60 * 60 * 1000).toISOString().replace(/-|:|\.\d+/g, ""); // 1 hour after start date
 
     const icsContent = `
 BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Your Company//Class Detail//EN
 BEGIN:VEVENT
-UID:${Date.now()}@yourcompany.com
+UID:${Date.now()}arangjo@post.com
 DTSTAMP:${eventStartDate}Z
 DTSTART:${eventStartDate}Z
 DTEND:${eventEndDate}Z
-SUMMARY:${title}
-DESCRIPTION:${description}
+SUMMARY:${classDetailsItem.title}
+DESCRIPTION:${classDetailsItem.description}
 LOCATION:Online
 END:VEVENT
 END:VCALENDAR
@@ -63,7 +71,7 @@ END:VCALENDAR
     const blob = new Blob([icsContent], { type: 'text/calendar' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = `${title.replace(/\s+/g, '_')}.ics`;
+    link.download = `${classDetailsItem.title.replace(/\s+/g, '_')}.ics`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -72,35 +80,35 @@ END:VCALENDAR
   return (
     <div className="class-detail">
       <div className="class-image-container">
-        <img src={imageUrl} alt="ClassImage" className="class-image-details" />
+        <img src={classDetailsItem.imageUrl} alt="ClassImage" className="class-image-details" />
       </div>
-      <p className="class-title-details">{title}</p>
+      <p className="class-title-details">{classDetailsItem.title}</p>
 
-      <p className="class-description-details">{description}</p>
+      <p className="class-description-details">{classDetailsItem.classDescription}</p>
       {/* MASTER DETAILS */}
-      <div className="class-card-teacher-details" >
-        <img src={teacherImageUrl} className="class-image-teacher-details" />
+      <div className="class-card-teacher-details" onClick={handleTeacherDetailsClick} >
+        <img src={classDetailsItem.teacherImageUrl} className="class-image-teacher-details" />
 
-        <div className="class-details-teacher-details">
+        <div className="class-details-teacher-details" >
           <div className='class-date-price-container'>
-            <p className="class-date-teacher-details">{teacherDescription.split(' ').slice(0, 2).join(' ')}</p>
+            <p className="class-date-teacher-details">{classDetailsItem.teacherDescription}</p>
 
           </div>
-          <h3 className="class-title-teacher-details">{teacherName}</h3>
-          <p className="class-description-teacher-details">{teacherDescription.split(' ').slice(2).join(' ')}</p>
+          <h3 className="class-title-teacher-details">{classDetailsItem.teacherName}</h3>
+          <p className="class-description-teacher-details">{classDetailsItem.teacherDescription}</p>
         </div>
       </div>
       <div className='class-information'>
         <div className='class-line'><Pin/><p>Online</p></div>
-        <div className='class-line'><Clock/><p>{date}</p></div>
-        <div className='class-line'><Money/><p>{price}</p></div>
+        <div className='class-line'><Clock/><p>{classDetailsItem.date}</p></div>
+        <div className='class-line'><Money/><p>{classDetailsItem.price}</p></div>
       </div>
       <div className='class-information-btn'>
         <div className='class-details-btn' onClick={handleShareClick}><Share/><p className='class-btn-txt'>Share Class</p></div>
         <div className='class-details-btn' onClick={handleAddToCalendarClick}><Calendar/><p className='class-btn-txt'>Add to Calendar</p></div>
       </div>
       <div className='participate-btn' onClick={handleParticipateClick}>
-        <p className='participate-btn-txt'>Participate</p>
+        <p className='participate-btn-txt'>Участвую</p>
       </div>
     </div>
   );

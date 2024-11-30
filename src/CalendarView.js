@@ -11,10 +11,10 @@ const CalendarView = ({ classesData, onClassClick }) => {
     <div className="calendar-view">
       {classesData.map((classItem, index) => (
         <div key={index} className="class-card" onClick={() => onClassClick(classItem)}>
-          <img src={classItem.url} alt="Class" className="class-image" />
+          <img src={classItem.imageUrl} alt="Class" className="class-image" />
           <div className="class-details">
             <div className='class-date-price-container'>
-              <p className="class-date">{classItem.date} · Online</p>
+              <p className="class-date">{classItem.date} · Онлайн</p>
               <div className="class-price">
                 {classItem.price === "free" ? (
                   <span className="price-free">{classItem.price}</span>
@@ -24,7 +24,7 @@ const CalendarView = ({ classesData, onClassClick }) => {
               </div>
             </div>
             <h3 className="class-title">{classItem.title}</h3>
-            <p className="class-description">{classItem.description}</p>
+            <p className="class-description">{classItem.classDescription}</p>
           </div>
         </div>
       ))}
