@@ -9,7 +9,6 @@
   top: 84px;
   left: 89px;
   gap: 16px;
-  opacity: 0px;
   margin-bottom: 60px;
 }
 
@@ -96,7 +95,6 @@
   padding: 20px;
   gap: 10px;
   border-radius: 24px ;
-  opacity: 0px;
   background-color: #191919;
 
 }
