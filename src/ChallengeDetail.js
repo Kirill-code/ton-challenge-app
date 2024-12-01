@@ -1,25 +1,29 @@
-/*
- * Copyright © 2024, Kirill Code.
- * Business Source License 1.1
- * Change Date: November 23, 2026
- */
 import React, { useState } from 'react';
 import YouTube from 'react-youtube';
 import './ChallengeDetail.css';
-import { ReactComponent as HeartIcon } from '../src/assets/heart.svg';
-import { ReactComponent as VideoIcon } from '../src/assets/video.svg';
 
+const ChallengeDetail = ({ challengeDetailsItem, id, username }) => {
+  const [activeTaskIndex, setActiveTaskIndex] = useState(null);
+  const [progressFilled, setProgressFilled] = useState(false);
 
-const ChallengeDetail = ({ challengeDetailsItem }) => {
-  const [showVideo, setShowVideo] = useState(false);
-  const [progressFilled, setProgressFilled] = useState(false); // State to track progress fill
+  const videoOptions = {
+    height: '390',
+    width: '100%',
+    playerVars: {
+      autoplay: 0,
+      controls: 0,
+      disablekb: 1,
+      fs: 0,
+      modestbranding: 1,
+      rel: 0,
+      showinfo: 0,
+      iv_load_policy: 3,
+    },
+  };
 
-
-  // Function to handle task click and make API call
-  const handleTaskClick = async () => {
+  const handleTaskClick = async (index) => {
     try {
-      // Trigger the video display
-      setShowVideo(true);
+      setActiveTaskIndex(index);
       setProgressFilled(true);
 
       // API call to log the event
@@ -29,11 +33,12 @@ const ChallengeDetail = ({ challengeDetailsItem }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          user_id: challengeDetailsItem.wallet_address,
-          event_name: 'Breathing Practice',
-          event_id: 'task_1',
+          user_id: id,
+          event_name: challengeDetailsItem.title + " " + challengeDetailsItem.date,
+          event_id: `task_${index + 1}`, // Updated to include task index
           status: 'run',
           user_wallet: '123',
+          username: username,
         }),
       });
 
@@ -52,7 +57,6 @@ const ChallengeDetail = ({ challengeDetailsItem }) => {
   return (
     <div className="challenge-detail">
       <div className="image-container">
-
         <img src={challengeDetailsItem.imageUrl} alt="Challenge!" className="challenge-image" />
         <div className="card-tag-details">{challengeDetailsItem.type}</div>
       </div>
@@ -61,52 +65,43 @@ const ChallengeDetail = ({ challengeDetailsItem }) => {
       <p className="challenge-description">{challengeDetailsItem.description}</p>
 
       <div className='challenge-progress'>
-        <div className='challenge-progress-filled'style={{
+        <div className='challenge-progress-filled' style={{
           backgroundColor: progressFilled ? '#007AFF' : '191919',
-          height: '16px',  // Example height for visualization
-          width: progressFilled ? '50%' : '100%', // Fill half width on click
-
-          transition: 'background-color 0.5s ease', // Add a smooth transition effect
+          height: '16px',
+          width: progressFilled ? '50%' : '100%',
+          transition: 'background-color 0.5s ease',
         }}></div>
       </div>
-      <h3 className="section-title">TASKS</h3>
+      <h3 className="section-title">Задания</h3>
 
       <div className="tasks">
-
-        <div className="card-task" onClick={handleTaskClick}>
-          <div className='card-task-inner'>
-            <div className="card-icon-task">
-              <HeartIcon />
-            </div>
-            <div className="card-content-task">
-              <p className="card-title-task">Дыхательная практика</p>
-              <p className="card-subtitle-task">5 минут медитации</p>
-            </div>
-          </div>
-        </div>
-
-
-        <div className="card-task" onClick={handleTaskClick}>
-          <div className='card-task-inner'>
-            <div className="card-icon-task">
-              <VideoIcon />
-            </div>
-            <div className="card-content-task">
-              <p className="card-title-task">Онлайн-занятие</p>
-              <p className="card-subtitle-task">Обучение базовой асаны</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Conditionally render the YouTube video */}
-      {showVideo && (
-        <div className="video-container">
-          <YouTube videoId="5HlDIxNy5gs" opts={{ width: '100%', height: '390' }} />
-        </div>
-      )}
+        {challengeDetailsItem.tasks && challengeDetailsItem.tasks.length > 0 ? (
+          challengeDetailsItem.tasks.map((itemTask, index) => (
+            itemTask ? (
+              <div key={index} className="card-task">
+                <div className='card-task-inner' onClick={() => handleTaskClick(index)}>
+                  <div className="card-icon-task">
+                    <img src={itemTask.taskImgURL} alt="Challenge!" />
+                  </div>
+                  <div className="card-content-task">
+                    <p className="card-title-task">{itemTask.taskName}</p>
+                    <p className="card-subtitle-task">{itemTask.taskDescription}</p>
+                  </div>
+                </div>
+                {
+                activeTaskIndex === index && (
+                  <div className="video-container">
+                    <YouTube videoId={itemTask.videoId} opts={videoOptions} />
+                  </div>
+                )}
+              </div>
+            ) : null
+          ))
+        ) : (
+          <p className="no-tasks-message">Скоро в приложении</p>
+        )
+        }
       </div>
-
-      
     </div>
   );
 };

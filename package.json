@@ -1,8 +1,8 @@
 {
   "name": "ton-challenge-app",
-  "version": "0.1.5",
+  "version": "1.1.0",
   "private": true,
-  "main":"src/index.js",
+  "main": "src/index.js",
   "homepage": "https://kirill-code.github.io/ton-challenge-app",
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -13,6 +13,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@tonconnect/ui-react": "^2.0.9",
+    "@tonsolutions/telemetree-react": "^1.1.11",
     "@twa-dev/sdk": "^7.10.1",
     "lucide-react": "^0.456.0",
     "react": "^18.3.1",

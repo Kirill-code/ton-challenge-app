@@ -14,7 +14,7 @@ const CalendarView = ({ classesData, onClassClick }) => {
           <img src={classItem.imageUrl} alt="Class" className="class-image" />
           <div className="class-details">
             <div className='class-date-price-container'>
-              <p className="class-date">{classItem.date} · Онлайн</p>
+              <p className="class-date">{classItem.date.substring(0, 10)} · Онлайн</p>
               <div className="class-price">
                 {classItem.price === "free" ? (
                   <span className="price-free">{classItem.price}</span>
@@ -24,7 +24,7 @@ const CalendarView = ({ classesData, onClassClick }) => {
               </div>
             </div>
             <h3 className="class-title">{classItem.title}</h3>
-            <p className="class-description">{classItem.classDescription}</p>
+            <p className="class-description">{classItem.shortDescription}</p>
           </div>
         </div>
       ))}

@@ -37,16 +37,25 @@ const UserProfile = () => {
             <div className="wallet-connect-profile">
               <TonConnectButton />
             </div>
+            <div className='container-support'>
+          <a className='teacher-tg-txt' href="https://t.me/ArandjoBot">Поддержка</a>
+        </div>
           </div>
         </>
-      ) : (
+      ) : (<div>
         <div className="profile-not-connected">
           <h2>Connect Wallet</h2>
           <p>Please connect your wallet to view profile</p>
           <div className="wallet-connect-profile">
             <TonConnectButton />
           </div>
+
         </div>
+        <div className='container-support'>
+          <a className='teacher-tg-txt' href="https://t.me/ArandjoBot">Поддержка</a>
+        </div>
+      </div>
+
       )}
     </div>
   );

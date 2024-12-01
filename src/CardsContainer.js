@@ -15,7 +15,7 @@ function CardsContainer({ cardsData, handleCardClick }) {
             className="card-image"
             style={{
               backgroundImage: `url(${card.imageUrl})`,
-              backgroundSize: '60%', // or 'auto' if you want the original size
+              backgroundSize: '80%', // or 'auto' if you want the original size
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
             }}

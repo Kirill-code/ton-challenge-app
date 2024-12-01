@@ -7,13 +7,45 @@ import { ReactComponent as Money } from '../src/assets/money.svg';
 import { ReactComponent as Share } from '../src/assets/share.svg';
 import { ReactComponent as Calendar } from '../src/assets/calendar.svg';
 
-const ClassDetail = ({ classDetailsItem, onTeacherClick  }) => {
+const ClassDetail = ({ classDetailsItem, onTeacherClick, id, username }) => {
   const [showVideo, setShowVideo] = useState(false);
   const [progressFilled, setProgressFilled] = useState(false); // State to track progress fill
 
   // Function to handle Participate button click
-  const handleParticipateClick = () => {
-    alert('Master will contact you soon');
+  const handleParticipateClick = async () => {
+    try {
+      // Trigger the video display
+      setShowVideo(true);
+      setProgressFilled(true);
+
+      // API call to log the event
+      const response = await fetch('https://d5daginsfb4svds4mjjs.apigw.yandexcloud.net/event', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: id,
+          event_name: classDetailsItem.date+" "+classDetailsItem.title,
+          event_id: classDetailsItem.title,
+          status: 'run',
+          user_wallet: '123',
+          username: username
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('API Response:', data);
+
+    } catch (error) {
+      console.error('API call error:', error);
+    }
+
+    alert('Преподаватель скоро свяжется с Вами. Пишите в бот @ArandjoBot в случае каких-либо проблем.');
   };
 
   // Function to handle Share button click
@@ -39,12 +71,12 @@ const ClassDetail = ({ classDetailsItem, onTeacherClick  }) => {
 
   const handleTeacherDetailsClick = () => {
     onTeacherClick({
-      sportType:classDetailsItem.sportType,
+      sportType: classDetailsItem.sportType,
       teacherName: classDetailsItem.teacherName,
-      type: classDetailsItem.type, 
+      type: classDetailsItem.type,
       teacherImageUrl: classDetailsItem.teacherImageUrl,
-      teacherTgUrl: classDetailsItem.teacherTgUrl, 
-      tag: classDetailsItem.tag, 
+      teacherTgUrl: classDetailsItem.teacherTgUrl,
+      tag: classDetailsItem.tag,
       description: classDetailsItem.description
     });
   };
@@ -103,14 +135,14 @@ END:VCALENDAR
         </div>
       </div>
       <div className='class-information'>
-        <div className='class-line'><Pin/><p>Online</p></div>
-        <div className='class-line'><Clock/><p>{classDetailsItem.date}</p></div>
-        <div className='class-line'><Money/><p>{classDetailsItem.price}</p></div>
+        <div className='class-line'><Pin /><p>Online</p></div>
+        <div className='class-line'><Clock /><p>{classDetailsItem.date}</p></div>
+        <div className='class-line'><Money /><p>{classDetailsItem.price}</p></div>
       </div>
-      <div className='class-information-btn'>
+      {/* <div className='class-information-btn'>
         <div className='class-details-btn' onClick={handleShareClick}><Share/><p className='class-btn-txt'>Share Class</p></div>
         <div className='class-details-btn' onClick={handleAddToCalendarClick}><Calendar/><p className='class-btn-txt'>Add to Calendar</p></div>
-      </div>
+      </div> */}
       <div className='participate-btn' onClick={handleParticipateClick}>
         <p className='participate-btn-txt'>Участвую</p>
       </div>
