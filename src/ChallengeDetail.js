@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import YouTube from 'react-youtube';
 import './ChallengeDetail.css';
+import API_CONFIG from './config'; // Import the config
 
 const ChallengeDetail = ({ challengeDetailsItem, id, username }) => {
   const [activeTaskIndex, setActiveTaskIndex] = useState(null);
@@ -27,7 +28,7 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username }) => {
       setProgressFilled(true);
 
       // API call to log the event
-      const response = await fetch('https://d5daginsfb4svds4mjjs.apigw.yandexcloud.net/event', {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/event`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

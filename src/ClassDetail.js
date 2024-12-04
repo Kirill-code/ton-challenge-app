@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import YouTube from 'react-youtube';
+// import YouTube from 'react-youtube';
 import './ClassDetail.css';
 import { ReactComponent as Pin } from '../src/assets/pin.svg';
 import { ReactComponent as Clock } from '../src/assets/clock.svg';
 import { ReactComponent as Money } from '../src/assets/money.svg';
-import { ReactComponent as Share } from '../src/assets/share.svg';
-import { ReactComponent as Calendar } from '../src/assets/calendar.svg';
+import API_CONFIG from './config'; // Import the config
+
+// import { ReactComponent as Share } from '../src/assets/share.svg';
+// import { ReactComponent as Calendar } from '../src/assets/calendar.svg';
 
 const ClassDetail = ({ classDetailsItem, onTeacherClick, id, username }) => {
   const [showVideo, setShowVideo] = useState(false);
@@ -19,18 +21,19 @@ const ClassDetail = ({ classDetailsItem, onTeacherClick, id, username }) => {
       setProgressFilled(true);
 
       // API call to log the event
-      const response = await fetch('https://d5daginsfb4svds4mjjs.apigw.yandexcloud.net/event', {
+
+      const response = await fetch(`${API_CONFIG.BASE_URL}/visit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          user_id: id,
-          event_name: classDetailsItem.date+" "+classDetailsItem.title,
+          user_chat_id: id,
+          service_details: classDetailsItem.date+" "+classDetailsItem.title,
           event_id: classDetailsItem.title,
-          status: 'run',
-          user_wallet: '123',
-          username: username
+          status: 'scheduled',
+          user_nickname: username,
+          master_chat_id:classDetailsItem.master_chat_id
         }),
       });
 

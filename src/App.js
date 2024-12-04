@@ -27,39 +27,6 @@ const teachersList = [
 
 ];
 
-const shortClasses = [
-  {
-    date: "02.12(пн) 6:00-7:15 GMT+3",
-    title: "Бодрое утро",
-    shortDescription: "Занятие в группе по Zoom.",
-    classDescription: "Групповая практика в Zoom для зарядки энергией на весь день.",
-    price: "5 USDT",
-    imageUrl: "https://storage.yandexcloud.net/start-image/masters/vladimir_mitiukov_2.jpg",
-    sportType: 'Йога мастер',
-    teacherName: "Владимир Митюков",
-    type: "Йога Айенгара",
-    teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg",
-    teacherTgUrl: 'https://www.instagram.com/p/CipXcttK3ho/',
-    tag: "Обо мне",
-    description: 'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)'
-  },
-  {
-    date: "02.12(пн) 20:30-21:30 GMT+3",
-    title: "Групповая практика",
-    shortDescription: "Занятие в группе по Zoom.",
-    classDescription: "Занятие в группе по Zoom.",
-    price: "20 USDT",
-    imageUrl: "https://storage.yandexcloud.net/start-image/masters/irina_bogdanova.jpg",
-    sportType: 'Йога мастер',
-    teacherName: "Ирина Богданова",
-    type: "ХиAл Йога",
-    teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/irina_bogdanova_2.jpg",
-    teacherTgUrl: 'https://www.instagram.com/p/CxNb4TXLcl0/',
-    tag: "Обо мне",
-    description: 'Преподаватель йоги Хиал. При абстрактном мышлении, которое использует практикующий адепт йоги ХиАл, развивается способность выхода за рамки привычной системы координат.  Регулярная практика приводит к способности различать и самому выбирать информацию к применению как на уровне ума, так и применяя к физической своей составляющей.'
-  },
-
-];
 
 const longClasses = [
   {
@@ -75,7 +42,9 @@ const longClasses = [
     teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg",
     teacherTgUrl: 'https://www.instagram.com/p/CipXcttK3ho/',
     tag: "Подробнее",
-    description: 'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)'
+    description: 'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)',
+    master_chat_id:'211166438'
+
   },
   {
     date: "02.12(пн) 20:30-21:30 GMT+3",
@@ -90,7 +59,9 @@ const longClasses = [
     teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/irina_bogdanova_2.jpg",
     teacherTgUrl: 'https://www.instagram.com/p/CxNb4TXLcl0/',
     tag: "Подробнее",
-    description: 'Преподаватель йоги Хиал. При абстрактном мышлении, которое использует практикующий адепт йоги ХиАл, развивается способность выхода за рамки привычной системы координат.  Регулярная практика приводит к способности различать и самому выбирать информацию к применению как на уровне ума, так и применяя к физической своей составляющей.'
+    description: 'Преподаватель йоги Хиал. При абстрактном мышлении, которое использует практикующий адепт йоги ХиАл, развивается способность выхода за рамки привычной системы координат.  Регулярная практика приводит к способности различать и самому выбирать информацию к применению как на уровне ума, так и применяя к физической своей составляющей.',
+    master_chat_id:'211166438'
+
   },
   {
     date: "Лично",
@@ -105,7 +76,9 @@ const longClasses = [
     teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/Karina%20Kodak%202.jpg",
     teacherTgUrl: 'https://www.instagram.com/p/CxqHC3AIMo2/',
     tag: "Подробнее",
-    description: 'Преподаю Ваджра йогу. Учу работать с телом по методике корректного подхода к позвоночнику и работать с умом через медитацию и пранаяму (технику дыхания). В практике отсутствуют скрутки, повороты, боковые наклоны и глубокие прогибы.'
+    description: 'Преподаю Ваджра йогу. Учу работать с телом по методике корректного подхода к позвоночнику и работать с умом через медитацию и пранаяму (технику дыхания). В практике отсутствуют скрутки, повороты, боковые наклоны и глубокие прогибы.',
+    master_chat_id:'211166438'
+
   },
   {
     date: "04.12(ср) 6:00-7:15 GMT+3",
@@ -120,7 +93,9 @@ const longClasses = [
     teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg",
     teacherTgUrl: 'https://www.instagram.com/p/CipXcttK3ho/',
     tag: "Подробнее",
-    description: 'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)'
+    description: 'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)',
+    master_chat_id:'211166438'
+
   },
   {
     date: "05.12(чт) 8:00-9:30 GMT+3",
@@ -222,14 +197,15 @@ function App({ telegramData }) {
           taskName: 'Дыхательная практика',
           taskDescription: '1 минута медитации',
           taskImgURL:'https://storage.yandexcloud.net/start-image/tasks/heart.svg',
-          videoId:'Zvs7mkcfo4k'
+          videoId:'',
+          type:"breaf"
         },
         {
           taskName: 'Онлайн-занятие',
           taskDescription: 'Обучение базовой асаны',
           taskImgURL:'https://storage.yandexcloud.net/start-image/tasks/video.svg',
           videoId:'IljzpVEE5KU'
-        }
+        },
       ]
     },
     {
@@ -730,7 +706,7 @@ function App({ telegramData }) {
                     <h3 className="section-title">КЛАССЫ</h3>
                     <a className="see-all" onClick={() => setActiveTab('calendar')}>ВСЕ</a>
                   </div>
-                  <CalendarView classesData={shortClasses} onClassClick={handleClassClick} />
+                  <CalendarView classesData={longClasses.slice(0, 3)} onClassClick={handleClassClick} />
                 </div>
               );
 

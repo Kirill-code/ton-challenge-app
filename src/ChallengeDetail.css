@@ -6,7 +6,7 @@
 
 
 
-.image-container {
+ .image-container {
   position: relative;
   width: 100%;
   display: flex;
@@ -111,11 +111,15 @@
 }
 
 .card-task-inner {
+  position: relative; /* Add this line */
+  overflow: hidden;   /* Add this line */
   display: flex;
   padding: 20px;
   align-items: flex-start;
   gap: 16px;
   align-self: stretch;
+  border-radius: 24px;
+
 }
 
 .card-icon-task {
@@ -172,3 +176,84 @@
   margin-bottom: 60px;
 }
 
+
+
+/* Slider Styles - removed by Dasha request :'( */
+
+/* Adjusted styles for the slider elements */
+.slider-fill {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: #007aff;
+  width: 0%; /* Starts empty */
+  z-index: 1;
+  transition: width 0.1s ease-out, left 0.1s ease-out;
+}
+
+.slider-fill.completed {
+  width: 100%;
+  background: #9ccc3d; /* Green to indicate completion */
+  left: 0%; /* Ensure it fills from the start */
+}
+
+.slider-glow {
+  position: absolute;
+  top: 0;
+  left: 0%; /* Start from the beginning */
+  width: 100%; /* Cover the entire unfilled area */
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  border-radius: 24px;
+}
+
+.slider-glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, #007aff, transparent);
+  animation: glowAnimation 2s linear infinite;
+  border-radius: 24px;
+
+}
+
+@keyframes glowAnimation {
+  from {
+    left: -50%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+.slider-thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px; /* Adjust size as needed */
+  height: 80px; /* Adjust size as needed */
+  background: #007aff;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 0 15px #007aff, 0 0 45px #007aff, 0 0 90px #007aff;
+  transition: left 0.1s ease-out;
+}
+
+.slider-thumb.completed {
+  display: none;
+  left: 100%;
+  background: #9ccc3d;
+  box-shadow: 0 0 15px #9ccc3d, 0 0 45px #9ccc3d, 0 0 90px #9ccc3d;
+}
+
+.slider-fill.completed {
+  width: 100%;
+  background: #9ccc3d; /* Green to indicate completion */
+  left: 0%;
+  border-radius: 24px; /* Add this line */
+}
