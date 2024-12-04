@@ -3,7 +3,7 @@ import YouTube from 'react-youtube';
 import './ChallengeDetail.css';
 import API_CONFIG from './config'; // Import the config
 
-const ChallengeDetail = ({ challengeDetailsItem, id, username }) => {
+const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) => {
   const [activeTaskIndex, setActiveTaskIndex] = useState(null);
   const [progressFilled, setProgressFilled] = useState(false);
 

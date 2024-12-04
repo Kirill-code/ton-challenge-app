@@ -20,10 +20,11 @@ import WebApp from '@twa-dev/sdk'
 
 
 const teachersList = [
-  { sportType: 'Йога мастер', teacherName: "Владимир Митюков", type: "Айенгара йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg", teacherTgUrl: 'https://www.instagram.com/dipika.yoga/', tag: "@dipika.yoga", description: 'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)' },
-  { sportType: 'Йога мастер', teacherName: "Ирина Богданова", type: "Ваджра йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/Irina.png", teacherTgUrl: 'https://t.me/healyoga', tag: "@healyoga", description: 'Преподаватель йоги Хиал. При абстрактном мышлении, которое использует практикующий адепт йоги ХиАл, развивается способность выхода за рамки привычной системы координат.  Регулярная практика приводит к способности различать и самому выбирать информацию к применению как на уровне ума, так и применяя к физической своей составляющей.' },
-  { sportType: 'Йога мастер', teacherName: "Кирилл Корректный", type: "Ваджра йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg", teacherTgUrl: 'https://www.instagram.com/kirill_yoga/', tag: "@kirill_yoga", description: 'Ищете эффективный и безопасный способ избавиться от болей в спине? Тогда наши совместные занятия — то, что вам нужно! Присоединяйтесь к нам, и всего за 30 минут в день вы забудете о болях в спине и получите удовольствие от занятий!' },
-  { sportType: 'Йога мастер', teacherName: "Карина Кодак", type: "Ваджра йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/Karina%20Kodak%202.jpg", teacherTgUrl: 'https://www.instagram.com/n.o.karma/', tag: "@n.o.karma", description: 'Преподаю Ваджра йогу. Учу работать с телом по методике корректного подхода к позвоночнику и работать с умом через медитацию и пранаяму (технику дыхания).В практике отсутствуют скрутки, повороты, боковые наклоны и глубокие прогибы.' },
+  { master_chat_id: '334547237', sportType: 'Йога мастер', teacherName: "Владимир Митюков", type: "Айенгара йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg", teacherTgUrl: 'https://www.instagram.com/dipika.yoga/', tag: "Подробнее", description: 'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)' },
+  { master_chat_id: '371907941', sportType: 'Йога мастер', teacherName: "Ирина Богданова", type: "Ваджра йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/Irina.png", teacherTgUrl: 'https://t.me/healyoga', tag: "Подробнее", description: 'Преподаватель йоги Хиал. При абстрактном мышлении, которое использует практикующий адепт йоги ХиАл, развивается способность выхода за рамки привычной системы координат.  Регулярная практика приводит к способности различать и самому выбирать информацию к применению как на уровне ума, так и применяя к физической своей составляющей.' },
+  { master_chat_id: '211166438', sportType: 'Йога мастер', teacherName: "Кирилл Корректный", type: "Ваджра йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg", teacherTgUrl: 'https://www.instagram.com/kirill_yoga/', tag: "Подробнее", description: 'Ищете эффективный и безопасный способ избавиться от болей в спине? Тогда наши совместные занятия — то, что вам нужно! Присоединяйтесь к нам, и всего за 30 минут в день вы забудете о болях в спине и получите удовольствие от занятий!' },
+  { master_chat_id: '334547237', sportType: 'Йога мастер', teacherName: "Карина Кодак", type: "Ваджра йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/Karina%20Kodak%202.jpg", teacherTgUrl: 'https://www.instagram.com/n.o.karma/', tag: "@n.o.karma", description: 'Преподаю Ваджра йогу. Учу работать с телом по методике корректного подхода к позвоночнику и работать с умом через медитацию и пранаяму (технику дыхания).В практике отсутствуют скрутки, повороты, боковые наклоны и глубокие прогибы.' },
+  { master_chat_id: '209618178', sportType: 'Йога мастер', teacherName: "Анастасия Рябова", type: "Айенгара йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/anastasia_ryabova.jpg", teacherTgUrl: 'https://www.instagram.com/p/DAyqqXryct5/', tag: "Подробнее", description: 'Преподаю йогу в традиции Айенгара. Помогаю научиться совмещать йогу и спорт. Йога для спорта - идеальное комбо. Для эффективности движения нужна хорошая координация, нужны функциональные мышцы и хорошо подготовленные к нагрузкам нервная, дыхательная и сердечно-сосудистая системы. Йога может помочь по всем пунктам.' },
 
 ];
 
@@ -36,14 +37,7 @@ const longClasses = [
     classDescription: "Групповая практика в Zoom для зарядки энергией на весь день.",
     price: "5 USDT",
     imageUrl: "https://storage.yandexcloud.net/start-image/masters/vladimir_mitiukov_2.jpg",
-    sportType: 'Йога мастер',
-    teacherName: "Владимир Митюков",
-    type: "Йога Айенгара",
-    teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg",
-    teacherTgUrl: 'https://www.instagram.com/p/CipXcttK3ho/',
-    tag: "Подробнее",
-    description: 'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)',
-    master_chat_id:'211166438'
+    master_chat_id: '334547237'
 
   },
   {
@@ -53,14 +47,7 @@ const longClasses = [
     classDescription: "Занятие в группе по Zoom.",
     price: "20 USDT",
     imageUrl: "https://storage.yandexcloud.net/start-image/masters/irina_bogdanova.jpg",
-    sportType: 'Йога мастер',
-    teacherName: "Ирина Богданова",
-    type: "ХиAл Йога",
-    teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/irina_bogdanova_2.jpg",
-    teacherTgUrl: 'https://www.instagram.com/p/CxNb4TXLcl0/',
-    tag: "Подробнее",
-    description: 'Преподаватель йоги Хиал. При абстрактном мышлении, которое использует практикующий адепт йоги ХиАл, развивается способность выхода за рамки привычной системы координат.  Регулярная практика приводит к способности различать и самому выбирать информацию к применению как на уровне ума, так и применяя к физической своей составляющей.',
-    master_chat_id:'211166438'
+    master_chat_id: '371907941'
 
   },
   {
@@ -70,14 +57,7 @@ const longClasses = [
     classDescription: "Время занятий назначается индивидуально. Занятия в Zoom",
     price: "30 USDT",
     imageUrl: "https://storage.yandexcloud.net/start-image/masters/karina_kodak.jpg",
-    sportType: 'Йога мастер',
-    teacherName: "Карина Кодак",
-    type: "Ваджра Йога",
-    teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/Karina%20Kodak%202.jpg",
-    teacherTgUrl: 'https://www.instagram.com/p/CxqHC3AIMo2/',
-    tag: "Подробнее",
-    description: 'Преподаю Ваджра йогу. Учу работать с телом по методике корректного подхода к позвоночнику и работать с умом через медитацию и пранаяму (технику дыхания). В практике отсутствуют скрутки, повороты, боковые наклоны и глубокие прогибы.',
-    master_chat_id:'211166438'
+    master_chat_id: '211166438'
 
   },
   {
@@ -87,14 +67,8 @@ const longClasses = [
     classDescription: "Групповая практика в Zoom для зарядки энергией на весь день.",
     price: "5 USDT",
     imageUrl: "https://storage.yandexcloud.net/start-image/masters/vladimir_mitiukov_2.jpg",
-    sportType: 'Йога мастер',
-    teacherName: "Владимир Митюков",
-    type: "Йога Айенгара",
-    teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg",
-    teacherTgUrl: 'https://www.instagram.com/p/CipXcttK3ho/',
-    tag: "Подробнее",
-    description: 'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)',
-    master_chat_id:'211166438'
+    master_chat_id: '211166438'
+
 
   },
   {
@@ -104,13 +78,7 @@ const longClasses = [
     classDescription: "Занятие в группе по Zoom.",
     price: "5 USDT",
     imageUrl: "https://storage.yandexcloud.net/start-image/masters/ansatasia_ryabova_2.jpg",
-    sportType: 'Йога мастер',
-    teacherName: "Анастасия Рябова",
-    type: "Йога Айенгара",
-    teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/anastasia_ryabova.jpg",
-    teacherTgUrl: 'https://www.instagram.com/p/DAyqqXryct5/',
-    tag: "Подробнее",
-    description: 'Преподаю йогу в традиции Айенгара. Помогаю научиться совмещать йогу и спорт. Йога для спорта - идеальное комбо. Для эффективности движения нужна хорошая координация, нужны функциональные мышцы и хорошо подготовленные к нагрузкам нервная, дыхательная и сердечно-сосудистая системы. Йога может помочь по всем пунктам.'
+    master_chat_id: '209618178'
   },
   {
     date: "05.12(чт) 20:30-21:30 GMT+3",
@@ -119,13 +87,8 @@ const longClasses = [
     classDescription: "Занятие в группе по Zoom.",
     price: "20 USDT",
     imageUrl: "https://storage.yandexcloud.net/start-image/masters/irina_bogdanova.jpg",
-    sportType: 'Йога мастер',
-    teacherName: "Ирина Богданова",
-    type: "ХиAл Йога",
-    teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/irina_bogdanova_2.jpg",
-    teacherTgUrl: 'https://www.instagram.com/p/CxNb4TXLcl0/',
-    tag: "Подробнее",
-    description: 'Преподаватель йоги Хиал. При абстрактном мышлении, которое использует практикующий адепт йоги ХиАл, развивается способность выхода за рамки привычной системы координат.  Регулярная практика приводит к способности различать и самому выбирать информацию к применению как на уровне ума, так и применяя к физической своей составляющей.'
+    master_chat_id: '371907941'
+
   },
   {
     date: "06.12(пт) 6:00-7:15 GMT+3",
@@ -134,13 +97,8 @@ const longClasses = [
     classDescription: "Групповая практика в Zoom для зарядки энергией на весь день.",
     price: "5 USDT",
     imageUrl: "https://storage.yandexcloud.net/start-image/masters/vladimir_mitiukov_2.jpg",
-    sportType: 'Йога мастер',
-    teacherName: "Владимир Митюков",
-    type: "Йога Айенгара",
-    teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg",
-    teacherTgUrl: 'https://www.instagram.com/p/CipXcttK3ho/',
-    tag: "Подробнее",
-    description: 'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)'
+    master_chat_id: '211166438'
+
   },
 ];
 
@@ -196,15 +154,15 @@ function App({ telegramData }) {
         {
           taskName: 'Дыхательная практика',
           taskDescription: '1 минута медитации',
-          taskImgURL:'https://storage.yandexcloud.net/start-image/tasks/heart.svg',
-          videoId:'',
-          type:"breaf"
+          taskImgURL: 'https://storage.yandexcloud.net/start-image/tasks/heart.svg',
+          videoId: '',
+          type: "breaf"
         },
         {
           taskName: 'Онлайн-занятие',
           taskDescription: 'Обучение базовой асаны',
-          taskImgURL:'https://storage.yandexcloud.net/start-image/tasks/video.svg',
-          videoId:'IljzpVEE5KU'
+          taskImgURL: 'https://storage.yandexcloud.net/start-image/tasks/video.svg',
+          videoId: 'IljzpVEE5KU'
         },
       ]
     },
@@ -215,7 +173,7 @@ function App({ telegramData }) {
       imageUrl: "https://storage.yandexcloud.net/start-image/sbts/food_org.png",
       wallet_address: rawAddress,
       tasks: [
-        
+
       ]
     },
     {
@@ -225,7 +183,7 @@ function App({ telegramData }) {
       imageUrl: "https://storage.yandexcloud.net/start-image/sbts/run_org.png",
       wallet_address: rawAddress,
       tasks: [
-        
+
       ]
     },
     {
@@ -238,12 +196,12 @@ function App({ telegramData }) {
         {
           taskName: 'Дыхательная практика',
           taskDescription: '5 минут медитации',
-          taskImgURL:'https://storage.yandexcloud.net/start-image/tasks/heart.svg'
+          taskImgURL: 'https://storage.yandexcloud.net/start-image/tasks/heart.svg'
         },
         {
           taskName: 'Онлайн-занятие',
           taskDescription: 'Обучение базовой асаны',
-          taskImgURL:'https://storage.yandexcloud.net/start-image/tasks/video.svg'
+          taskImgURL: 'https://storage.yandexcloud.net/start-image/tasks/video.svg'
         }
       ]
     },
@@ -266,7 +224,7 @@ function App({ telegramData }) {
       imageUrl: "https://storage.yandexcloud.net/start-image/sbts/yoga_org.png",
       wallet_address: rawAddress,
       tasks: [
-      
+
       ]
     },
     {
@@ -649,9 +607,10 @@ function App({ telegramData }) {
                 mainContent = (
                   <ClassDetail
                     classDetailsItem={selectedClass}
-                    onTeacherClick={handleTeacherClick} 
+                    onTeacherClick={handleTeacherClick}
                     id={id}
-                    username={displayName}// Pass the handleTeacherClick function
+                    username={displayName}
+                    teachersList={teachersList}
                   />
                 );
               }
@@ -673,7 +632,9 @@ function App({ telegramData }) {
                     <ChallengeDetail
                       challengeDetailsItem={selectedChallenge}
                       id={id}
-                      username={displayName} />
+                      username={displayName}
+                      teachersList={teachersList}
+                      />
 
                   </div>
                 );

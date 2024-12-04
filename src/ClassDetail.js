@@ -9,10 +9,12 @@ import API_CONFIG from './config'; // Import the config
 // import { ReactComponent as Share } from '../src/assets/share.svg';
 // import { ReactComponent as Calendar } from '../src/assets/calendar.svg';
 
-const ClassDetail = ({ classDetailsItem, onTeacherClick, id, username }) => {
+const ClassDetail = ({ classDetailsItem, onTeacherClick, id, username, teachersList }) => {
   const [showVideo, setShowVideo] = useState(false);
   const [progressFilled, setProgressFilled] = useState(false); // State to track progress fill
-
+  const teacher = teachersList.find(
+    (teacher) => teacher.master_chat_id === classDetailsItem.master_chat_id
+  );
   // Function to handle Participate button click
   const handleParticipateClick = async () => {
     try {
@@ -74,13 +76,13 @@ const ClassDetail = ({ classDetailsItem, onTeacherClick, id, username }) => {
 
   const handleTeacherDetailsClick = () => {
     onTeacherClick({
-      sportType: classDetailsItem.sportType,
-      teacherName: classDetailsItem.teacherName,
-      type: classDetailsItem.type,
-      teacherImageUrl: classDetailsItem.teacherImageUrl,
-      teacherTgUrl: classDetailsItem.teacherTgUrl,
-      tag: classDetailsItem.tag,
-      description: classDetailsItem.description
+      sportType: teacher.sportType,
+      teacherName: teacher.teacherName,
+      type: teacher.type,
+      teacherImageUrl: teacher.teacherImageUrl,
+      teacherTgUrl: teacher.teacherTgUrl,
+      tag: teacher.tag,
+      description: teacher.description
     });
   };
 
@@ -126,15 +128,15 @@ END:VCALENDAR
       <p className="class-description-details">{classDetailsItem.classDescription}</p>
       {/* MASTER DETAILS */}
       <div className="class-card-teacher-details" onClick={handleTeacherDetailsClick} >
-        <img src={classDetailsItem.teacherImageUrl} className="class-image-teacher-details" />
+        <img src={teacher.teacherImageUrl} className="class-image-teacher-details" />
 
         <div className="class-details-teacher-details" >
           <div className='class-date-price-container'>
-            <p className="class-date-teacher-details">{classDetailsItem.sportType}</p>
+            <p className="class-date-teacher-details">{teacher.sportType}</p>
 
           </div>
-          <h3 className="class-title-teacher-details">{classDetailsItem.teacherName}</h3>
-          <p className="class-description-teacher-details">{classDetailsItem.type}</p>
+          <h3 className="class-title-teacher-details">{teacher.teacherName}</h3>
+          <p className="class-description-teacher-details">{teacher.type}</p>
         </div>
       </div>
       <div className='class-information'>
