@@ -12,18 +12,19 @@ import API_CONFIG from './config'; // Import the config
 const ClassDetail = ({ classDetailsItem, onTeacherClick, id, username, teachersList }) => {
   const [showVideo, setShowVideo] = useState(false);
   const [progressFilled, setProgressFilled] = useState(false); // State to track progress fill
+  const [isLoading, setIsLoading] = useState(false);
+  const [isScheduled, setIsScheduled] = useState(false);
+
+
   const teacher = teachersList.find(
     (teacher) => teacher.master_chat_id === classDetailsItem.master_chat_id
   );
   // Function to handle Participate button click
   const handleParticipateClick = async () => {
+    if (isLoading || isScheduled) return; // Prevent multiple clicks
+    setIsLoading(true);
     try {
-      // Trigger the video display
-      setShowVideo(true);
-      setProgressFilled(true);
-
-      // API call to log the event
-
+      // Existing code for API call
       const response = await fetch(`${API_CONFIG.BASE_URL}/visit`, {
         method: 'POST',
         headers: {
@@ -31,11 +32,11 @@ const ClassDetail = ({ classDetailsItem, onTeacherClick, id, username, teachersL
         },
         body: JSON.stringify({
           user_chat_id: id,
-          service_details: classDetailsItem.date+" "+classDetailsItem.title,
+          service_details: `${classDetailsItem.date} ${classDetailsItem.title}`,
           event_id: classDetailsItem.title,
           status: 'scheduled',
           user_nickname: username,
-          master_chat_id:classDetailsItem.master_chat_id
+          master_chat_id: classDetailsItem.master_chat_id,
         }),
       });
 
@@ -46,12 +47,17 @@ const ClassDetail = ({ classDetailsItem, onTeacherClick, id, username, teachersL
       const data = await response.json();
       console.log('API Response:', data);
 
+      // API call was successful
+      setIsScheduled(true); // Set the state to scheduled
     } catch (error) {
       console.error('API call error:', error);
+    } finally {
+      setIsLoading(false); // Reset loading state
     }
 
     alert('Преподаватель скоро свяжется с Вами. Пишите в бот @ArandjoBot в случае каких-либо проблем.');
   };
+
 
   // Function to handle Share button click
   const handleShareClick = async () => {
@@ -148,9 +154,19 @@ END:VCALENDAR
         <div className='class-details-btn' onClick={handleShareClick}><Share/><p className='class-btn-txt'>Share Class</p></div>
         <div className='class-details-btn' onClick={handleAddToCalendarClick}><Calendar/><p className='class-btn-txt'>Add to Calendar</p></div>
       </div> */}
-      <div className='participate-btn' onClick={handleParticipateClick}>
-        <p className='participate-btn-txt'>Участвую</p>
-      </div>
+      <button
+        className={`participate-btn ${isScheduled ? 'scheduled' : ''}`}
+        onClick={handleParticipateClick}
+        disabled={isLoading || isScheduled}
+      >
+        {isLoading ? (
+          <div className='spinner'></div>
+        ) : isScheduled ? (
+          <p className='participate-btn-txt'>В расписании</p>
+        ) : (
+          <p className='participate-btn-txt'>Участвую</p>
+        )}
+      </button>
     </div>
   );
 };
