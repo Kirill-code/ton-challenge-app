@@ -88,7 +88,8 @@ const ClassDetail = ({ classDetailsItem, onTeacherClick, id, username, teachersL
       teacherImageUrl: teacher.teacherImageUrl,
       teacherTgUrl: teacher.teacherTgUrl,
       tag: teacher.tag,
-      description: teacher.description
+      description: teacher.description,
+      master_chat_id:teacher.master_chat_id
     });
   };
 

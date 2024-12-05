@@ -23,7 +23,7 @@ const teachersList = [
   { master_chat_id: '334547237', sportType: 'Йога мастер', teacherName: "Владимир Митюков", type: "Айенгара йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/volodya.jpg", teacherTgUrl: 'https://www.instagram.com/dipika.yoga/', tag: "Подробнее", description: 'Преподаю йогу в традиции Б.К.С. Айенгара. "Этот метод идеально приспособлен для предотвращения физических и душевных болезней, для общего укрепления тела, что неизбежно развивает чувство уверенности в себе и своих силах." © скрипач Иегуди Менухин (1916-1999гг.)' },
   { master_chat_id: '371907941', sportType: 'Йога мастер', teacherName: "Ирина Богданова", type: "Ваджра йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/Irina.png", teacherTgUrl: 'https://t.me/healyoga', tag: "Подробнее", description: 'Преподаватель йоги Хиал. При абстрактном мышлении, которое использует практикующий адепт йоги ХиАл, развивается способность выхода за рамки привычной системы координат.  Регулярная практика приводит к способности различать и самому выбирать информацию к применению как на уровне ума, так и применяя к физической своей составляющей.' },
   { master_chat_id: '211166438', sportType: 'Йога мастер', teacherName: "Кирилл Корректный", type: "Ваджра йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg", teacherTgUrl: 'https://www.instagram.com/kirill_yoga/', tag: "Подробнее", description: 'Ищете эффективный и безопасный способ избавиться от болей в спине? Тогда наши совместные занятия — то, что вам нужно! Присоединяйтесь к нам, и всего за 30 минут в день вы забудете о болях в спине и получите удовольствие от занятий!' },
-  { master_chat_id: '334547237', sportType: 'Йога мастер', teacherName: "Карина Кодак", type: "Ваджра йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/Karina%20Kodak%202.jpg", teacherTgUrl: 'https://www.instagram.com/n.o.karma/', tag: "@n.o.karma", description: 'Преподаю Ваджра йогу. Учу работать с телом по методике корректного подхода к позвоночнику и работать с умом через медитацию и пранаяму (технику дыхания).В практике отсутствуют скрутки, повороты, боковые наклоны и глубокие прогибы.' },
+  { master_chat_id: '22222222222', sportType: 'Йога мастер', teacherName: "Карина Кодак", type: "Ваджра йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/Karina%20Kodak%202.jpg", teacherTgUrl: 'https://www.instagram.com/n.o.karma/', tag: "@n.o.karma", description: 'Преподаю Ваджра йогу. Учу работать с телом по методике корректного подхода к позвоночнику и работать с умом через медитацию и пранаяму (технику дыхания).В практике отсутствуют скрутки, повороты, боковые наклоны и глубокие прогибы.' },
   { master_chat_id: '209618178', sportType: 'Йога мастер', teacherName: "Анастасия Рябова", type: "Айенгара йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/anastasia_ryabova.jpg", teacherTgUrl: 'https://www.instagram.com/p/DAyqqXryct5/', tag: "Подробнее", description: 'Преподаю йогу в традиции Айенгара. Помогаю научиться совмещать йогу и спорт. Йога для спорта - идеальное комбо. Для эффективности движения нужна хорошая координация, нужны функциональные мышцы и хорошо подготовленные к нагрузкам нервная, дыхательная и сердечно-сосудистая системы. Йога может помочь по всем пунктам.' },
 
 ];
@@ -31,44 +31,13 @@ const teachersList = [
 
 const longClasses = [
   {
-    date: "02.12(пн) 6:00-7:15 GMT+3",
-    title: "Бодрое утро",
-    shortDescription: "Занятие в группе по Zoom.",
-    classDescription: "Групповая практика в Zoom для зарядки энергией на весь день.",
-    price: "5 USDT",
-    imageUrl: "https://storage.yandexcloud.net/start-image/masters/vladimir_mitiukov_2.jpg",
-    master_chat_id: '334547237'
-
-  },
-  {
-    date: "02.12(пн) 20:30-21:30 GMT+3",
-    title: "Групповая практика",
-    shortDescription: "Занятие в группе по Zoom.",
-    classDescription: "Занятие в группе по Zoom.",
-    price: "20 USDT",
-    imageUrl: "https://storage.yandexcloud.net/start-image/masters/irina_bogdanova.jpg",
-    master_chat_id: '371907941'
-
-  },
-  {
     date: "Лично",
     title: "Индивидуальный класс",
     shortDescription: "Персональное занятие в Zoom.",
     classDescription: "Время занятий назначается индивидуально. Занятия в Zoom",
     price: "30 USDT",
     imageUrl: "https://storage.yandexcloud.net/start-image/masters/karina_kodak.jpg",
-    master_chat_id: '211166438'
-
-  },
-  {
-    date: "04.12(ср) 6:00-7:15 GMT+3",
-    title: "Бодрое утро",
-    shortDescription: "Занятие в группе по Zoom.",
-    classDescription: "Групповая практика в Zoom для зарядки энергией на весь день.",
-    price: "5 USDT",
-    imageUrl: "https://storage.yandexcloud.net/start-image/masters/vladimir_mitiukov_2.jpg",
-    master_chat_id: '211166438'
-
+    master_chat_id: '22222222222'
 
   },
   {
@@ -97,9 +66,30 @@ const longClasses = [
     classDescription: "Групповая практика в Zoom для зарядки энергией на весь день.",
     price: "5 USDT",
     imageUrl: "https://storage.yandexcloud.net/start-image/masters/vladimir_mitiukov_2.jpg",
-    master_chat_id: '211166438'
+    master_chat_id: '334547237'
 
   },
+  {
+    date: "06.12(пт) 6:00-7:15 GMT+3",
+    title: "Бодрое утро",
+    shortDescription: "Занятие в группе по Zoom.",
+    classDescription: "Групповая практика в Zoom для зарядки энергией на весь день.",
+    price: "5 USDT",
+    imageUrl: "https://storage.yandexcloud.net/start-image/masters/vladimir_mitiukov_2.jpg",
+    master_chat_id: '334547237'
+
+  },
+  {
+    date: "06.12(пт) 6:00-7:15 GMT+3",
+    title: "Бодрое утро",
+    shortDescription: "Занятие в группе по Zoom.",
+    classDescription: "Групповая практика в Zoom для зарядки энергией на весь день.",
+    price: "5 USDT",
+    imageUrl: "https://storage.yandexcloud.net/start-image/masters/vladimir_mitiukov_2.jpg",
+    master_chat_id: '334547237'
+
+  },
+  
 ];
 
 function App({ telegramData }) {
@@ -540,6 +530,7 @@ function App({ telegramData }) {
       </div>
     );
   };
+  console.log("selectedTeacher "+selectedTeacher)
 
   return (
     <TwaAnalyticsProvider
@@ -618,9 +609,11 @@ function App({ telegramData }) {
             case 'teacherDetail':
               if (selectedTeacher) {
                 mainContent = (
-
                   <TeacherDetail
                     teacherDetail={selectedTeacher}
+                    classes={longClasses}
+                    onClassClick={handleClassClick} // Pass the handler here
+
                   />
                 );
               }

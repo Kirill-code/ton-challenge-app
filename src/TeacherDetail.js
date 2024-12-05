@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
 import './TeacherDetail.css';
+import CalendarView from './CalendarView';
 
 
-const TeacherDetail = ({ teacherDetail }) => {
+const TeacherDetail = ({ teacherDetail,  classes, onClassClick }) => {
+  const classesCurrentTeacher = classes.filter(
+    (classItem) => 
+      classItem.master_chat_id === teacherDetail.master_chat_id
+    // console.log(classItem.master_chat_id)
+
+  );
+  
+    console.log(classesCurrentTeacher)
 
 
   return (
@@ -35,8 +44,10 @@ const TeacherDetail = ({ teacherDetail }) => {
         <a className="see-all" >ВСЕ</a>
 
       </div>
-      <p className='comming-soon'>Скоро в приложении</p>
-
+      <CalendarView
+                classesData={classesCurrentTeacher}
+                onClassClick={onClassClick} // Pass the handler down
+                />
       
 
 
