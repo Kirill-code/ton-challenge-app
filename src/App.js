@@ -135,6 +135,7 @@ function App({ telegramData }) {
 
   const mainCardsArray = [
     {
+      sbt_id:"689",
       title: "5 минут внимания спине",
       description: "Уделите 5 минут внимания стержню вашего тела ",
       type: "Йога",
@@ -157,6 +158,7 @@ function App({ telegramData }) {
       ]
     },
     {
+      sbt_id:"689",
       title: "7 дней питания",
       description: "Ведите дневник и узнайте, что вы на самом деле едите",
       type: "Скоро",
@@ -167,6 +169,7 @@ function App({ telegramData }) {
       ]
     },
     {
+      sbt_id:"689",
       title: "Беги к своей цели",
       description: "Покажи всем на сколько ты хорош в беге",
       type: "Скоро",
@@ -208,6 +211,7 @@ function App({ telegramData }) {
 
   const yogaCardsArray = [
     {
+      sbt_id:"689",
       title: "5 минут внимания спине",
       description: "Уделите 5 минут внимания стержню вашего тела ",
       type: "Йога",

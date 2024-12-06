@@ -1,23 +1,16 @@
-// ChallengeDetail.js
-/*
- * Copyright © 2024, Kirill Code.
- * Business Source License 1.1
- * Change Date: November 23, 2026
- */
-
 import React, { useState, useEffect } from 'react';
 import YouTube from 'react-youtube';
 import './ChallengeDetail.css';
-import API_CONFIG from './config'; // Import the config
+import API_CONFIG from './config';
 
 const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) => {
   const [activeTaskIndex, setActiveTaskIndex] = useState(null);
-  const [progressFilled, setProgressFilled] = useState(0); // Percentage
-  const [tasksEnabled, setTasksEnabled] = useState([]); // Array of booleans
-  const [tasksData, setTasksData] = useState([]); // Tasks array
+  const [progressFilled, setProgressFilled] = useState(0);
+  const [tasksEnabled, setTasksEnabled] = useState([]);
+  const [tasksData, setTasksData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  // console.log("SBT:" + challengeDetailsItem.sbt_id)
   const videoOptions = {
     height: '390',
     width: '100%',
@@ -32,18 +25,49 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
       iv_load_policy: 3,
     },
   };
-  
+
   // Function to initialize task states based on finished_tasks
   const initializeTasks = (tasksNumber, finishedTasks) => {
-    const enabled = tasksData.map((_, index) => {
-      if (index < finishedTasks) return false; // Completed tasks are disabled
-      if (index === finishedTasks) return true; // Next task is enabled
-      return false; // Future tasks are disabled
+    const enabled = Array.from({ length: tasksNumber }, (_, index) => {
+      if (index < finishedTasks) return false;
+      if (index === finishedTasks) return true;
+      return false;
     });
     setTasksEnabled(enabled);
-    // Update progress
     const progress = (finishedTasks / tasksNumber) * 100;
     setProgressFilled(progress);
+  };
+
+  // API call to log the event
+  const postEvent = async (finishedTasks) => {
+    try {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/post_event`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: id,
+          event_name: `${challengeDetailsItem.title} ${challengeDetailsItem.date}`,
+          sbt_id: challengeDetailsItem.sbt_id,
+          status: 'run',
+          user_wallet: '123',
+          username: username,
+          finished_tasks: finishedTasks,
+          tasks_number: challengeDetailsItem.tasks.length
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log('API Response:', data);
+      initializeTasks(tasksData.length, finishedTasks);
+    } catch (error) {
+      console.error('API call error:', error);
+    }
   };
 
   // Fetch event data from API
@@ -51,36 +75,33 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
     const fetchEventData = async () => {
       try {
         setLoading(true);
-        // Construct the URL with query parameters
         const url = new URL(`${API_CONFIG.BASE_URL}/get_event`);
         url.searchParams.append('user_id', id);
+        url.searchParams.append('sbt_id', challengeDetailsItem.sbt_id);
 
         const response = await fetch(url.toString(), {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            // Add authentication headers if required, e.g.,
-            // 'Authorization': `Bearer ${token}`,
           },
         });
 
-        console.log("REPONSE");
-        console.log(response);
-
         if (!response.ok) {
-          throw new Error(`Error: ${response.status} ${response.statusText}`);
-        }
-
-        const eventData = await response.json();
-        // Assuming the API returns a single event object
-        // If it returns an array, adjust accordingly
-        if (eventData) {
-          const { tasks_number, finished_tasks } = eventData;
-          // Initialize task states based on finished_tasks
-          initializeTasks(tasks_number, finished_tasks);
+          // Check if the error is related to the "Event not found" case
+          const errorData = await response.json();
+          if (errorData.message === "Event not found for the given user_id and event_id") {
+            console.warn("Event not found, creating a new event record...");
+            // If no rows found, initialize with 0 and create a record
+            await postEvent(0);
+          } else {
+            throw new Error(`Error: ${response.status} ${response.statusText}`);
+          }
         } else {
-          // If no event data found, initialize with default values
-          initializeTasks(challengeDetailsItem.tasks.length, 0);
+          const eventData = await response.json();
+          if (eventData && eventData.finished_tasks !== undefined) {
+            const { tasks_number, finished_tasks } = eventData;
+            initializeTasks(tasks_number, finished_tasks);
+          }
         }
 
         setLoading(false);
@@ -92,8 +113,7 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
     };
 
     fetchEventData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [challengeDetailsItem.event_id, id]);
+  }, [challengeDetailsItem.sbt_id, id]);
 
   // Initialize tasksData from challengeDetailsItem.tasks
   useEffect(() => {
@@ -103,46 +123,15 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
   }, [challengeDetailsItem.tasks]);
 
   const handleTaskClick = async (index) => {
-    if (!tasksEnabled[index]) return; // Prevent clicking disabled tasks
+    if (!tasksEnabled[index]) return;
 
-    try {
-      setActiveTaskIndex(index);
-
-      // API call to log the event
-      const response = await fetch(`${API_CONFIG.BASE_URL}/post_event`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          // Add authentication headers if required, e.g.,
-          // 'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          user_id: id,
-          event_name: `${challengeDetailsItem.title} ${challengeDetailsItem.date}`,
-          event_id: `task_${index + 1}`, // Updated to include task index
-          status: 'run',
-          user_wallet: '123', // Replace with dynamic wallet if available
-          username: username,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      console.log('API Response:', data);
-
-      // Update the state to reflect the completed task
-      const newFinishedTasks = Math.min(index + 1, tasksData.length);
-      initializeTasks(tasksData.length, newFinishedTasks);
-    } catch (error) {
-      console.error('API call error:', error);
-    }
+    setActiveTaskIndex(index);
+    const newFinishedTasks = Math.min(index + 1, tasksData.length);
+    postEvent(newFinishedTasks);
   };
 
   if (loading) {
-    return <div className="challenge-detail"><p>Loading...</p></div>;
+    return <div className="challenge-detail"><p>Загрузка...</p></div>;
   }
 
   if (error) {
@@ -156,12 +145,11 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
         <div className="card-tag-details">{challengeDetailsItem.type}</div>
       </div>
       <p className="challenge-title-details">{challengeDetailsItem.title}</p>
-
       <p className="challenge-description">{challengeDetailsItem.description}</p>
 
       <div className='challenge-progress'>
-        <div 
-          className='challenge-progress-filled' 
+        <div
+          className='challenge-progress-filled'
           style={{
             backgroundColor: '#007AFF',
             height: '16px',
@@ -176,8 +164,8 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
         {tasksData && tasksData.length > 0 ? (
           tasksData.map((itemTask, index) => (
             <div key={index} className={`card-task ${tasksEnabled[index] ? 'enabled' : 'disabled'}`}>
-              <div 
-                className={`card-task-inner ${tasksEnabled[index] ? 'clickable' : 'not-clickable'}`} 
+              <div
+                className={`card-task-inner ${tasksEnabled[index] ? 'clickable' : 'not-clickable'}`}
                 onClick={() => handleTaskClick(index)}
                 style={{ cursor: tasksEnabled[index] ? 'pointer' : 'not-allowed' }}
                 role="button"
