@@ -256,3 +256,6 @@
   left: 0%;
   border-radius: 24px; /* Add this line */
 }
+.not-clickable{
+  opacity: 50%;
+}

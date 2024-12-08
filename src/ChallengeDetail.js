@@ -10,7 +10,7 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
   const [tasksData, setTasksData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // console.log("SBT:" + challengeDetailsItem.sbt_id)
+  console.log("Username " + username);
   const videoOptions = {
     height: '390',
     width: '100%',
@@ -38,23 +38,24 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
     setProgressFilled(progress);
   };
 
-  // API call to log the event
+  // API call to create a new event
   const postEvent = async (finishedTasks) => {
     try {
       const response = await fetch(`${API_CONFIG.BASE_URL}/post_event`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          // Add Authorization header if required
+          // 'Authorization': `Bearer YOUR_AUTH_TOKEN`,
         },
         body: JSON.stringify({
           user_id: id,
           event_name: `${challengeDetailsItem.title} ${challengeDetailsItem.date}`,
           sbt_id: challengeDetailsItem.sbt_id,
           status: 'run',
-          user_wallet: '123',
           username: username,
           finished_tasks: finishedTasks,
-          tasks_number: challengeDetailsItem.tasks.length
+          tasks_number: challengeDetailsItem.tasks.length,
         }),
       });
 
@@ -63,10 +64,44 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
       }
 
       const data = await response.json();
-      console.log('API Response:', data);
-      initializeTasks(tasksData.length, finishedTasks);
+      console.log('Post Event API Response:', data);
+      initializeTasks(data.event.tasks_number, data.event.finished_tasks);
     } catch (error) {
-      console.error('API call error:', error);
+      console.error('Post Event API call error:', error);
+      setError(error.message);
+    }
+  };
+
+  // API call to update an existing event
+  const updateEvent = async (finishedTasks) => {
+    try {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/update_event`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add Authorization header if required
+          // 'Authorization': `Bearer YOUR_AUTH_TOKEN`,
+        },
+        body: JSON.stringify({
+          user_id: id,
+          sbt_id: challengeDetailsItem.sbt_id,
+          status: finishedTasks == challengeDetailsItem.tasks.length ? 'completed' : 'run', // Adjust based on your status logic
+          username: username, // If needed
+          finished_tasks: finishedTasks,
+          tasks_number: challengeDetailsItem.tasks.length,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log('Update Event API Response:', data);
+      initializeTasks(data.event.tasks_number, data.event.finished_tasks);
+    } catch (error) {
+      console.error('Update Event API call error:', error);
+      setError(error.message);
     }
   };
 
@@ -83,15 +118,16 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
+            // Add Authorization header if required
+            // 'Authorization': `Bearer YOUR_AUTH_TOKEN`,
           },
         });
 
         if (!response.ok) {
-          // Check if the error is related to the "Event not found" case
           const errorData = await response.json();
-          if (errorData.message === "Event not found for the given user_id and event_id") {
+          if (errorData.message === "Event not found for the given user_id and event_id") { // Adjust based on your actual error message
             console.warn("Event not found, creating a new event record...");
-            // If no rows found, initialize with 0 and create a record
+            // Create a new event with 0 finished tasks
             await postEvent(0);
           } else {
             throw new Error(`Error: ${response.status} ${response.statusText}`);
@@ -106,7 +142,7 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
 
         setLoading(false);
       } catch (err) {
-        console.error('API call error:', err);
+        console.error('Fetch Event API call error:', err);
         setError(err.message);
         setLoading(false);
       }
@@ -127,7 +163,7 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
 
     setActiveTaskIndex(index);
     const newFinishedTasks = Math.min(index + 1, tasksData.length);
-    postEvent(newFinishedTasks);
+    await updateEvent(newFinishedTasks);
   };
 
   if (loading) {
@@ -135,7 +171,7 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
   }
 
   if (error) {
-    return <div className="challenge-detail"><p>Error: {error}</p></div>;
+    return <div className="challenge-detail"><p>Ошибка: {error} </p><p>Обновите страницу.</p></div>;
   }
 
   return (
