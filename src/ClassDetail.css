@@ -76,7 +76,7 @@
 
 
 .class-detail {
-
+  margin-right: 16px;
   margin-bottom: 60px;
 }
 
@@ -87,6 +87,7 @@
   align-items: flex-start;
   gap: 16px;
   margin-top: 16px;
+  margin-bottom: 95px;
 }
 
 .class-line {
@@ -143,19 +144,25 @@
 }
 
 .participate-btn {
+  position: fixed;
+  bottom: 75px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  width: 340px;
+  width: 90%;
   height: 58px;
-  min-width: 50px;
-  padding: 15px 12px;
-  margin-top: 16px;
+  padding: 15px 24px;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  flex-shrink: 0;
   border-radius: 20px;
   background: #007AFF;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  z-index: 9999; /* ensure it stays on top of other elements */
 }
+
 
 .participate-btn-txt {
   color: #FFF;

@@ -28,7 +28,7 @@ const ClassDetail = ({ classDetailsItem, onTeacherClick, id, username, teachersL
       const response = await fetch(`${API_CONFIG.BASE_URL}/visit`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json', 
         },
         body: JSON.stringify({
           user_chat_id: id,
@@ -37,6 +37,7 @@ const ClassDetail = ({ classDetailsItem, onTeacherClick, id, username, teachersL
           status: 'scheduled',
           user_nickname: username,
           master_chat_id: classDetailsItem.master_chat_id,
+          visit_id:classDetailsItem.id
         }),
       });
 
@@ -147,7 +148,7 @@ END:VCALENDAR
         </div>
       </div>
       <div className='class-information'>
-        <div className='class-line'><Pin /><p>Online</p></div>
+        <div className='class-line'><Pin /><p>{classDetailsItem.location}</p></div>
         <div className='class-line'><Clock /><p>{classDetailsItem.date}</p></div>
         <div className='class-line'><Money /><p>{classDetailsItem.price}</p></div>
       </div>

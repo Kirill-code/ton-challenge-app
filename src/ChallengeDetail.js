@@ -34,7 +34,8 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
       return false;
     });
     setTasksEnabled(enabled);
-    const progress = (finishedTasks / tasksNumber) * 100;
+    const progress = tasksNumber!==0?(finishedTasks / tasksNumber) * 100:0;
+    console.log("progress:"+progress)
     setProgressFilled(progress);
   };
 
@@ -85,7 +86,7 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
         body: JSON.stringify({
           user_id: id,
           sbt_id: challengeDetailsItem.sbt_id,
-          status: finishedTasks == challengeDetailsItem.tasks.length ? 'completed' : 'run', // Adjust based on your status logic
+          status: finishedTasks === challengeDetailsItem.tasks.length ? 'completed' : 'run', // Adjust based on your status logic
           username: username, // If needed
           finished_tasks: finishedTasks,
           tasks_number: challengeDetailsItem.tasks.length,
@@ -171,7 +172,8 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
   }
 
   if (error) {
-    return <div className="challenge-detail"><p>Ошибка: {error} </p><p>Обновите страницу.</p></div>;
+    console.log(error)
+    return <div className="challenge-detail"><p>Ошибка:  </p><p>Обновите страницу.</p></div>;
   }
 
   return (

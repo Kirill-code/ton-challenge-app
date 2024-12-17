@@ -3,15 +3,15 @@ import './TeacherDetail.css';
 import CalendarView from './CalendarView';
 
 
-const TeacherDetail = ({ teacherDetail,  classes, onClassClick }) => {
+const TeacherDetail = ({ teacherDetail, classes, onClassClick }) => {
   const classesCurrentTeacher = classes.filter(
-    (classItem) => 
+    (classItem) =>
       classItem.master_chat_id === teacherDetail.master_chat_id
     // console.log(classItem.master_chat_id)
 
   );
-  
-    console.log(classesCurrentTeacher)
+
+  console.log(classesCurrentTeacher)
 
 
   return (
@@ -44,11 +44,16 @@ const TeacherDetail = ({ teacherDetail,  classes, onClassClick }) => {
         <a className="see-all" >ВСЕ</a>
 
       </div>
-      <CalendarView
-                classesData={classesCurrentTeacher}
-                onClassClick={onClassClick} // Pass the handler down
-                />
-      
+      {classesCurrentTeacher.length > 0 ? (
+        <CalendarView
+          classesData={classesCurrentTeacher}
+          onClassClick={onClassClick} // Pass the handler down
+        />
+      ) : (
+
+        <p className="comming-soon">Нет занятий</p>
+      )}
+
 
 
 

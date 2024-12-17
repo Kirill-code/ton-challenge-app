@@ -3,7 +3,7 @@
  * Business Source License 1.1
  * Change Date: November 23, 2026
  */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import { TonConnectButton, useTonWallet, useTonAddress } from '@tonconnect/ui-react';
 import { Home, Grid, Calendar, User, ArrowLeft } from 'lucide-react';
@@ -17,6 +17,7 @@ import TeacherDetail from './TeacherDetail';
 import { TwaAnalyticsProvider } from '@tonsolutions/telemetree-react';
 
 import WebApp from '@twa-dev/sdk'
+import { duration } from "@mui/material";
 
 
 const teachersList = [
@@ -25,14 +26,48 @@ const teachersList = [
   { master_chat_id: '211166438', sportType: 'Йога мастер', teacherName: "Кирилл Корректный", type: "Ваджра йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/Kirill.jpg", teacherTgUrl: 'https://www.instagram.com/kirill_yoga/', tag: "Подробнее", description: 'Ищете эффективный и безопасный способ избавиться от болей в спине? Тогда наши совместные занятия — то, что вам нужно! Присоединяйтесь к нам, и всего за 30 минут в день вы забудете о болях в спине и получите удовольствие от занятий!' },
   { master_chat_id: '22222222222', sportType: 'Йога мастер', teacherName: "Карина Кодак", type: "Ваджра йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/Karina%20Kodak%202.jpg", teacherTgUrl: 'https://www.instagram.com/n.o.karma/', tag: "@n.o.karma", description: 'Преподаю Ваджра йогу. Учу работать с телом по методике корректного подхода к позвоночнику и работать с умом через медитацию и пранаяму (технику дыхания).В практике отсутствуют скрутки, повороты, боковые наклоны и глубокие прогибы.' },
   { master_chat_id: '209618178', sportType: 'Йога мастер', teacherName: "Анастасия Рябова", type: "Айенгара йога", teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/anastasia_ryabova.jpg", teacherTgUrl: 'https://www.instagram.com/p/DAyqqXryct5/', tag: "Подробнее", description: 'Преподаю йогу в традиции Айенгара. Помогаю научиться совмещать йогу и спорт. Йога для спорта - идеальное комбо. Для эффективности движения нужна хорошая координация, нужны функциональные мышцы и хорошо подготовленные к нагрузкам нервная, дыхательная и сердечно-сосудистая системы. Йога может помочь по всем пунктам.' },
+  {
+    master_chat_id: '5111099345',
+    sportType: 'Сноуборд инструктор',
+    teacherName: "Антон Саминский",
+    type: "Базовые навыки, основы карвинга",
+    teacherImageUrl: "https://storage.yandexcloud.net/start-image/masters/anton_saminskiy_snowboard.jpeg",
+    teacherTgUrl: 'https://snowandskill.notion.site/150e356eb4a880d988aefbbd52a4b833',
+    tag: "Подробнее",
+    description: 'Научу кататься на сноуборде красиво и безопасно с 0 или помогу исправить технику'
+  },
 
 ];
 
 
 const longClasses = [
   {
+    id: "class-1",
+    date: "16.12(пн) 6:00 GMT+3 (1ч.15м.)",
+    title: "Бодрое утро",
+    location: 'Онлайн',
+    shortDescription: "Групповая практика в Zoom для зарядки энергией на весь день.",
+    classDescription: "Групповая практика в Zoom для зарядки энергией на весь день.",
+    price: "5 USDT",
+    imageUrl: "https://storage.yandexcloud.net/start-image/masters/vladimir_mitiukov_2.jpg",
+    master_chat_id: '334547237'
+  },
+  {
+    id: "class-2",
+    date: "16.12(пн) 20:30 GMT+3 (1ч.)",
+    title: "Групповая практика",
+    location: 'Онлайн',
+    shortDescription: "Занятие в группе по Zoom.",
+    classDescription: "Занятие в группе по Zoom.",
+    price: "20 USDT",
+    imageUrl: "https://storage.yandexcloud.net/start-image/masters/irina_bogdanova.jpg",
+    master_chat_id: '371907941'
+  },
+  {
+    id: "class-3",
     date: "Лично",
     title: "Индивидуальный класс",
+    location: 'Онлайн',
     shortDescription: "Персональное занятие в Zoom.",
     classDescription: "Время занятий назначается индивидуально. Занятия в Zoom",
     price: "30 USDT",
@@ -41,8 +76,21 @@ const longClasses = [
 
   },
   {
-    date: "05.12(чт) 8:00-9:30 GMT+3",
+    id: "class-4",
+    date: "18.12(ср) 6:00 GMT+3 (1ч.15м.)",
+    title: "Бодрое утро",
+    location: 'Онлайн',
+    shortDescription: "Групповая практика в Zoom для зарядки энергией на весь день.",
+    classDescription: "Групповая практика в Zoom для зарядки энергией на весь день.",
+    price: "5 USDT",
+    imageUrl: "https://storage.yandexcloud.net/start-image/masters/vladimir_mitiukov_2.jpg",
+    master_chat_id: '334547237'
+  },
+  {
+    id: "class-5",
+    date: "19.12(чт) 8:00 GMT+3 (1ч.30м.)",
     title: "Групповая практика",
+    location: 'Онлайн',
     shortDescription: "Занятие в группе по Zoom.",
     classDescription: "Занятие в группе по Zoom.",
     price: "5 USDT",
@@ -50,8 +98,10 @@ const longClasses = [
     master_chat_id: '209618178'
   },
   {
-    date: "05.12(чт) 20:30-21:30 GMT+3",
+    id: "class-6",
+    date: "19.12(чт) 20:30 GMT+3 (1ч.)",
     title: "Групповая практика",
+    location: 'Онлайн',
     shortDescription: "Занятие в группе по Zoom.",
     classDescription: "Занятие в группе по Zoom.",
     price: "20 USDT",
@@ -60,8 +110,10 @@ const longClasses = [
 
   },
   {
-    date: "06.12(пт) 6:00-7:15 GMT+3",
+    id: "class-7",
+    date: "20.12(пт) 6:00 GMT+3 (1ч.15м.)",
     title: "Бодрое утро",
+    location: 'Онлайн',
     shortDescription: "Занятие в группе по Zoom.",
     classDescription: "Групповая практика в Zoom для зарядки энергией на весь день.",
     price: "5 USDT",
@@ -70,32 +122,33 @@ const longClasses = [
 
   },
   {
-    date: "06.12(пт) 6:00-7:15 GMT+3",
-    title: "Бодрое утро",
-    shortDescription: "Занятие в группе по Zoom.",
-    classDescription: "Групповая практика в Zoom для зарядки энергией на весь день.",
-    price: "5 USDT",
-    imageUrl: "https://storage.yandexcloud.net/start-image/masters/vladimir_mitiukov_2.jpg",
-    master_chat_id: '334547237'
-
+    id: "class-8",
+    date: "21.12(cб) 10:00-13:30 GMT+4",
+    title: "Вельветовое утро",
+    location: 'Цахкадзор',
+    shortDescription: "Цахкадзор",
+    classDescription: "Индивидуальное занятие или занятияе в группе 2 чел. до обеда. Продолжительность занятия определяется индивидуально",
+    price: "Договорная",
+    imageUrl: "https://storage.yandexcloud.net/start-image/masters/anton_saminskiy_snowboard_2.jpeg",
+    master_chat_id: '5111099345'
   },
   {
-    date: "06.12(пт) 6:00-7:15 GMT+3",
-    title: "Бодрое утро",
-    shortDescription: "Занятие в группе по Zoom.",
-    classDescription: "Групповая практика в Zoom для зарядки энергией на весь день.",
-    price: "5 USDT",
-    imageUrl: "https://storage.yandexcloud.net/start-image/masters/vladimir_mitiukov_2.jpg",
-    master_chat_id: '334547237'
-
+    id: "class-9",
+    date: "21.12(cб) 14:30-17:30 GMT+4",
+    title: "Активный день",
+    location: 'Цахкадзор',
+    shortDescription: "Цахкадзор",
+    classDescription: "Индивидуальное занятие или занятияе в группе 2 чел. после обеда. Продолжительность занятия определяется индивидуально",
+    price: "Договорная",
+    imageUrl: "https://storage.yandexcloud.net/start-image/masters/anton_saminskiy_snowboard_2.jpeg",
+    master_chat_id: '5111099345'
   },
-  
 ];
 
 function App({ telegramData }) {
   const mockTelegramData = {
     user: {
-      id: "123456",
+      id: "211166438",
       first_name: "Mock",
       last_name: "User",
       username: "mockuser"
@@ -116,6 +169,8 @@ function App({ telegramData }) {
   const wallet = useTonWallet();
   const rawAddress = useTonAddress();
 
+  const activeTabHistory = useRef([]);
+
   useEffect(() => {
     const today = new Date();
     const options = { day: '2-digit', month: 'long' };
@@ -123,8 +178,20 @@ function App({ telegramData }) {
     // Notify Telegram that the web app is ready
 
     window.scrollTo(0, 0);
+    const tg = window.Telegram.WebApp;
+    const startParam = tg.initDataUnsafe?.start_param;
+
+    if (startParam) {
+      const foundClass = longClasses.find(c => c.id === startParam);
+      if (foundClass) {
+        setSelectedClass(foundClass);
+        setActiveTab('classDetail');
+      }
+    }
 
   }, [activeTab]);
+
+
   // Early return if telegramData is not available
   if (!telegramData || !telegramData.user) {
     return <div>Failed to load Telegram data. Please reload the app.</div>;
@@ -133,9 +200,17 @@ function App({ telegramData }) {
   const { id, first_name, last_name, username } = telegramData.user;
   const displayName = username || `${first_name || ''} ${last_name || ''}`.trim() || 'User';
 
+  const navigateTo = (newTab) => {
+    if (newTab !== activeTab) {
+      // Push current tab onto history before navigating
+      activeTabHistory.current.push(activeTab);
+    }
+    setActiveTab(newTab);
+  };
+
   const mainCardsArray = [
     {
-      sbt_id:"689",
+      sbt_id: "689",
       title: "5 минут внимания спине",
       description: "Уделите 5 минут внимания стержню вашего тела ",
       type: "Йога",
@@ -147,7 +222,8 @@ function App({ telegramData }) {
           taskDescription: '1 минута медитации',
           taskImgURL: 'https://storage.yandexcloud.net/start-image/tasks/heart.svg',
           videoId: '',
-          type: "breaf"
+          type: "breaf",
+          duration: 5
         },
         {
           taskName: 'Онлайн-занятие',
@@ -158,7 +234,7 @@ function App({ telegramData }) {
       ]
     },
     {
-      sbt_id:"689",
+      sbt_id: "111",
       title: "7 дней питания",
       description: "Ведите дневник и узнайте, что вы на самом деле едите",
       type: "Скоро",
@@ -169,7 +245,7 @@ function App({ telegramData }) {
       ]
     },
     {
-      sbt_id:"689",
+      sbt_id: "222",
       title: "Беги к своей цели",
       description: "Покажи всем на сколько ты хорош в беге",
       type: "Скоро",
@@ -180,6 +256,8 @@ function App({ telegramData }) {
       ]
     },
     {
+      sbt_id: "333",
+
       title: "7 дней гармонии",
       description: "Улучшите свое самочувствие всего за одну неделю",
       type: "Скоро",
@@ -199,6 +277,8 @@ function App({ telegramData }) {
       ]
     },
     {
+      sbt_id: "444",
+
       title: "Вело приключение",
       description: "Откройте для себя новые горизонты на двух колесах",
       type: "Скоро",
@@ -211,7 +291,7 @@ function App({ telegramData }) {
 
   const yogaCardsArray = [
     {
-      sbt_id:"689",
+      sbt_id: "689",
       title: "5 минут внимания спине",
       description: "Уделите 5 минут внимания стержню вашего тела ",
       type: "Йога",
@@ -407,25 +487,27 @@ function App({ telegramData }) {
 
   const handleCardClick = (card) => {
     setSelectedChallenge(card);
-    setActiveTab('grid');
+    navigateTo('grid');
   };
 
   const handleClassClick = (classItem) => {
     setSelectedClass(classItem);
-    setActiveTab('classDetail');
+    navigateTo('classDetail');
   };
   const handleTeacherClick = (teacherItem) => {
     setSelectedTeacher(teacherItem);
-    setActiveTab('teacherDetail');
+    navigateTo('teacherDetail');
   };
 
   let isComeFromHome = true;
   const handleBack = () => {
-    setSelectedChallenge(null);
-    if (isComeFromHome) {
-      setActiveTab('home');
+    console.log(activeTabHistory);
+    if (activeTabHistory.current.length > 0) {
+      const previousTab = activeTabHistory.current.pop();
+      navigateTo(previousTab);
     } else {
-      setActiveTab('grid');
+      // If no history, default to home
+      navigateTo('home');
     }
 
   };
@@ -433,10 +515,10 @@ function App({ telegramData }) {
 
 
   const SliderToggle = () => {
-    const [activeTab, setActiveTab] = useState('All');
+    const [activeTab, setSliderTab] = useState('All');
 
     const handleToggle = (tab) => {
-      setActiveTab(tab);
+      setSliderTab(tab);
     };
 
     return (
@@ -498,10 +580,10 @@ function App({ telegramData }) {
   //TODO: fix duplicates
 
   const SliderToggleGrid = () => {
-    const [activeTab, setActiveTab] = useState('Classes');
+    const [activeTab, setGrideTab] = useState('Classes');
 
     const handleToggle = (tab) => {
-      setActiveTab(tab);
+      setGrideTab(tab);
     };
 
     return (
@@ -534,7 +616,7 @@ function App({ telegramData }) {
       </div>
     );
   };
-  console.log("selectedTeacher "+selectedTeacher)
+  // console.log("selectedTeacher " + selectedTeacher)
 
   return (
     <TwaAnalyticsProvider
@@ -592,7 +674,11 @@ function App({ telegramData }) {
           let mainContent;
           switch (activeTab) {
             case 'profile':
-              mainContent = <UserProfile />;
+              mainContent = <UserProfile
+                displayNameUser={displayName}
+                userId={id}
+                onClassClick={handleClassClick} 
+                classes={longClasses}/>;
               break;
             case 'calendar':
               mainContent = <SliderToggleGrid />;
@@ -631,7 +717,7 @@ function App({ telegramData }) {
                       id={id}
                       username={displayName}
                       teachersList={teachersList}
-                      />
+                    />
 
                   </div>
                 );
@@ -662,7 +748,7 @@ function App({ telegramData }) {
                   />
                   <div className="classes-section">
                     <h3 className="section-title">КЛАССЫ</h3>
-                    <a className="see-all" onClick={() => setActiveTab('calendar')}>ВСЕ</a>
+                    <a className="see-all" onClick={() => navigateTo('calendar')}>ВСЕ</a>
                   </div>
                   <CalendarView classesData={longClasses.slice(0, 3)} onClassClick={handleClassClick} />
                 </div>
@@ -676,25 +762,25 @@ function App({ telegramData }) {
         <footer className="footer">
           <div
             className={`footer-item ${activeTab === 'home' ? 'active' : ''}`}
-            onClick={() => { setActiveTab('home'); isComeFromHome = true; }}
+            onClick={() => { navigateTo('home'); isComeFromHome = true; }}
           >
             <Home size={24} />
           </div>
           <div
             className={`footer-item ${activeTab === 'grid' ? 'active' : ''}`}
-            onClick={() => { setActiveTab('grid'); isComeFromHome = false; }}
+            onClick={() => { navigateTo('grid'); isComeFromHome = false; }}
           >
             <Grid size={24} />
           </div>
           <div
             className={`footer-item ${activeTab === 'calendar' ? 'active' : ''}`}
-            onClick={() => { setActiveTab('calendar'); isComeFromHome = false; }}
+            onClick={() => { navigateTo('calendar'); isComeFromHome = false; }}
           >
             <Calendar size={24} />
           </div>
           <div
             className={`footer-item ${activeTab === 'profile' ? 'active' : ''}`}
-            onClick={() => setActiveTab('profile')}
+            onClick={() => navigateTo('profile')}
           >
             <User size={24} />
           </div>
