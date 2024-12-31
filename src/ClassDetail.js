@@ -129,7 +129,7 @@ END:VCALENDAR
   return (
     <div className="class-detail">
       <div className="class-image-container">
-        <img src={classDetailsItem.imageUrl} alt="ClassImage" className="class-image-details" />
+        <img src={classDetailsItem.image_url} alt="ClassImage" className="class-image-details" />
       </div>
       <p className="class-title-details">{classDetailsItem.title}</p>
 

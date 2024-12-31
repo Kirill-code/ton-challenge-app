@@ -113,7 +113,7 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
         setLoading(true);
         const url = new URL(`${API_CONFIG.BASE_URL}/get_event`);
         url.searchParams.append('user_id', id);
-        url.searchParams.append('sbt_id', challengeDetailsItem.sbt_id);
+        url.searchParams.append('sbt_id', challengeDetailsItem.id);
 
         const response = await fetch(url.toString(), {
           method: 'GET',
@@ -179,7 +179,7 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
   return (
     <div className="challenge-detail">
       <div className="image-container">
-        <img src={challengeDetailsItem.imageUrl} alt="Challenge!" className="challenge-image" />
+        <img src={challengeDetailsItem.image_url} alt="Challenge!" className="challenge-image" />
         <div className="card-tag-details">{challengeDetailsItem.type}</div>
       </div>
       <p className="challenge-title-details">{challengeDetailsItem.title}</p>
