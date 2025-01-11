@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/ton-challenge-app/static/css/main.a4ca2994.css",
-    "main.js": "/ton-challenge-app/static/js/main.a0c99570.js",
+    "main.css": "/ton-challenge-app/static/css/main.27384130.css",
+    "main.js": "/ton-challenge-app/static/js/main.b804f706.js",
     "static/js/453.714a8f69.chunk.js": "/ton-challenge-app/static/js/453.714a8f69.chunk.js",
     "static/media/inter-latin-ext-400-normal.woff": "/ton-challenge-app/static/media/inter-latin-ext-400-normal.1c20f7dc20d731a18fcd.woff",
     "static/media/inter-latin-400-normal.woff": "/ton-challenge-app/static/media/inter-latin-400-normal.b0c8fe9db56dd415a25a.woff",
@@ -26,12 +26,12 @@
     "static/media/pin.svg": "/ton-challenge-app/static/media/pin.1b0b2db2b5c19631ceba68afcd9bf4e5.svg",
     "static/media/clock.svg": "/ton-challenge-app/static/media/clock.06cf97898566b89149350dcc84a2b824.svg",
     "static/media/home.svg": "/ton-challenge-app/static/media/home.ca500be0a0a46e3b7e1038142c500bc2.svg",
-    "main.a4ca2994.css.map": "/ton-challenge-app/static/css/main.a4ca2994.css.map",
-    "main.a0c99570.js.map": "/ton-challenge-app/static/js/main.a0c99570.js.map",
+    "main.27384130.css.map": "/ton-challenge-app/static/css/main.27384130.css.map",
+    "main.b804f706.js.map": "/ton-challenge-app/static/js/main.b804f706.js.map",
     "453.714a8f69.chunk.js.map": "/ton-challenge-app/static/js/453.714a8f69.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a4ca2994.css",
-    "static/js/main.a0c99570.js"
+    "static/css/main.27384130.css",
+    "static/js/main.b804f706.js"
   ]
 }
