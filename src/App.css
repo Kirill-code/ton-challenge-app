@@ -58,32 +58,35 @@ body {
   flex-direction: column;
   /* Allow content to stack vertically */
   /* padding: 20px; */
-  padding-left: 20px;
+  /* padding-left: 20px; */
   padding-top: 20px;
   
 }
 
 .header {
   margin-bottom: 20px;
+  padding-left: 16px;
+
 }
 
 .header-grid {
-  display: inline-flex;
-  /* padding-right: 142px; */
-  align-items: center;
-  gap: 45px;
-  /* margin-left: 16px; */
+  position: relative;
+  margin-left: 16px;
   margin-bottom: 16px;
+  /* whatever else you had */
 }
 
-.header-title {
-  align-items: center;
-}
+
 
 /* TODO: fix middle position and remove duplicate class */
-.header-title-challenge {
-  align-items: center;
-  margin-left: 20px;
+.header-title {
+  position: absolute;
+  left: 50%;
+  top: 50%;   /* or align as desired */
+  transform: translate(-50%, -50%) translateX(-2px);
+  /* Explanation:
+     - translate(-50%, -50%) will center it (both X and Y),
+     - translateX(24px) shifts it right by half the back button width. */
 }
 
 .back-button {
@@ -126,6 +129,8 @@ body {
   margin-bottom: 20px;
   margin-right: 16px;
   padding: 20px 16px 16px 20px;
+  margin-left: 16px;
+
 }
 
 .notification-title {
@@ -164,7 +169,13 @@ body {
 
 
 
-
+.challenge-detail-container{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-left: 16px;
+  margin-right: 16px;
+}
 /* Add to your App.css */
 
 
@@ -310,6 +321,8 @@ body {
   background-color: #191919;
   border-radius: 25px;
   padding: 5px;
+  margin-left: 16px;
+  margin-right: 16px;
 }
 
 .toggle-button {
@@ -338,6 +351,8 @@ body {
 .slider-content {
   margin-bottom: 50px;
 }
+
+
 
 /*****************FOOTER***************/
 
@@ -399,7 +414,7 @@ body {
   text-align: center;
   /* align-items: center; */
   width: 150px;
-  margin-left: 25%;
+  margin-left: 28%;
   margin-top: 16px;
   margin-bottom: 20%;
 }

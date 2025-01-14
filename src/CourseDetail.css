@@ -1,0 +1,550 @@
+.image-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Adjusted .card-tag to position within the image container */
+.lessons-count {
+
+  color: #000000CC;
+  display: inline-flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0px 12px 24px 0px rgba(0, 0, 0, 0.05);
+}
+.challenge-image {
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  border-radius: 24px;
+}
+
+/* Header with back arrow */
+.header-with-back {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.challenge-detail {
+  margin-right: 16px;
+  margin-bottom: 60px;
+}
+
+/* “15 уроков” or the lessons count style */
+.lessons-count {
+  margin-top: 16px;
+  margin-left: 16px;
+  /* color: #FFD700; or any color you want */
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* Big title */
+.challenge-title-details {
+  overflow: hidden;
+  color: #FFF;
+  text-overflow: ellipsis;
+  font-family: Inter, sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 30px;
+  letter-spacing: -0.4px;
+  padding-left: 16px;
+  padding-top: 12px;
+}
+
+/* Subtitle under the title */
+.course-subtitle {
+  padding-left: 16px;
+  margin-top: 8px;
+  color: #707579;
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.23px;
+  white-space: pre-line;
+}
+
+
+/* Lessons container */
+.lessons-container {
+  margin-top: 16px;
+  padding-left: 16px;
+  /* padding-right: 16px; */
+}
+
+.lesson-card {
+  background: #191919;
+  border-radius: 24px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  box-shadow:
+    0px 0px 2px 1px rgba(0, 0, 0, 0.02),
+    0px 32px 64px 0px rgba(0, 0, 0, 0.04);
+}
+
+.lesson-card-inner {
+  display: flex;
+  justify-content: space-between; /* Ensures the arrow is aligned to the right */
+  align-items: center; /* Centers the arrow vertically */
+  padding: 20px; /* Adjust padding as needed */
+  border-radius: 24px;
+}
+
+.lesson-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1; /* Takes available space */
+}
+
+
+.lesson-title {
+  color: #FFF;
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: -0.4px;
+}
+
+.lesson-subtitle {
+  color: #707579;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.23px;
+}
+
+/* Hide or remove the old .challenge-progress if not needed */
+/*
+.challenge-progress {
+  display: none;
+}
+*/
+
+.no-tasks-message {
+  margin-left: 20px;
+  color: #707579;
+}
+
+/* Optional: style your video container similarly */
+.video-container {
+  margin-top: 16px;
+}
+.watch-video-button {
+  display: inline-block;
+  background-color: #007aff;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 16px;
+  cursor: pointer;
+}
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5); /* Semi-transparent overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000; /* Ensure it's on top of all other elements */
+}
+
+/* Modal Content */
+.modal-content {
+  background: #1e1e1e; /* Dark background */
+  color: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  max-width: 90%;
+  width: 400px; /* Adjust as needed */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Modal Header */
+.modal-content h3 {
+  margin-top: 0;
+}
+
+/* Modal Button */
+.button {
+  background-color: #007aff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  margin-top: 16px;
+}
+.buttonTon{
+  background-color: green;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  margin-top: 16px;
+  margin-left: 8px;
+  margin-right: 8 px;
+}
+
+
+.image-preview {
+  margin: 1rem 0;
+  text-align: center;
+  
+}
+
+.image-preview img {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.payment-methods {
+  display: grid;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.payment-method {
+  padding: 1rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+.upload-section {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.error-message {
+  color: #ef4444;
+  margin: 0.5rem 0;
+  font-size: 0.875rem;
+}
+
+.upload-status {
+  margin-top: 1rem;
+  padding: 1rem;
+  /* background-color: #f9fafb; */
+  /* border-radius: 8px; */
+}
+
+.upload-status .success {
+  color: #22c55e;
+  font-weight: 500;
+}
+
+.upload-status .error {
+  color: #ef4444;
+  font-weight: 500;
+}
+.payment-method {
+  padding: 1.5rem;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  /* background: #f8f9fa; */
+}
+
+.payment-method h4 {
+  margin: 0 0 1rem 0;
+  color: #f8f9fa;
+  font-size: 1.1rem;
+}
+
+.payment-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.payment-details p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* CourseDetail.css */
+
+/* Existing styles... */
+
+/* Update the copyable-text to ensure it still looks good */
+.copyable-text {
+  font-family: monospace;
+  /* Removed background */
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  user-select: all;
+  color: #2563eb;
+}
+
+.copyable-text:hover {
+  /* Removed background on hover */
+  /* background: #f3f4f6; */
+}
+
+/* Updated copy-button styles */
+.copy-button {
+  background: none; /* Remove background */
+  border: none; /* Remove border */
+  cursor: pointer;
+  padding: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.5rem; /* Space between text and icon */
+  color: #2563eb; /* Icon color */
+  transition: color 0.2s;
+}
+
+.copy-button:hover {
+  color: #1d4ed8; /* Darker blue on hover */
+}
+
+.copy-button:focus {
+  outline: none;
+  /* Optional: add a focus style if needed */
+}
+
+/* Optional: Adjust the size of the Copy icon if needed */
+.copy-button svg {
+  display: block;
+}
+/* CourseDetail.css */
+
+/* Existing styles... */
+
+/* Slider container */
+.payment-method-slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* Payment method container */
+.payment-method-container {
+  width: 80%;
+  overflow: hidden;
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Payment method slide */
+.payment-method {
+  min-width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  /* background-color: #ffffff; */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px ffffff;
+}
+
+/* Hide inactive slides */
+.payment-method.inactive {
+  display: none;
+}
+
+/* Show active slide */
+.payment-method.active {
+  display: block;
+}
+
+/* Slider arrows */
+.slider-arrow {
+  background: none;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  padding: 10px;
+  color: #007AFF;
+  transition: color 0.2s;
+}
+
+.slider-arrow:hover {
+  color: #005BB5;
+}
+
+.slider-arrow.prev {
+  position: absolute;
+  left: 0;
+}
+
+.slider-arrow.next {
+  position: absolute;
+  right: 0;
+}
+
+/* Payment method heading */
+.payment-method h4 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Payment details */
+.payment-details p {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+}
+
+/* Copyable text styling */
+.copyable-text {
+  font-family: monospace;
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #2563eb;
+  transition: background-color 0.2s;
+}
+
+.copyable-text:hover {
+  background-color: #f0f4ff;
+}
+
+/* Copy button styling */
+.copy-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  color: #2563eb;
+  transition: color 0.2s;
+}
+
+.copy-button:hover {
+  color: #1d4ed8;
+}
+
+/* Slider indicators */
+.slider-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.indicator-dot {
+  width: 12px;
+  height: 12px;
+  background-color: #d1d5db;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.indicator-dot.active {
+  background-color: #007AFF;
+}
+
+/* Upload section styling */
+.upload-section {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.upload-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #007AFF;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.upload-button:hover {
+  background-color: #005BB5;
+}
+
+/* Image preview styling */
+.image-preview img {
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+}
+
+/* Upload status messages */
+.upload-status .success {
+  color: #22c55e;
+  font-weight: 500;
+}
+
+.upload-status .error {
+  color: #ef4444;
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .payment-method-container {
+    width: 100%;
+  }
+
+  .payment-method h4 {
+    font-size: 18px;
+  }
+
+  .payment-details p {
+    font-size: 14px;
+  }
+
+  .upload-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .slider-arrow {
+    font-size: 24px;
+  }
+
+  .indicator-dot {
+    width: 10px;
+    height: 10px;
+  }
+}

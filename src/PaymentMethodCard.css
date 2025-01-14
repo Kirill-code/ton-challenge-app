@@ -1,0 +1,57 @@
+/* src/PaymentMethodCard.css */
+
+.payment-method-card {
+    background-color: #191919;
+    border-radius: 24px;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.02), 
+                0px 32px 64px 0px rgba(0, 0, 0, 0.04);
+    padding: 20px;
+    margin: 10px;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    scroll-snap-align: start;
+  }
+  
+  .payment-method-title {
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  
+  .payment-method-details {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    color: #707579;
+  }
+  
+  .payment-detail {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .copyable-text {
+    margin-left: 5px;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  .copy-button {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+  
+  .copy-button:hover {
+    color: #1e90ff;
+  }
+  

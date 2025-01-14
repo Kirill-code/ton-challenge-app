@@ -96,7 +96,7 @@
   gap: 10px;
   border-radius: 24px ;
   background-color: #191919;
-
+  margin-left: 16px;
 }
 
 .teacher-description-full {
@@ -112,5 +112,5 @@
 }
 .comming-soon{
   color: #707579;
-  margin-left: 90px;
+  margin-left: 28%;
 }

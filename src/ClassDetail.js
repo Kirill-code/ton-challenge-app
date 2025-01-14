@@ -84,10 +84,10 @@ const ClassDetail = ({ classDetailsItem, onTeacherClick, id, username, teachersL
   const handleTeacherDetailsClick = () => {
     onTeacherClick({
       sportType: teacher.sportType,
-      teacherName: teacher.teacherName,
+      teachername: teacher.teachername,
       type: teacher.type,
       teacherImageUrl: teacher.teacherImageUrl,
-      teacherTgUrl: teacher.teacherTgUrl,
+      teachertgurl: teacher.teachertgurl,
       tag: teacher.tag,
       description: teacher.description,
       master_chat_id:teacher.master_chat_id
@@ -133,7 +133,7 @@ END:VCALENDAR
       </div>
       <p className="class-title-details">{classDetailsItem.title}</p>
 
-      <p className="class-description-details">{classDetailsItem.classDescription}</p>
+      <p className="class-description-details">{classDetailsItem.class_description}</p>
       {/* MASTER DETAILS */}
       <div className="class-card-teacher-details" onClick={handleTeacherDetailsClick} >
         <img src={teacher.teacherImageUrl} className="class-image-teacher-details" />
@@ -143,7 +143,7 @@ END:VCALENDAR
             <p className="class-date-teacher-details">{teacher.sportType}</p>
 
           </div>
-          <h3 className="class-title-teacher-details">{teacher.teacherName}</h3>
+          <h3 className="class-title-teacher-details">{teacher.teachername}</h3>
           <p className="class-description-teacher-details">{teacher.type}</p>
         </div>
       </div>

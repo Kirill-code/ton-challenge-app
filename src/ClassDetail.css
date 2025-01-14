@@ -78,6 +78,7 @@
 .class-detail {
   margin-right: 16px;
   margin-bottom: 60px;
+  margin-left: 16px;
 }
 
 .class-information {
@@ -104,7 +105,7 @@
   line-height: 20px;
   /* 125% */
   letter-spacing: -0.23px;
-  opacity: 50%;
+  /* opacity: 50%; */
 }
 
 .class-details-btn {
@@ -117,7 +118,7 @@
   gap: 8px;
   flex: 1 0 0;
   border-radius: 12px;
-  opacity: 0.85;
+  /* opacity: 0.85; */
   background: #191919;
   box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.02), 0px 32px 64px 0px rgba(0, 0, 0, 0.04);
 }
@@ -273,7 +274,7 @@
 }
 
 .participate-btn:disabled {
-  opacity: 0.6;
+  /* opacity: 0.6; */
   cursor: not-allowed;
 }
 

@@ -1,60 +1,64 @@
-/******************CARDS***************/
+/****************** CARDS ******************/
 
-/* Horizontal Scrollable Cards */
 .cards-container {
+    width: 100%;
+    padding: 0 16px;
+    /* left & right padding for a 16px gap from screen edges */
     display: flex;
-    gap: 5px;
     overflow-x: auto;
-    /* Enables horizontal scrolling */
-    padding: 10px 0;
-    scroll-snap-type: x mandatory;
-    /* Optional: Snap to cards */
-    -webkit-overflow-scrolling: touch;
-    /* Smooth scrolling on iOS */
 }
 
-/* Hide scrollbar */
+.card {
+    margin-right: 16px;
+    /* spacing between cards */
+    /* no margin-left on the first card needed */
+}
+
+
+/* Hide scrollbar in WebKit browsers */
 .cards-container::-webkit-scrollbar {
     display: none;
 }
 
-.cards-container {
-    -ms-overflow-style: none;
-    /* IE 10+ */
-    scrollbar-width: none;
-    /* Firefox */
-}
 
+
+/* Each card in the container */
 .card {
+    /* Spacing: ensures gap between consecutive cards */
+    margin-right: 16px;
+
     border-radius: 24px;
     box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.02), 0px 32px 64px 0px rgba(0, 0, 0, 0.04);
     background-color: #191919;
+
+
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow: hidden;
+
+    /* Maintain consistent size: 
+       ‘min-width’ ensures horizontal space; 
+       height is fixed for a uniform look. */
     min-width: 262px;
-    /* Set min-width instead of fixed width */
     height: 262px;
-    /* Fixed height */
+
     cursor: pointer;
     scroll-snap-align: start;
     /* Snap alignment for smooth scrolling */
-    margin-right: 16px;
-
-
 }
 
+/* The main image (background or <img> also possible) */
 .card-image {
-    /* background-position: center;
-    background-repeat: repeat-x; */
     width: 262px;
     height: 262px;
-    background-color: #000000;
-    
+    background-color: #000;
+    /* background-image, background-position, background-repeat, etc.
+       can be set in inline styles or here */
 }
 
+/* The text area inside the card */
 .card-text {
     display: flex;
     width: 253px;
@@ -63,47 +67,43 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    gap: 12px;
+    gap: 5px;
 }
 
+/* A small tag or label in the top-right corner of the card */
 .card-tag {
     position: absolute;
     top: 10px;
     right: 10px;
     background-color: #ffffff;
     color: #000000CC;
-    padding: 10px 8px 10px 8px;
+    padding: 10px 8px;
     border-radius: 5px;
     font-size: 14px;
 }
 
+/* Title text */
 .card-title {
-    overflow: hidden;
-    color: #FFF;
+    color: #fff;
     text-overflow: ellipsis;
-    font-family: Inter;
+    font-family: Inter, sans-serif;
     font-size: 16px;
-    font-style: normal;
     font-weight: 600;
     line-height: 22px;
-    /* 137.5% */
     letter-spacing: -0.4px;
-
 }
 
+/* Description text */
 .card-description {
-    overflow: hidden;
     color: #707579;
     text-overflow: ellipsis;
-    font-family: Inter;
+    font-family: Inter, sans-serif;
     font-size: 14px;
-    font-style: normal;
     font-weight: 400;
-    line-height: 20px;
-    /* 142.857% */
     letter-spacing: -0.23px;
 }
 
+/* A variant of .card for teachers, if needed */
 .card-teachers {
     margin-bottom: 5px;
     border-radius: 24px;
@@ -115,10 +115,8 @@
     align-items: center;
     overflow: hidden;
     width: 250px;
-    /* Set min-width instead of fixed width */
+    /* could also be min-width if you like */
     height: 250px;
-    /* Fixed height */
     cursor: pointer;
     scroll-snap-align: start;
-    /* Snap alignment for smooth scrolling */
 }

@@ -9,7 +9,9 @@ import './CalendarView.css'; // Add a CSS file to style the component
 const CalendarView = ({ classesData, onClassClick }) => {
   return (
     <div className="calendar-view">
+
       {classesData.map((classItem, index) => (
+        // console.log("ClassItemINSIDE: " + JSON.stringify(classItem, null, 2)),
         <div key={index} className="class-card" onClick={() => onClassClick(classItem)}>
           <div><img src={classItem.image_url} alt="Class" className="class-image" /></div>
           <div className="class-details">
@@ -24,7 +26,7 @@ const CalendarView = ({ classesData, onClassClick }) => {
               </div>
             </div>
             <h3 className="class-title">{classItem.title}</h3>
-            <p className="class-description">{classItem.shortDescription}</p>
+            <p className="class-description">{classItem.short_description}</p>
           </div>
         </div>
       ))}

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import YouTube from 'react-youtube';
+import logo from './assets/logo.png';
+
 import './ChallengeDetail.css';
 import API_CONFIG from './config';
 
@@ -34,8 +36,8 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
       return false;
     });
     setTasksEnabled(enabled);
-    const progress = tasksNumber!==0?(finishedTasks / tasksNumber) * 100:0;
-    console.log("progress:"+progress)
+    const progress = tasksNumber !== 0 ? (finishedTasks / tasksNumber) * 100 : 0;
+    console.log("progress:" + progress)
     setProgressFilled(progress);
   };
 
@@ -52,7 +54,7 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
         body: JSON.stringify({
           user_id: id,
           event_name: `${challengeDetailsItem.title} ${challengeDetailsItem.date}`,
-          sbt_id: challengeDetailsItem.sbt_id,
+          sbt_id: challengeDetailsItem.id,
           status: 'run',
           username: username,
           finished_tasks: finishedTasks,
@@ -85,7 +87,7 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
         },
         body: JSON.stringify({
           user_id: id,
-          sbt_id: challengeDetailsItem.sbt_id,
+          sbt_id: challengeDetailsItem.id,
           status: finishedTasks === challengeDetailsItem.tasks.length ? 'completed' : 'run', // Adjust based on your status logic
           username: username, // If needed
           finished_tasks: finishedTasks,
@@ -119,7 +121,7 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            // Add Authorization header if required
+            // TODO: Add Authorization header
             // 'Authorization': `Bearer YOUR_AUTH_TOKEN`,
           },
         });
@@ -150,7 +152,7 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
     };
 
     fetchEventData();
-  }, [challengeDetailsItem.sbt_id, id]);
+  }, [challengeDetailsItem.id, id]);
 
   // Initialize tasksData from challengeDetailsItem.tasks
   useEffect(() => {
@@ -168,7 +170,9 @@ const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) =
   };
 
   if (loading) {
-    return <div className="challenge-detail"><p>Загрузка...</p></div>;
+    return <div className="spinner-container">
+      <img src={logo} className="spinner-logo" alt="Загрузка..." />
+    </div>;
   }
 
   if (error) {

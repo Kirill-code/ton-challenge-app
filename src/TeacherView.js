@@ -17,7 +17,7 @@ const TeacherView = ({ classesData, onClassClick }) => {
               <p className="class-date-teacher">{classItem.sportType}</p>
              
             </div>
-            <h3 className="class-title-teacher">{classItem.teacherName}</h3>
+            <h3 className="class-title-teacher">{classItem.teachername}</h3>
             <p className="class-description-teacher">{classItem.type}</p>
           </div>
         </div>

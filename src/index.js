@@ -10,6 +10,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { TonConnectUIProvider } from '@tonconnect/ui-react';
 import '@fontsource/inter'; // Defaults to weight 400
+import { ToastContainer } from 'react-toastify';
 
 const manifestUrl = 'https://storage.yandexcloud.net/start-image/manifest.json';
 // Get Telegram user data from global variable (initialized in index.html)
@@ -19,8 +20,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <TonConnectUIProvider manifestUrl={manifestUrl}>
-
+    
     <App telegramData={telegramData} />
+    
     </TonConnectUIProvider>
 
   </React.StrictMode>

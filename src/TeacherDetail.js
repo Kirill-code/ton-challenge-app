@@ -22,9 +22,9 @@ const TeacherDetail = ({ teacherDetail, classes, onClassClick }) => {
       <div className='teacher-details-container'>
         <p className="class-description-details-teacher">{teacherDetail.type}</p>
 
-        <p className="class-title-details-teacher">{teacherDetail.teacherName}</p>
+        <p className="class-title-details-teacher">{teacherDetail.teachername}</p>
         <div className='teacher-tg-container'>
-          <a className='teacher-tg-txt' href={teacherDetail.teacherTgUrl}>{teacherDetail.tag}</a>
+          <a className='teacher-tg-txt' href={teacherDetail.teachertgurl}>{teacherDetail.tag}</a>
         </div>
       </div>
       <div className="classes-section">
