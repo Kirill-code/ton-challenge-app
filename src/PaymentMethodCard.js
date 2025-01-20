@@ -11,18 +11,18 @@ const PaymentMethodCard = ({ method }) => {
       <h4 className="payment-method-title">
         {method.country === "RU" ? "🇷🇺" : method.country === "GE" ? "🇬🇪" : "🏦"} Оплата через {method.bankName}
       </h4>
-      <div className="payment-method-details">
+      <div className="payment-</h4>method-details">
         {method.cardNumber && (
           <p className="payment-detail">
-            Номер карты: 
-            <span 
-              className="copyable-text" 
+            Номер карты:
+            <span
+              className="copyable-text"
               onClick={() => copyToClipboard(method.cardNumber)}
             >
               {method.cardNumber}
             </span>
-            <button 
-              className="copy-button" 
+            <button
+              className="copy-button"
               onClick={() => copyToClipboard(method.cardNumber)}
               aria-label="Копировать номер карты"
             >
@@ -32,15 +32,15 @@ const PaymentMethodCard = ({ method }) => {
         )}
         {method.iban && (
           <p className="payment-detail">
-            IBAN: 
-            <span 
-              className="copyable-text" 
+            IBAN:
+            <span
+              className="copyable-text"
               onClick={() => copyToClipboard(method.iban)}
             >
-              {method.iban}
+              {method.iban.length > 15 ? method.iban.substring(0, 9) + '...' : method.iban}
             </span>
-            <button 
-              className="copy-button" 
+            <button
+              className="copy-button"
               onClick={() => copyToClipboard(method.iban)}
               aria-label="Копировать IBAN"
             >
@@ -51,15 +51,15 @@ const PaymentMethodCard = ({ method }) => {
         <p className="payment-detail">Получатель: {method.receiver}</p>
         {method.phone && (
           <p className="payment-detail">
-            Телефон: 
-            <span 
-              className="copyable-text" 
+            Телефон:
+            <span
+              className="copyable-text"
               onClick={() => copyToClipboard(method.phone)}
             >
               {method.phone}
             </span>
-            <button 
-              className="copy-button" 
+            <button
+              className="copy-button"
               onClick={() => copyToClipboard(method.phone)}
               aria-label="Копировать телефон"
             >

@@ -109,6 +109,7 @@
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
   color: #707579;
+  white-space: pre-line;
 }
 .comming-soon{
   color: #707579;

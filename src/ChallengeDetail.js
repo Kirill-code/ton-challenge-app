@@ -6,6 +6,9 @@ import './ChallengeDetail.css';
 import API_CONFIG from './config';
 
 const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) => {
+
+  console.log("TOP-LEVEL in CHALLENGE!!: If you never see me, this file never mounts.");
+
   const [activeTaskIndex, setActiveTaskIndex] = useState(null);
   const [progressFilled, setProgressFilled] = useState(0);
   const [tasksEnabled, setTasksEnabled] = useState([]);

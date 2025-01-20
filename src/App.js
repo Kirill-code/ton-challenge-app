@@ -129,7 +129,16 @@ function App({ telegramData }) {
 
     if (startParam) {
       try {
-        const decodedStartParam = decodeURIComponent(startParam);
+        // First check if it's base64 encoded
+        let decodedStartParam;
+        try {
+          decodedStartParam = atob(startParam);
+        } catch {
+          // If not base64, use the raw value
+          decodedStartParam = startParam;
+        }
+
+        decodedStartParam = decodeURIComponent(decodedStartParam);
         console.log('Decoded Start Param:', decodedStartParam);
 
         // EXAMPLE: "invite_snow_and_skill__id_8"
@@ -233,7 +242,10 @@ function App({ telegramData }) {
   };
 
   const handleCardClick = (card) => {
+    console.log("handleCardClick -> selectedChallenge:", card);
     setSelectedChallenge(card);
+    // Add this to track state update
+    console.log("Navigation to grid with challenge:", card?.title);
     navigateTo('grid');
   };
 
@@ -506,6 +518,7 @@ function App({ telegramData }) {
               break;
             case 'grid':
               if (selectedChallenge) {
+                console.log("Rendering CourseDetail with challenge:", selectedChallenge?.title);
                 mainContent = (
                   <div className="challenge-detail-container">
                     {selectedChallenge.typesbt === 'course' ? <CourseDetail
@@ -514,7 +527,7 @@ function App({ telegramData }) {
                       username={displayName}
                       teachersList={teachersList}
                       onOpenVideo={(videoLink) => {
-                        // Save the link and navigate to videoScreen
+                        console.log("Video link selected:", videoLink); // Add this log
                         setSelectedVideoLink(videoLink);
                         navigateTo('videoScreen');
                       }}

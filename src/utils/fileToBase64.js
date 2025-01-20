@@ -3,7 +3,7 @@ const IMAGE_CONFIG = {
     DEFAULT_MAX_WIDTH: 800,
     DEFAULT_MAX_HEIGHT: 800,
     DEFAULT_QUALITY: 0.8,
-    MAX_FILE_SIZE: 10 * 1024 * 1024, // 10MB
+    MAX_FILE_SIZE: 4 * 1024 * 1024, // 10MB
     ACCEPTED_TYPES: ['image/jpeg', 'image/png'], // Removed HEIC and HEIF
   };
   

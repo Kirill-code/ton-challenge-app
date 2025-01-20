@@ -6,17 +6,30 @@ import { useTonConnectUI } from '@tonconnect/ui-react';
 import logo from './assets/logo.png';
 import paid from './assets/paid.svg';
 import leftArrow from './assets/Left.png';
+import { Lock } from 'lucide-react';
+
+
 import Tesseract from 'tesseract.js'; // Updated import
-import { Upload } from 'lucide-react'; // Removed Copy icon as it wasn't used
+import { Upload } from 'lucide-react';
 import { toast } from 'react-toastify';
-import { fileToBase64 } from './utils/fileToBase64'; // Import the new function
-import './CourseDetail.css'; // Ensure you have styles for enabled/disabled lessons
+import { fileToBase64 } from './utils/fileToBase64';
+import './CourseDetail.css';
 import API_CONFIG from './config';
 
 import CardsContainer from './CardsContainer';
-import PaymentMethodCard from './PaymentMethodCard'; // Import the new component
+import PaymentMethodCard from './PaymentMethodCard';
 
 const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpenVideo }) => {
+  useEffect(() => {
+    console.log("=== CourseDetail Mount ===", {
+      challengeId: challengeDetailsItem?.id,
+      userId: id,
+      username,
+      hasChallenge: !!challengeDetailsItem,
+      title: challengeDetailsItem?.title
+    });
+  }, [challengeDetailsItem?.id, id, username]);
+
   const [activeTaskIndex, setActiveTaskIndex] = useState(null);
   const [progressFilled, setProgressFilled] = useState(0);
   const [tasksEnabled, setTasksEnabled] = useState([]);
@@ -35,47 +48,49 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
   const [previewUrl, setPreviewUrl] = useState(null);
   const [validationError, setValidationError] = useState('');
   const [recognizedText, setRecognizedText] = useState('');
-  const [ocrProgress, setOcrProgress] = useState(0); // New state for OCR progress
+  const [ocrProgress, setOcrProgress] = useState(0);
 
-  // Keywords to search for
+  // UPDATED: Keywords to search for (Russian + Georgian + English)
   const RECEIPT_KEYWORDS = {
-    russian: ['чек', 'итого', 'сумма', 'оплата', 'кассовый чек', 'банк', 'перевод', 'получатель'],
-    georgian: ['ჩეკი', 'ჯამი', 'გადახდა', 'ანგარიში', 'მიმღები', 'ბანკი']
+    russian: ['сумма', 'оплата', 'банк', 'перевод', 'получатель', 'чек', 'квитанция'],
+    georgian: ['გადახდა', 'ანგარიში', 'მიმღები', 'ბანკი', 'შეკვეთა', 'ჩექი'],
+    english: ['amount', 'payment', 'bank', 'transfer', 'receiver', 'check', 'receipt']
   };
 
   // Image validation configuration
   const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/heic', 'image/heif'];
   const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
-  // Function to check if text contains receipt keywords
+  // UPDATED: Function to check if recognized text contains any of the receipt keywords in any language
   const containsReceiptKeywords = (text) => {
     const lowerText = text.toLowerCase();
-    return RECEIPT_KEYWORDS.russian.some(keyword => lowerText.includes(keyword)) ||
-      RECEIPT_KEYWORDS.georgian.some(keyword => lowerText.includes(keyword));
+    return (
+      RECEIPT_KEYWORDS.russian.some(keyword => lowerText.includes(keyword)) ||
+      RECEIPT_KEYWORDS.georgian.some(keyword => lowerText.includes(keyword)) ||
+      RECEIPT_KEYWORDS.english.some(keyword => lowerText.includes(keyword))
+    );
   };
 
-  // Safeguard for payment methods
-  const paymentMethods = Array.isArray(challengeDetailsItem.paymentmethods) ? challengeDetailsItem.paymentmethods : [];
+  // Payment methods array safeguard
+  const paymentMethods = Array.isArray(challengeDetailsItem.paymentmethods)
+    ? challengeDetailsItem.paymentmethods
+    : [];
 
-  // OCR Function using Tesseract.recognize
+  // UPDATED: OCR Function using Tesseract.recognize with English + Russian + Georgian
   const performOCR = async (imageFile) => {
     try {
       console.log('Starting OCR process...');
-
-      // Perform OCR using the high-level recognize function
       const { data: { text } } = await Tesseract.recognize(
         imageFile,
-        'rus+kat', // Languages to recognize
+        'eng+rus+kat', // Now recognizes English, Russian, and Georgian
         {
           logger: (m) => {
-            console.log(m);
             if (m.progress) {
-              setOcrProgress(m.progress * 100); // Update OCR progress
+              setOcrProgress(m.progress * 100);
             }
           },
         }
       );
-
       console.log('OCR Result:', text);
       setRecognizedText(text);
       return text;
@@ -137,7 +152,7 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
 
       // Check if text contains receipt keywords
       if (containsReceiptKeywords(text) && !eventData?.paid_date) {
-        console.log("IMAGE: " + base64Image);
+        console.log("IMAGE: " + base64Image.length);
         await updateEvent(eventData?.finished_tasks || 0, currentDate, base64Image);
         setUploadStatus('success');
         toast.success('Квитанция подтверждена! Доступ открыт.');
@@ -169,23 +184,117 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
   // NEW: show/hide the payment pop-up
   const [showPaidModal, setShowPaidModal] = useState(false);
 
-  console.log("Username", username);
+  // console.log("Username", username);
 
   // Slider state
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // Unlocks the correct lesson(s) based on isFree or payment status
+  // Add logging to initializeTasks
   const initializeTasks = () => {
-    if (!tasksData.length) return;
+    console.log("initializeTasks called with:", {
+      tasksDataLength: tasksData?.length,
+      eventData: eventData,
+      paidDate: eventData?.paid_date
+    });
 
-    const enabled = tasksData.map(task => task.isFree || (eventData?.paid_date != null));
+    if (!tasksData.length) {
+      console.log("No tasks data available, returning early");
+      return;
+    }
+
+    const enabled = tasksData.map(task => {
+      const isEnabled = task.isFree || eventData?.paid_date != null;
+      console.log(`Task "${task.title}": isFree=${task.isFree}, isEnabled=${isEnabled}`);
+      return isEnabled;
+    });
+
+    console.log("Final enabled array:", enabled);
     setTasksEnabled(enabled);
 
-    // Calculate progress based on finished tasks
     const finishedTasks = eventData?.finished_tasks || 0;
     const progress = tasksData.length > 0 ? (finishedTasks / tasksData.length) * 100 : 0;
+    console.log(`Progress calculation: ${finishedTasks}/${tasksData.length} = ${progress}%`);
     setProgressFilled(progress);
   };
+
+  const fetchEventData = async () => {
+    console.log("Fetching event data for:", {
+      userId: id,
+      sbtId: challengeDetailsItem.id
+    });
+
+    try {
+      setLoading(true);
+      const url = new URL(`${API_CONFIG.BASE_URL}/get_event`);
+      url.searchParams.append('user_id', id);
+      url.searchParams.append('sbt_id', challengeDetailsItem.id);
+
+      console.log("Fetching from URL:", url.toString());
+
+      const response = await fetch(url.toString(), {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      console.log("API Response status:", response.status);
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.log("Error response data:", errorData);
+
+        if (errorData.message === "Event not found for the given user_id and event_id") {
+          console.log("Creating new event...");
+          await postEvent(0);
+          setLoading(false);
+          return;
+        } else {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+      }
+
+      const data = await response.json();
+      console.log("Event data received:", data);
+
+      const eventObj = data.event || data.eventData;
+      if (eventObj?.finished_tasks !== undefined) {
+        console.log("Setting event data:", eventObj);
+        setEventData(eventObj);
+      }
+
+      setLoading(false);
+    } catch (err) {
+      console.error("Error in fetchEventData:", err);
+      setError(err.message);
+      setLoading(false);
+    }
+  };
+
+  // Enhance useEffect logging
+  useEffect(() => {
+    console.log("Initial useEffect triggered");
+    fetchEventData();
+  }, [challengeDetailsItem.id, id]);
+
+  useEffect(() => {
+    console.log("Tasks useEffect triggered:", {
+      tasksLength: challengeDetailsItem.tasks?.length
+    });
+
+    if (challengeDetailsItem.tasks?.length > 0) {
+      setTasksData(challengeDetailsItem.tasks);
+    }
+  }, [challengeDetailsItem.tasks]);
+
+  useEffect(() => {
+    console.log("Tasks/Event useEffect triggered:", {
+      tasksDataLength: tasksData?.length,
+      hasEventData: !!eventData
+    });
+
+    initializeTasks();
+  }, [tasksData, eventData]);
+
 
   // Function to convert USDt to nanotons
   const convertUSDtToNanotons = (usdAmount) => {
@@ -204,8 +313,7 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
     }
 
     const recipientAddress = challengeDetailsItem.wallet_address;
-    // const usdPrice = challengeDetailsItem.price.split(' ')[0];
-
+    // Adjust how you parse the price as needed
     const amountNanotons = convertUSDtToNanotons(challengeDetailsItem.price);
 
     const transaction = {
@@ -222,7 +330,7 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
       const result = await tonConnectUI.sendTransaction(transaction);
       console.log('Transaction result:', result);
       setTransactionStatus('success');
-      toast.success('TON успешно отправлен!'); // Changed from alert to toast
+      toast.success('TON успешно отправлен!');
 
       // Update the event with the new paid_date
       await updateEvent(eventData?.finished_tasks || 0, currentDate);
@@ -290,14 +398,13 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
 
       // Add payment_image if it exists
       if (paymentImage) {
-        // Ensure it's a valid string that fits within varchar(255)
-        requestBody.payment_image = paymentImage.substring(0, 255);
+        requestBody.payment_image = paymentImage;
+        requestBody.status = "paid";
       }
 
-      // For debugging
       console.log('Sending update request with body:', {
         ...requestBody,
-        payment_image: paymentImage ? 'image_data_exists' : null // Log safely without the full image data
+        payment_image: paymentImage ? 'image_data_exists' : null
       });
 
       const response = await fetch(`${API_CONFIG.BASE_URL}/update_event`, {
@@ -327,64 +434,66 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
     }
   };
 
-  // Fetch or create event on mount
-  useEffect(() => {
-    if (didFetchRef.current) return;
-    didFetchRef.current = true;
+  // // Fetch or create event on mount
+  // useEffect(() => {
+  //   // if (didFetchRef.current) return;
+  //   // didFetchRef.current = true;
 
-    const fetchEventData = async () => {
-      try {
-        setLoading(true);
-        const url = new URL(`${API_CONFIG.BASE_URL}/get_event`);
-        url.searchParams.append('user_id', id);
-        url.searchParams.append('sbt_id', challengeDetailsItem.id);
+  //   const fetchEventData = async () => {
+  //     try {
+  //       setLoading(true);
+  //       const url = new URL(`${API_CONFIG.BASE_URL}/get_event`);
+  //       url.searchParams.append('user_id', id);
+  //       url.searchParams.append('sbt_id', challengeDetailsItem.id);
 
-        const response = await fetch(url.toString(), {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-        });
+  //       const response = await fetch(url.toString(), {
+  //         method: 'GET',
+  //         headers: { 'Content-Type': 'application/json' },
+  //       });
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          if (errorData.message === "Event not found for the given user_id and event_id") {
-            console.warn("Event not found => Creating new event with 0 tasks finished...");
-            await postEvent(0);
-            setLoading(false);
-            return;
-          } else {
-            throw new Error(`Error: ${response.status} ${response.statusText}`);
-          }
-        } else {
-          const data = await response.json();
-          console.log('Get Event API response:', data);
+  //       if (!response.ok) {
+  //         const errorData = await response.json();
+  //         if (errorData.message === "Event not found for the given user_id and event_id") {
+  //           console.warn("Event not found => Creating new event with 0 tasks finished...");
+  //           await postEvent(0);
+  //           setLoading(false);
+  //           return;
+  //         } else {
+  //           throw new Error(`Error: ${response.status} ${response.statusText}`);
+  //         }
+  //       } else {
+  //         const data = await response.json();
+  //         console.log('Get Event API response:', data);
 
-          const eventObj = data.event || data.eventData;
-          if (eventObj?.finished_tasks !== undefined) {
-            setEventData(eventObj);
-          }
-        }
-        setLoading(false);
-      } catch (err) {
-        console.error('Fetch Event error:', err);
-        setError(err.message);
-        setLoading(false);
-      }
-    };
+  //         const eventObj = data.event || data.eventData;
+  //         if (eventObj?.finished_tasks !== undefined) {
+  //           setEventData(eventObj);
+  //         }
+  //       }
+  //       setLoading(false);
+  //     } catch (err) {
+  //       console.error('Fetch Event error:', err);
+  //       setError(err.message);
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchEventData();
-  }, [challengeDetailsItem.id, id]);
+  //   fetchEventData();
+  // }, [challengeDetailsItem.id, id]);
 
-  // Copy tasks
-  useEffect(() => {
-    if (challengeDetailsItem.tasks?.length > 0) {
-      setTasksData(challengeDetailsItem.tasks);
-    }
-  }, [challengeDetailsItem.tasks]);
+  // // Copy tasks
+  // useEffect(() => {
+  //   if (challengeDetailsItem.tasks?.length > 0) {
+  //     setTasksData(challengeDetailsItem.tasks);
+  //   }
+  // }, [challengeDetailsItem.tasks]);
 
-  // Re-initialize tasks when tasksData or eventData changes
-  useEffect(() => {
-    initializeTasks();
-  }, [tasksData, eventData]);
+  // // Re-initialize tasks when tasksData or eventData changes
+  // useEffect(() => {
+  //   console.log("useEffect [tasksData, eventData] fired");
+
+  //   initializeTasks();
+  // }, [tasksData, eventData]);
 
   // Clicking a lesson
   const handleTaskClick = async (index) => {
@@ -468,32 +577,26 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
 
   return (
     <div className="challenge-detail">
-      {/* Payment modal: shown if showPaidModal=true */}
-      {/* Payment modal: shown if showPaidModal=true */}
       {showPaidModal && (
         <div className="modal-overlay" onClick={() => setShowPaidModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()} tabIndex="-1">
             <h3>Урок платный</h3>
-            <p>Внесите оплату одним из способов:</p>
+            <span>Внесите оплату одним из способов:</span>
 
-            {/* Conditionally render CardsContainer only if no image has been uploaded */}
+            {/* If no file uploaded yet, show the payment methods */}
             {!uploadedFile && (
               <CardsContainer
                 cardsData={paymentMethods}
                 handleCardClick={(method) => {
-                  // Optionally handle card click, e.g., select payment method
-                  // For now, maybe do nothing or set selected method
+                  // e.g., setSelectedMethod(method)
                 }}
                 renderCard={(method, index) => <PaymentMethodCard key={index} method={method} />}
               />
             )}
 
-            {/* Slider indicators, if needed */}
-            {/* Optional: Remove if CardsContainer already supports swipe */}
-
             <div className="upload-section">
               <p>Загрузите скриншот или фото квитанции об оплате:</p>
-
+              <br />
               <label className="upload-button" htmlFor="receipt-upload">
                 <Upload size={24} />
                 <span>Загрузить квитанцию</span>
@@ -503,7 +606,7 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
                   accept=".jpg,.jpeg,.png,.heic,.heif"
                   onChange={handleFileUpload}
                   style={{ display: 'none' }}
-                  disabled={isVerifying} // Disable while verifying
+                  disabled={isVerifying}
                 />
               </label>
 
@@ -529,11 +632,13 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
                   )}
                 </div>
               )}
+
               {isVerifying && (
                 <div className="uploading-message">
                   <p>Загрузка и проверка изображения...</p>
                 </div>
               )}
+
               {/* Display OCR progress */}
               {isVerifying && ocrProgress > 0 && (
                 <div className="ocr-progress">
@@ -542,19 +647,21 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
                 </div>
               )}
             </div>
-            <button className="buttonTon" onClick={sendTON}>Отправить TON</button>
-            <button className="button" onClick={() => setShowPaidModal(false)}>Закрыть</button>
+
+            <div className="modal-buttons">
+              <button className="buttonTon" onClick={sendTON}>Отправить TON</button>
+              <button className="button" onClick={() => setShowPaidModal(false)}>Закрыть</button>
+            </div>
           </div>
         </div>
       )}
-
 
       <div className="image-container">
         <img
           src={challengeDetailsItem.image_url}
           alt="Challenge!"
           className="challenge-image"
-          onError={(e) => { e.target.src = '/assets/default-challenge.png'; }} // Fallback image
+          onError={(e) => { e.target.src = '/assets/default-challenge.png'; }}
         />
       </div>
 
@@ -580,7 +687,7 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
             key={idx}
             className={`lesson-card ${tasksEnabled[idx] ? 'enabled' : 'disabled'} ${!lesson.isFree ? 'paid-lesson' : 'free-lesson'}`}
             onClick={() => handleTaskClick(idx)}
-            style={{ cursor: 'pointer' }} // Always pointer to allow clicking
+            style={{ cursor: 'pointer' }}
             role="button"
             tabIndex={tasksEnabled[idx] ? 0 : -1}
             onKeyPress={(e) => {
@@ -604,7 +711,12 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
                   {lesson.description || '[без описания]'}
                 </p>
               </div>
-              <img src={leftArrow} alt=">" />
+              {tasksEnabled[idx]
+                ? <img src={leftArrow} alt=">" />
+                : <Lock size={24} />
+              }
+
+
             </div>
           </div>
         ))}
