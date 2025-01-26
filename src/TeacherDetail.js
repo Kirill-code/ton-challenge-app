@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './TeacherDetail.css';
 import CalendarView from './CalendarView';
+import ReactMarkdown from 'react-markdown';
 
 
 const TeacherDetail = ({ teacherDetail, classes, onClassClick }) => {
@@ -31,7 +32,7 @@ const TeacherDetail = ({ teacherDetail, classes, onClassClick }) => {
         <h3 className="section-title">обо мне </h3>
       </div>
       <div className='teacher-description-full-container'>
-        <p className='teacher-description-full'>{teacherDetail.description}</p>
+      <ReactMarkdown className='teacher-description-full'>{teacherDetail.description}</ReactMarkdown>
       </div>
       <div className="classes-section">
         <h3 className="section-title">Достижения</h3>

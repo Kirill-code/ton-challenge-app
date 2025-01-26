@@ -178,19 +178,30 @@ function App({ telegramData }) {
     const fetchUserInfo = async () => {
       setLoading(true);
       try {
-        const response = await fetch(
-          `${API_CONFIG.BASE_URL}/get_user_info?user_chat_id=${id}&username=${username}${invite ? `&invite=${invite}` : ''}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-        );
+       
 
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
+        const maxRetries = 3;
+        let attempts = 0;
+        let response;
+    
+        while (attempts < maxRetries) {
+            try {
+              response = await fetch(
+                `${API_CONFIG.BASE_URL}/get_user_info?user_chat_id=${id}&username=${username}${invite ? `&invite=${invite}` : ''}`, {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              }
+              );                if (![500, 502, 504].includes(response.status)) {
+                    break;
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+            }
+            attempts++;
         }
-
+    
         const data = await response.json();
         setteachersList(data.teachersList || []);
         setLongClasses(data.teacherSchedules || []);
@@ -556,7 +567,7 @@ function App({ telegramData }) {
             case 'home':
               mainContent = (
                 <div>
-                  {!wallet && (
+                  {/* {!wallet && (
                     <div className="notification">
                       <p className="notification-title">Подключите TON кошелек</p>
                       <p className="notification-subtitle">Будет доступно больше функций</p>
@@ -564,7 +575,7 @@ function App({ telegramData }) {
                         <TonConnectButton />
                       </div>
                     </div>
-                  )}
+                  )} */}
                   <CardsContainer
                     cardsData={mainCardsArray}
                     handleCardClick={handleCardClick}

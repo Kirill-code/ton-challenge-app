@@ -19,6 +19,7 @@
     "react": "^18.3.1",
     "react-card-slider-component": "^1.0.9",
     "react-dom": "^18.3.1",
+    "react-markdown": "^9.0.3",
     "react-scripts": "5.0.1",
     "react-toastify": "^11.0.2",
     "react-youtube": "^10.1.0",

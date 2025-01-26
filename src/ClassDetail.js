@@ -5,6 +5,7 @@ import { ReactComponent as Pin } from '../src/assets/pin.svg';
 import { ReactComponent as Clock } from '../src/assets/clock.svg';
 import { ReactComponent as Money } from '../src/assets/money.svg';
 import API_CONFIG from './config'; // Import the config
+import ReactMarkdown from 'react-markdown';
 
 // import { ReactComponent as Share } from '../src/assets/share.svg';
 // import { ReactComponent as Calendar } from '../src/assets/calendar.svg';
@@ -133,7 +134,7 @@ END:VCALENDAR
       </div>
       <p className="class-title-details">{classDetailsItem.title}</p>
 
-      <p className="class-description-details">{classDetailsItem.class_description}</p>
+      <ReactMarkdown className="class-description-details">{classDetailsItem.class_description}</ReactMarkdown>
       {/* MASTER DETAILS */}
       <div className="class-card-teacher-details" onClick={handleTeacherDetailsClick} >
         <img src={teacher.teacherImageUrl} className="class-image-teacher-details" />

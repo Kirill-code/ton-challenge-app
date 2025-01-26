@@ -7,6 +7,7 @@ import logo from './assets/logo.png';
 import paid from './assets/paid.svg';
 import leftArrow from './assets/Left.png';
 import { Lock } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 
 
 import Tesseract from 'tesseract.js'; // Updated import
@@ -29,7 +30,6 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
       title: challengeDetailsItem?.title
     });
   }, [challengeDetailsItem?.id, id, username]);
-
   const [activeTaskIndex, setActiveTaskIndex] = useState(null);
   const [progressFilled, setProgressFilled] = useState(0);
   const [tasksEnabled, setTasksEnabled] = useState([]);
@@ -232,35 +232,54 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
 
       console.log("Fetching from URL:", url.toString());
 
-      const response = await fetch(url.toString(), {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      });
+      // const response = await fetch(url.toString(), {
+      //   method: 'GET',
+      //   headers: { 'Content-Type': 'application/json' },
+      // });
 
-      console.log("API Response status:", response.status);
+      // console.log("API Response status:", response.status);
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.log("Error response data:", errorData);
+      const maxRetries = 3;
+      let attempts = 0;
+      let response;
+      let responseData;
+      while (attempts < maxRetries) {
+        try {
+          response = await fetch(url.toString(), {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+          });
+          console.log("Response message:", response); // See the exact message
 
-        if (errorData.message === "Event not found for the given user_id and event_id") {
-          console.log("Creating new event...");
-          await postEvent(0);
-          setLoading(false);
-          return;
-        } else {
-          throw new Error(`Error: ${response.status} ${response.statusText}`);
+          responseData = await response.json();
+          if (responseData.message === "Event not found for the given user_id and event_id") {
+            console.log("Creating new event...");
+            await postEvent(0);
+            setLoading(false);
+            return;
+          }
+          if (![500, 502, 504].includes(response.status)) {
+            break;
+          }
+          //  else {
+          //     throw new Error(`Error: ${response.status} ${response.statusText}`);
+          //   }
+        } catch (error) {
+          console.error('Fetch error:', error);
         }
+        attempts++;
       }
 
-      const data = await response.json();
-      console.log("Event data received:", data);
 
-      const eventObj = data.event || data.eventData;
+      // const data = await response.json();
+      console.log("Event data received:", responseData);
+
+      const eventObj = responseData.event || responseData.eventData;
       if (eventObj?.finished_tasks !== undefined) {
         console.log("Setting event data:", eventObj);
         setEventData(eventObj);
       }
+     
 
       setLoading(false);
     } catch (err) {
@@ -666,8 +685,10 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
       </div>
 
       <p className="lessons-count">{getLessonCountText(tasksData.length)}</p>
+      {challengeDetailsItem.price?<p className="lessons-count">{challengeDetailsItem.price}</p>:null}
+      {console.log("Event data:", eventData)}
       <p className="challenge-title-details">{challengeDetailsItem.title}</p>
-      <p className="course-subtitle">{challengeDetailsItem.description}</p>
+      <ReactMarkdown className="course-subtitle">{challengeDetailsItem.description}</ReactMarkdown>
 
       <div className="challenge-progress">
         <div
@@ -701,19 +722,19 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
               <div className="lesson-content">
                 <p className="lesson-title">
                   Урок {idx + 1}: {lesson.title}
-                  {!lesson.isFree && (
+                  {/* {!lesson.isFree && (
                     <span className="paid-label">
                       {eventData?.paid_date != null ? <img src={paid} alt="Paid" /> : ' (Платный)'}
                     </span>
-                  )}
+                  )} */}
                 </p>
                 <p className="lesson-subtitle">
-                  {lesson.description || '[без описания]'}
+                  {lesson.description}
                 </p>
               </div>
               {tasksEnabled[idx]
                 ? <img src={leftArrow} alt=">" />
-                : <Lock size={24} />
+                : <Lock size={18} />
               }
 
 

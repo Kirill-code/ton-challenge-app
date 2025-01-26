@@ -91,7 +91,7 @@
     background-color: rgba(156, 204, 61, 0.10);
     border-radius: 5px;
     padding: 2px 4px;
-
+    min-width: 59px;
     font-size: 12px;
     opacity: 0, 1;
 }
