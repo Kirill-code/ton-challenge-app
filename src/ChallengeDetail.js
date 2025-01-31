@@ -3,7 +3,7 @@ import YouTube from 'react-youtube';
 import logo from './assets/logo.png';
 
 import './ChallengeDetail.css';
-import API_CONFIG from './config';
+import { API_CONFIG } from './config';
 
 const ChallengeDetail = ({ challengeDetailsItem, id, username, teachersList }) => {
 

@@ -15,7 +15,7 @@ import { Upload } from 'lucide-react';
 import { toast } from 'react-toastify';
 import { fileToBase64 } from './utils/fileToBase64';
 import './CourseDetail.css';
-import API_CONFIG from './config';
+import { API_CONFIG } from './config';
 
 import CardsContainer from './CardsContainer';
 import PaymentMethodCard from './PaymentMethodCard';
@@ -279,7 +279,7 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
         console.log("Setting event data:", eventObj);
         setEventData(eventObj);
       }
-     
+
 
       setLoading(false);
     } catch (err) {
@@ -315,50 +315,99 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
   }, [tasksData, eventData]);
 
 
-  // Function to convert USDt to nanotons
-  const convertUSDtToNanotons = (usdAmount) => {
-    // Example conversion rate
-    const conversionRate = 0.195; // TON per USDt
-    const tonAmount = parseFloat(usdAmount) * conversionRate;
-    const nanotons = tonAmount * 1_000_000_000;
-    return Math.round(nanotons);
-  };
+  // keep your CoinMarketCap function:
+  async function fetchTonPriceFromCMC() {
+    try {
+      const response = await fetch(
+        API_CONFIG.BASE_URL + '/get_coin_price?symbol=TON'
+      );
+      if (!response.ok) {
+        throw new Error(`Fetch failed: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      // data structure mirrors what CoinMarketCap returns
+      // For example: data.data.TON.quote.USD.price
+      return data.data?.TON?.quote?.USD?.price || 0;
+    } catch (error) {
+      console.error('Error fetching price:', error);
+      throw error;
+    }
+  }
+
 
   const sendTON = async () => {
     setShowPaidModal(false);
+
+    // 1) If no wallet, open TonConnect
     if (!wallet) {
       tonConnectUI.openModal();
       return;
     }
 
-    const recipientAddress = challengeDetailsItem.wallet_address;
-    // Adjust how you parse the price as needed
-    const amountNanotons = convertUSDtToNanotons(challengeDetailsItem.price);
-
-    const transaction = {
-      validUntil: Math.floor(Date.now() / 1000) + 60 * 60, // 1 hour from now
-      messages: [
-        {
-          address: recipientAddress,
-          amount: amountNanotons.toString(), // string in nanotons
-        },
-      ],
-    };
-
     try {
-      const result = await tonConnectUI.sendTransaction(transaction);
-      console.log('Transaction result:', result);
-      setTransactionStatus('success');
-      toast.success('TON успешно отправлен!');
+      // 2) Get live TON price in USD from CoinMarketCap
+      const tonPriceUSD = await fetchTonPriceFromCMC();
+      if (!tonPriceUSD) {
+        throw new Error("Could not fetch TON price from CMC");
+      }
 
-      // Update the event with the new paid_date
+      // 3) Convert your USDT price (which is basically 1:1 with USD) into TON
+      const userUsdt = parseFloat(challengeDetailsItem.price) || 0; // e.g. 10 USDT
+      // TON = USDT price / TON price in USD
+      const tonAmount = userUsdt / tonPriceUSD;
+      // 4) Convert TON → nanotons (multiply by 1e9)
+      const amountNanotons = Math.round(tonAmount * 1_000_000_000);
+
+      // 5) Prepare and send the transaction
+      const recipientAddress = challengeDetailsItem.wallet_address;
+      const transaction = {
+        validUntil: Math.floor(Date.now() / 1000) + 60 * 60, // 1 hour from now
+        messages: [
+          {
+            address: recipientAddress,
+            amount: amountNanotons.toString(), // must be a string in nanotons
+          },
+        ],
+      };
+
+      const result = await tonConnectUI.sendTransaction(transaction);
+      console.log("Transaction result:", result);
+      setTransactionStatus("success");
+      toast.success("TON успешно отправлен!");
+
+      // 6) If successful, update your event with paid_date
       await updateEvent(eventData?.finished_tasks || 0, currentDate);
     } catch (error) {
-      console.error('Ошибка при отправке TON:', error);
-      setTransactionStatus('error');
-      toast.error('Произошла ошибка при отправке TON. Попробуйте еще раз.');
+      console.error("Ошибка при отправке TON:", error);
+      setTransactionStatus("error");
+      const errorName = error?.name || '';
+      const errorMessage = error?.message || '';
+      // Check error name or message
+      if (
+        errorName === 'UserRejectsError' ||
+        errorMessage.includes('UserRejectsError') ||
+        errorMessage.includes('User rejects the action') ||
+        errorMessage.includes('Wallet declined the request')
+      ) {
+        // User manually canceled the transaction
+        toast.error('Вы отменили транзакцию в кошельке');
+      }
+      // Check for "transaction was not sent"
+      else if (
+        errorName === 'TonConnectUIError' ||
+        errorMessage.includes('TonConnectUIError') ||
+        errorMessage.includes('Transaction was not sent')
+      ) {
+        // Transaction didn't go through at all
+        toast.error('Транзакция не была отправлена. Попробуйте ещё раз или свяжитесь со службой поддержки.');
+      }
+      // Fallback for other/unexpected errors
+      else {
+        toast.error(`Произошла ошибка: ${errorMessage}`);
+      }
     }
   };
+
 
   // CREATE the event
   const postEvent = async (finishedTasks) => {
@@ -685,7 +734,7 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
       </div>
 
       <p className="lessons-count">{getLessonCountText(tasksData.length)}</p>
-      {challengeDetailsItem.price?<p className="lessons-count">{challengeDetailsItem.price}</p>:null}
+      {challengeDetailsItem.price ? <p className="lessons-count">{challengeDetailsItem.price+" "+ challengeDetailsItem.currency}</p> : null}
       {console.log("Event data:", eventData)}
       <p className="challenge-title-details">{challengeDetailsItem.title}</p>
       <ReactMarkdown className="course-subtitle">{challengeDetailsItem.description}</ReactMarkdown>

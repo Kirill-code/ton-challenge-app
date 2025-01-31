@@ -4,7 +4,7 @@ import { useTonConnectUI } from '@tonconnect/ui-react';
 import { User } from 'lucide-react';
 import CalendarView from './CalendarView';
 import React, { useState, useEffect } from "react";
-import API_CONFIG from './config'; // Import the config
+import { API_CONFIG } from './config'; // Import the config
 import './UserProfile.css';
 import logo from './assets/logo.png';
 

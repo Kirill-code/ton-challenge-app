@@ -4,7 +4,7 @@ import './ClassDetail.css';
 import { ReactComponent as Pin } from '../src/assets/pin.svg';
 import { ReactComponent as Clock } from '../src/assets/clock.svg';
 import { ReactComponent as Money } from '../src/assets/money.svg';
-import API_CONFIG from './config'; // Import the config
+import { API_CONFIG } from './config'; // Import the config
 import ReactMarkdown from 'react-markdown';
 
 // import { ReactComponent as Share } from '../src/assets/share.svg';

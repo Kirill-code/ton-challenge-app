@@ -3,7 +3,7 @@
  * Business Source License 1.1
  * Change Date: November 23, 2026
  */
-import API_CONFIG from './config'; // Import the config
+import { API_CONFIG } from './config'; // Import the config
 import logo from './assets/logo.png';
 import { ToastContainer } from 'react-toastify';
 
@@ -77,6 +77,9 @@ function App({ telegramData }) {
 
   const [loading, setLoading] = useState(true);
 
+  let sbtIdFromParam = null;
+  let classIdFromParam = null;
+
   const wallet = useTonWallet();
   const rawAddress = useTonAddress();
   const activeTabHistory = useRef([]);
@@ -125,109 +128,128 @@ function App({ telegramData }) {
 
 
     let invite = "";
+    let sbtIdFromParam = null;
     let classIdFromParam = null;
 
     if (startParam) {
       try {
-        // First check if it's base64 encoded
         let decodedStartParam;
+        // Attempt base64 decode
         try {
           decodedStartParam = atob(startParam);
-        } catch {
-          // If not base64, use the raw value
+        } catch (err) {
+          // If not valid base64, just use raw
           decodedStartParam = startParam;
         }
 
         decodedStartParam = decodeURIComponent(decodedStartParam);
-        console.log('Decoded Start Param:', decodedStartParam);
+        console.log("Decoded Start Param:", decodedStartParam);
+        // e.g. => "invite_SisterKarry__sbt_7"
 
-        // EXAMPLE: "invite_snow_and_skill__id_8"
-        if (decodedStartParam.includes('__id_')) {
-          const [invitePart, idPart] = decodedStartParam.split('__id_');
-
-          if (invitePart.startsWith('invite_')) {
-            invite = invitePart.slice('invite_'.length);
-          } else {
-            invite = invitePart;
+        // Split by double underscore to handle each chunk, e.g. ["invite_SisterKarry", "sbt_7"]
+        const parts = decodedStartParam.split("__");
+        // Now look at each chunk
+        parts.forEach((chunk) => {
+          if (chunk.startsWith("invite_")) {
+            // everything after "invite_" is the invite name
+            invite = chunk.slice("invite_".length);
+            // e.g. "SisterKarry"
+          } else if (chunk.startsWith("sbt_")) {
+            sbtIdFromParam = chunk.slice("sbt_".length);
+            // e.g. "7"
+          } else if (chunk.startsWith("id_")) {
+            classIdFromParam = chunk.slice("id_".length);
+            // e.g. "123"
           }
+        });
 
-          classIdFromParam = idPart;
-        } else {
-          if (decodedStartParam.startsWith('invite_')) {
-            invite = decodedStartParam.slice('invite_'.length);
-          } else {
-            invite = decodedStartParam;
-          }
-        }
+        console.log("Parsed invite:", invite);
+        console.log("Parsed sbtId:", sbtIdFromParam);
+        console.log("Parsed classId:", classIdFromParam);
 
-        console.log('Parsed Invite:', invite);
-        console.log('Parsed ID:', classIdFromParam);
+        // ... rest of your logic ...
+
       } catch (error) {
-        console.error('Error parsing startParam:', error);
-      }
-      finally {
-        if (!isTelegramWebApp) {
-          const newUrl = window.location.origin + window.location.pathname;
-          window.history.replaceState({}, '', newUrl);
-        }
-      }
+        console.error("Error parsing startParam:", error);
+      } 
     } else {
-      console.warn('No startParam found.');
+      console.warn("No startParam found.");
     }
+
 
     const fetchUserInfo = async () => {
       setLoading(true);
       try {
-       
 
-        const maxRetries = 3;
+
+        const maxRetries = 5;
         let attempts = 0;
         let response;
-    
+
         while (attempts < maxRetries) {
-            try {
-              response = await fetch(
-                `${API_CONFIG.BASE_URL}/get_user_info?user_chat_id=${id}&username=${username}${invite ? `&invite=${invite}` : ''}`, {
-                method: 'GET',
-                headers: {
-                  'Content-Type': 'application/json'
-                }
+          try {
+            response = await fetch(
+              `${API_CONFIG.BASE_URL}/get_user_info?user_chat_id=${id}&username=${username}${invite ? `&invite=${invite}` : ''}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json'
               }
-              );                if (![500, 502, 504].includes(response.status)) {
-                    break;
-                }
-            } catch (error) {
-                console.error('Fetch error:', error);
             }
-            attempts++;
+            ); if (![500, 502, 504].includes(response.status)) {
+              break;
+            }
+          } catch (error) {
+            console.error('Fetch error:', error);
+          }
+          attempts++;
         }
-    
+
         const data = await response.json();
         setteachersList(data.teachersList || []);
         setLongClasses(data.teacherSchedules || []);
         setMainCardsArray(data.sbts || []);
         setUserCardsArray((data.userEvents || []).filter((event) => event.finished_tasks > 0));
 
-        return data.teacherSchedules;
+        return data;
       } catch (error) {
         console.error('Failed to fetch user info:', error);
         return [];
       } finally {
+        if (!isTelegramWebApp) {
+          console.log('Cleaning up URL...',window.location.origin + window.location.pathname);
+          const newUrl = window.location.origin + window.location.pathname;
+          window.history.replaceState({}, "", newUrl);
+        }
         setLoading(false);
       }
     };
 
-    fetchUserInfo().then((teacherSchedules) => {
-      if (classIdFromParam && teacherSchedules?.length > 0) {
-        const foundClass = teacherSchedules.find(c => c.id === classIdFromParam);
+    fetchUserInfo().then((fetchedData) => {
+      // We can safely check the data now:
+
+      // If we got a classId, open the class detail
+      if (classIdFromParam && fetchedData.teacherSchedules) {
+        const foundClass = fetchedData.teacherSchedules.find((c) => c.id === classIdFromParam);
         if (foundClass) {
           setSelectedClass(foundClass);
           setActiveTab('classDetail');
         } else {
-          console.warn('No class found with the provided ID:', classIdFromParam);
+          console.warn('No class found with ID:', classIdFromParam);
+        }
+      }
+
+      // If we got an SBT ID, open the SBT/course detail
+      if (sbtIdFromParam && fetchedData.sbts) {
+        const foundSbt = fetchedData.sbts.find((sbt) => sbt.id == sbtIdFromParam);
+        if (foundSbt) {
+          setSelectedChallenge(foundSbt);
+          setActiveTab('grid');
+        } else {
+          console.warn('No SBT found with ID:', sbtIdFromParam);
         }
       }
     });
+
   }, [id, username]);
 
   // If no Telegram data:
