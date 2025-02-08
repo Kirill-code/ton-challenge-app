@@ -20,7 +20,7 @@
   position: absolute;
   top: 10px;
   right: 25px;
-  color: #000000CC;
+  
   display: inline-flex;
   padding: 8px 16px;
   justify-content: center;
@@ -39,12 +39,6 @@
   border-radius: 24px;
 }
 
-.header-with-back {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 10px;
-}
 
 
 
@@ -63,18 +57,16 @@
   padding-top: 16px;
 }
 
-.challenge-description {
+.challenge-description-details {
   padding-left: 16px;
-  overflow: hidden;
-  color: var(--Native-subtitle_text_color, #707579);
-  text-overflow: ellipsis;
-  font-family: Inter;
+  margin-top: 8px;
+  color: #707579;
+  font-family: Inter, sans-serif;
   font-size: 16px;
-  font-style: normal;
   font-weight: 400;
-  line-height: 20px;
-  /* 125% */
+  line-height: 24px;
   letter-spacing: -0.23px;
+  white-space: pre-line;
 }
 
 .challenge-progress {
@@ -148,7 +140,7 @@
 
 .card-subtitle-task {
   overflow: hidden;
-  color:  #707579;
+  color:  #707579   ;
   text-overflow: ellipsis;
   font-family: Inter;
   font-size: 14px;

@@ -21,15 +21,15 @@ import CardsContainer from './CardsContainer';
 import PaymentMethodCard from './PaymentMethodCard';
 
 const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpenVideo }) => {
-  useEffect(() => {
-    console.log("=== CourseDetail Mount ===", {
-      challengeId: challengeDetailsItem?.id,
-      userId: id,
-      username,
-      hasChallenge: !!challengeDetailsItem,
-      title: challengeDetailsItem?.title
-    });
-  }, [challengeDetailsItem?.id, id, username]);
+  // useEffect(() => {
+  //   console.log("=== CourseDetail Mount ===", {
+  //     challengeId: challengeDetailsItem?.id,
+  //     userId: id,
+  //     username,
+  //     hasChallenge: !!challengeDetailsItem,
+  //     title: challengeDetailsItem?.title
+  //   });
+  // }, [challengeDetailsItem?.id, id, username]);
   const [activeTaskIndex, setActiveTaskIndex] = useState(null);
   const [progressFilled, setProgressFilled] = useState(0);
   const [tasksEnabled, setTasksEnabled] = useState([]);

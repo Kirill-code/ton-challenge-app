@@ -18,14 +18,14 @@ const telegramData = window.telegramInitData || null;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <TonConnectUIProvider manifestUrl={manifestUrl}>
     
     <App telegramData={telegramData} />
     
     </TonConnectUIProvider>
 
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

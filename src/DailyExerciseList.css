@@ -1,0 +1,36 @@
+
+  
+  .exercise-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #191919;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 12px;
+    cursor: pointer;
+  }
+  
+  .exercise-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .exercise-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+  }
+  
+  .exercise-subtitle {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #707579;
+  }
+  
+  .exercise-arrow {
+    font-size: 18px;
+    color: #fff;
+    opacity: 0.7;
+  }
+  
