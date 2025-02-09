@@ -32,12 +32,30 @@ import { duration } from "@mui/material";
 
 ////////////////////////////////////////////////////////////////////////////////
 // Helper to parse a standard YouTube link into just the videoId for embedding
-function parseYouTubeVideoId(link = '') {
-  // Matches either youtu.be/VIDEOID or v=VIDEOID
-  const match = link.match(/(?:youtu\.be\/|v=)([^?&]+)/);
-  if (match && match[1]) return match[1];
+function parseYouTubeVideoId(url = '') {
+  // Patterns for normal YouTube links, youtu.be, or /shorts
+  const patterns = [
+    // e.g. youtu.be/<VIDEO_ID>
+    /youtu\.be\/([^?]+)/, 
+    
+    // e.g. youtube.com/watch?v=<VIDEO_ID> or /embed/<VIDEO_ID>
+    /v=([^?&]+)/, 
+    /embed\/([^?&]+)/,
+
+    // e.g. youtube.com/shorts/<VIDEO_ID>
+    /shorts\/([^?]+)/ 
+  ];
+
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match && match[1]) {
+      return match[1];
+    }
+  }
+  // If no pattern matched, fallback:
   return '';
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 
