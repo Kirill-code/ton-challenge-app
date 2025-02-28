@@ -1,8 +1,7 @@
 // src/CourseDetail.jsx
 
 import React, { useState, useEffect, useRef } from 'react';
-import { TonConnectButton, useTonWallet } from '@tonconnect/ui-react';
-import { useTonConnectUI } from '@tonconnect/ui-react';
+import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
 import logo from './assets/logo.png';
 import paid from './assets/paid.svg';
 import leftArrow from './assets/Left.png';
@@ -21,15 +20,7 @@ import CardsContainer from './CardsContainer';
 import PaymentMethodCard from './PaymentMethodCard';
 
 const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpenVideo }) => {
-  // useEffect(() => {
-  //   console.log("=== CourseDetail Mount ===", {
-  //     challengeId: challengeDetailsItem?.id,
-  //     userId: id,
-  //     username,
-  //     hasChallenge: !!challengeDetailsItem,
-  //     title: challengeDetailsItem?.title
-  //   });
-  // }, [challengeDetailsItem?.id, id, username]);
+
   const [activeTaskIndex, setActiveTaskIndex] = useState(null);
   const [progressFilled, setProgressFilled] = useState(0);
   const [tasksEnabled, setTasksEnabled] = useState([]);
@@ -219,10 +210,6 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
   };
 
   const fetchEventData = async () => {
-    console.log("Fetching event data for:", {
-      userId: id,
-      sbtId: challengeDetailsItem.id
-    });
 
     try {
       setLoading(true);
@@ -230,14 +217,6 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
       url.searchParams.append('user_id', id);
       url.searchParams.append('sbt_id', challengeDetailsItem.id);
 
-      console.log("Fetching from URL:", url.toString());
-
-      // const response = await fetch(url.toString(), {
-      //   method: 'GET',
-      //   headers: { 'Content-Type': 'application/json' },
-      // });
-
-      // console.log("API Response status:", response.status);
 
       const maxRetries = 3;
       let attempts = 0;
@@ -412,25 +391,41 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
   // CREATE the event
   const postEvent = async (finishedTasks) => {
     try {
-      const response = await fetch(`${API_CONFIG.BASE_URL}/post_event`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          user_id: id,
-          event_name: `${challengeDetailsItem.title} ${challengeDetailsItem.date}`,
-          sbt_id: challengeDetailsItem.id,
-          status: 'run',
-          username,
-          finished_tasks: finishedTasks,
-          tasks_number: challengeDetailsItem.tasks.length,
-          tasks: JSON.stringify(challengeDetailsItem.tasks),
-        }),
-      });
 
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      const maxRetries = 3;
+      let attempts = 0;
+      let response;
+      let responseData;
+      while (attempts < maxRetries) {
+        try {
+          response = await fetch(`${API_CONFIG.BASE_URL}/post_event`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              user_id: id,
+              event_name: `${challengeDetailsItem.title} ${challengeDetailsItem.date}`,
+              sbt_id: challengeDetailsItem.id,
+              status: 'run',
+              username,
+              finished_tasks: finishedTasks,
+              tasks_number: challengeDetailsItem.tasks.length,
+              tasks: JSON.stringify(challengeDetailsItem.tasks),
+            }),
+          });
+          // console.log("Response message:", response); // See the exact message
+
+          responseData = await response.json();
+
+          if (![500, 502, 504].includes(response.status)) {
+            break;
+          }
+
+        } catch (error) {
+          console.error('Fetch error:', error);
+        }
+        attempts++;
       }
-      const data = await response.json();
+      const data = responseData;
       console.log('postEvent response:', data);
 
       const eventObj = data.event || data.eventData;
@@ -475,19 +470,37 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
         payment_image: paymentImage ? 'image_data_exists' : null
       });
 
-      const response = await fetch(`${API_CONFIG.BASE_URL}/update_event`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody)
-      });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Update event error:', errorData);
-        throw new Error(errorData.message || 'Failed to update event');
+      const maxRetries = 3;
+      let attempts = 0;
+      let response;
+      let responseData;
+      while (attempts < maxRetries) {
+        try {
+          response = await fetch(`${API_CONFIG.BASE_URL}/update_event`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody)
+          });
+
+          responseData = await response.json();
+          if (responseData.message === "Event not found for the given user_id and event_id") {
+            console.log("Creating new event...");
+            await postEvent(0);
+            setLoading(false);
+            return;
+          }
+          if (![500, 502, 504].includes(response.status)) {
+            break;
+          }
+
+        } catch (error) {
+          console.error('Fetch error:', error);
+        }
+        attempts++;
       }
 
-      const data = await response.json();
+      const data = responseData;
       console.log('updateEvent response:', data);
 
       const eventObj = data.event || data.eventData;
@@ -501,67 +514,6 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
       toast.error('Ошибка при обновлении события.');
     }
   };
-
-  // // Fetch or create event on mount
-  // useEffect(() => {
-  //   // if (didFetchRef.current) return;
-  //   // didFetchRef.current = true;
-
-  //   const fetchEventData = async () => {
-  //     try {
-  //       setLoading(true);
-  //       const url = new URL(`${API_CONFIG.BASE_URL}/get_event`);
-  //       url.searchParams.append('user_id', id);
-  //       url.searchParams.append('sbt_id', challengeDetailsItem.id);
-
-  //       const response = await fetch(url.toString(), {
-  //         method: 'GET',
-  //         headers: { 'Content-Type': 'application/json' },
-  //       });
-
-  //       if (!response.ok) {
-  //         const errorData = await response.json();
-  //         if (errorData.message === "Event not found for the given user_id and event_id") {
-  //           console.warn("Event not found => Creating new event with 0 tasks finished...");
-  //           await postEvent(0);
-  //           setLoading(false);
-  //           return;
-  //         } else {
-  //           throw new Error(`Error: ${response.status} ${response.statusText}`);
-  //         }
-  //       } else {
-  //         const data = await response.json();
-  //         console.log('Get Event API response:', data);
-
-  //         const eventObj = data.event || data.eventData;
-  //         if (eventObj?.finished_tasks !== undefined) {
-  //           setEventData(eventObj);
-  //         }
-  //       }
-  //       setLoading(false);
-  //     } catch (err) {
-  //       console.error('Fetch Event error:', err);
-  //       setError(err.message);
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchEventData();
-  // }, [challengeDetailsItem.id, id]);
-
-  // // Copy tasks
-  // useEffect(() => {
-  //   if (challengeDetailsItem.tasks?.length > 0) {
-  //     setTasksData(challengeDetailsItem.tasks);
-  //   }
-  // }, [challengeDetailsItem.tasks]);
-
-  // // Re-initialize tasks when tasksData or eventData changes
-  // useEffect(() => {
-  //   console.log("useEffect [tasksData, eventData] fired");
-
-  //   initializeTasks();
-  // }, [tasksData, eventData]);
 
   // Clicking a lesson
   const handleTaskClick = async (index) => {
@@ -734,7 +686,7 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
       </div>
 
       <p className="lessons-count">{getLessonCountText(tasksData.length)}</p>
-      {challengeDetailsItem.price ? <p className="lessons-count">{challengeDetailsItem.price+" "+ challengeDetailsItem.currency}</p> : null}
+      {challengeDetailsItem.price ? <p className="lessons-count">{challengeDetailsItem.price + " " + challengeDetailsItem.currency}</p> : null}
       {console.log("Event data:", eventData)}
       <p className="challenge-title-details">{challengeDetailsItem.title}</p>
       <ReactMarkdown className="course-subtitle">{challengeDetailsItem.description}</ReactMarkdown>
@@ -783,7 +735,7 @@ const CourseDetail = ({ challengeDetailsItem, id, username, teachersList, onOpen
               </div>
               {tasksEnabled[idx]
                 ? <img src={leftArrow} alt=">" />
-                : <Lock size={18} />
+                : <Lock size={18} stroke="#FFF" />
               }
 
 
