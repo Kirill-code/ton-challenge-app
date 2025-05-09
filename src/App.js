@@ -56,6 +56,17 @@ function parseYouTubeVideoId(url = '') {
   return '';
 }
 
+// Helper to check if URL is a direct video link
+function isDirectVideoUrl(url = '') {
+  // Check if the URL points to a video file or storage service
+  const patterns = [
+    /\.(mp4|webm|ogg|mov)(\?|$)/i,
+    /storage\.yandexcloud\.net.*\.(mp4|webm|ogg|mov)(\?|$)/i,
+    /cdn\..*\.(mp4|webm|ogg|mov)(\?|$)/i
+  ];
+  
+  return patterns.some(pattern => url.match(pattern));
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -87,7 +98,7 @@ function App({ telegramData }) {
   // Store the video link from CourseDetail for the video screen
   const [selectedVideoLink, setSelectedVideoLink] = useState(null);
 
-  // Initialize the arrays with [] so they’re never null
+  // Initialize the arrays with [] so they're never null
   const [teachersList, setteachersList] = useState([]);
   const [longClasses, setLongClasses] = useState([]);
   const [mainCardsArray, setMainCardsArray] = useState([]);
@@ -106,7 +117,7 @@ function App({ telegramData }) {
     // If it matches the pattern, we try/catch an actual decode
     if (!/^[A-Za-z0-9+/=]+$/.test(str)) return false;
     try {
-      // If atob(str) works without error, it’s probably valid base64
+      // If atob(str) works without error, it's probably valid base64
       atob(str);
       return true;
     } catch {
@@ -420,19 +431,35 @@ function App({ telegramData }) {
       );
     }
 
-    // Parse the link into a videoId for an <iframe> or a YouTube React component
+    // Check if it's a direct video link (like Yandex Cloud Storage)
+    const isDirectVideo = isDirectVideoUrl(selectedVideoLink);
+    if (isDirectVideo) {
+      return (
+        <div style={{ color: '#fff', padding: '20px' }}>
+          <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+            <video
+              controls
+              autoPlay
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+              src={selectedVideoLink}
+            />
+          </div>
+        </div>
+      );
+    }
+
+    // Parse the link into a videoId for YouTube videos
     const videoId = parseYouTubeVideoId(selectedVideoLink);
     if (!videoId) {
       return (
         <div style={{ color: '#fff', padding: '20px' }}>
           <h2>Некорректная ссылка</h2>
-          <p>Ссылка на YouTube видео не найдена.</p>
+          <p>Ссылка на видео не распознана.</p>
         </div>
       );
     }
 
     // If you want to use the official YouTube iframe here:
-    // TODO: autoplay=1& 
     return (
       <div style={{ color: '#fff', padding: '20px' }}>
         <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>

@@ -16,10 +16,23 @@ function parseYouTubeVideoId(url = '') {
   return '';
 }
 
+function isDirectVideoUrl(url = '') {
+  // Check if the URL points to a video file or storage service
+  const patterns = [
+    /\.(mp4|webm|ogg|mov)(\?|$)/i,
+    /storage\.yandexcloud\.net.*\.(mp4|webm|ogg|mov)(\?|$)/i,
+    /cdn\..*\.(mp4|webm|ogg|mov)(\?|$)/i
+  ];
+  
+  return patterns.some(pattern => url.match(pattern));
+}
+
 function VideoScreen({ videoLink, onClose, onVideoEnd }) {
   if (!videoLink) return null;
 
   const videoId = parseYouTubeVideoId(videoLink);
+  const isDirectVideo = isDirectVideoUrl(videoLink);
+  
   const opts = {
     width: '100%',
     height: '200',
@@ -71,12 +84,23 @@ function VideoScreen({ videoLink, onClose, onVideoEnd }) {
           Закрыть
         </button>
 
-        {/* The YouTube player */}
-        <YouTube
-          videoId={videoId}
-          opts={opts}
-          onEnd={handleEnd}
-        />
+        {/* Render either YouTube player or direct video player */}
+        {isDirectVideo ? (
+          <video 
+            src={videoLink} 
+            controls 
+            autoPlay 
+            style={{ width: '100%', borderRadius: '5px' }}
+            onEnded={handleEnd}
+          />
+        ) : (
+          /* The YouTube player */
+          <YouTube
+            videoId={videoId}
+            opts={opts}
+            onEnd={handleEnd}
+          />
+        )}
       </div>
     </div>
   );
